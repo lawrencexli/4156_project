@@ -6,5 +6,6 @@
 - Lawrence Li (ll3598)
 - Tiger Shaw (cs4213)
 
-### Programming Language: Java + React
+### Programming Language: Java
+### Programming Framework: Spring
 ### Platform: Windows
