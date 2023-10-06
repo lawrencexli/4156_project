@@ -33,6 +33,9 @@ replay_pid*
 *.iml
 *.iws
 *.ipr
+out
+test-output
+atlassian-ide-plugin.xml
 
 # Mac
 .DS_Store
