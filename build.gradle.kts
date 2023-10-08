@@ -21,7 +21,7 @@ extra["springCloudVersion"] = "2022.0.4"
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.google.cloud:spring-cloud-gcp-starter-storage")
-    implementation("com.github.spotbugs:spotbugs-annotations:4.0.1")
+	implementation("com.github.spotbugs:spotbugs-annotations:4.0.1")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
