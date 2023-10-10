@@ -23,6 +23,7 @@ dependencies {
 	implementation("com.google.cloud:spring-cloud-gcp-starter-storage")
 	implementation("com.github.spotbugs:spotbugs-annotations:4.0.1")
 	implementation("org.mockito:mockito-core:5.6.0")
+	implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -35,7 +35,7 @@ for running our service.
 
 ## Run instructions
 
-1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java).
+1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java)
 2. Run `IpmService` class.
 
 ## Test instructions
