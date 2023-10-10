@@ -93,10 +93,10 @@ for running our service.
 
 ##### Responses
 
-> | http code | content-type               | response                                                       |
-> |-----------|----------------------------|----------------------------------------------------------------|
-> | `200`     | `application/octet-stream` | Image file content download                                    |
-> | `400`     | `application/json`         | `{"responseMessage": "File does not exist","statusCode": 400}` |
+> | http code | content-type               | response                                                        |
+> |-----------|----------------------------|-----------------------------------------------------------------|
+> | `200`     | `application/octet-stream` | Image file content download                                     |
+> | `400`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 400}` |
 
 </details>
 
