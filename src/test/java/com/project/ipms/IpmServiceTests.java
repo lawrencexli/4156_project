@@ -1,15 +1,15 @@
 package com.project.ipms;
 
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertAll;
-import org.springframework.boot.test.context.SpringBootTest;
 
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class IpmServiceTests {
-
 	@Test
 	void contextLoads() {
-		assertAll();
 	}
-
 }
