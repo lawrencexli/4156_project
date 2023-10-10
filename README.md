@@ -82,7 +82,7 @@ for running our service.
 
 ------------------------------------------------------------------------------------------
 
-## Download an image file
+### Download an image file
 
 <details>
  <summary><code>GET</code> <code><b>/api/files/download?fileName={fileID}</b></code></summary>
