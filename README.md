@@ -82,14 +82,16 @@ for running our service.
 
 ------------------------------------------------------------------------------------------
 
-#### Download an image file
+## Download an image file
 
 <details>
- <summary><code>GET</code> <code><b>/api/files/download?fileName=[FILE_ID]</b></code></summary>
+ <summary><code>GET</code> <code><b>/api/files/download?fileName={fileID}</b></code></summary>
 
-> | name      |  type     | data type | description                         |
-> |-----------|-----------|-----------|-------------------------------------|
-> | `FILE_ID` |  required | string    | The specified image ID for download |
+#### Parameters
+
+> | name     |  type     | data type | description                         |
+> |----------|-----------|-----------|-------------------------------------|
+> | `fileID` |  required | string    | The specified image ID for download |
 
 ##### Responses
 
