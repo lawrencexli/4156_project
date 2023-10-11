@@ -9,7 +9,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.project.ipms.exception.FileNotFoundException;
+import com.project.ipms.exception.CriticalServerException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -17,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.util.Objects;
 
 
 @Service
@@ -36,11 +35,11 @@ public class FileServiceImpl implements FileService {
 
     /**
      * Constructor for FileService.
-     * @param storageObject Google cloud storage object
+     * @param storage Google cloud storage object
      */
     @Autowired
-    public FileServiceImpl(final Storage storageObject) {
-        this.storage = storageObject;
+    public FileServiceImpl(final Storage storage) {
+        this.storage = storage;
     }
 
     /**
@@ -52,7 +51,9 @@ public class FileServiceImpl implements FileService {
     public ByteArrayResource downloadFile(final String fileName) {
         Blob blob = storage.get(bucketName, fileName);
         if (blob == null) {
-            throw new FileNotFoundException("File does not exist");
+            throw new CriticalServerException(
+                    "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records"
+            );
         }
         return new ByteArrayResource(blob.getContent());
     }
@@ -63,9 +64,12 @@ public class FileServiceImpl implements FileService {
      * @throws IOException If file does not exist or filename is inappropriate
      */
     @Override
-    public void uploadFile(final MultipartFile file) throws IOException {
-        BlobId blobId = BlobId.of(bucketName, Objects.requireNonNull(file.getOriginalFilename()));
-        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
+    public void uploadFile(final MultipartFile file,
+                           final String repoName) throws IOException {
+        BlobId blobId = BlobId.of(bucketName,
+                repoName + "/" + file.getOriginalFilename());
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).
+                setContentType(file.getContentType()).build();
         storage.create(blobInfo, file.getBytes());
     }
 }

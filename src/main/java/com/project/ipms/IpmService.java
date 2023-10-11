@@ -2,11 +2,12 @@ package com.project.ipms;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
+@EnableMongoRepositories
 @RestController
 public class IpmService {
     /**
@@ -19,11 +20,10 @@ public class IpmService {
 
     /**
      * API call for index page.
-     * @param name The name to be displayed
-     * @return A string response
+     * @return Welcome message
      */
     @GetMapping("/")
-    public String hello(final @RequestParam(value = "name", defaultValue = "World") String name) {
-        return String.format("Hello %s!", name);
+    public String welcome() {
+        return "Welcome to IPMS!";
     }
 }

@@ -81,4 +81,32 @@ public final class ApiExceptionHandler {
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return response;
     }
+
+    /**
+     * Handle InvalidCredentialsException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseBody
+    public ApiResponse handleInvalidCredentialsException(final InvalidCredentialsException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.FORBIDDEN.value());
+        return response;
+    }
+
+    /**
+     * Handle CriticalServerException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(CriticalServerException.class)
+    @ResponseBody
+    public ApiResponse handleCriticalServerException(final CriticalServerException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return response;
+    }
 }

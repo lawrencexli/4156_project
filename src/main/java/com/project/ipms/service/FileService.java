@@ -20,7 +20,8 @@ public interface FileService {
     /**
      * Upload file to Google Cloud Storage.
      * @param file Representation of a file received in a multipart request
+     * @param repoName The client ID used to create folder name in GCP bucket
      * @throws IOException If file does not exist or filename is inappropriate
      */
-    void uploadFile(MultipartFile file) throws IOException;
+    void uploadFile(MultipartFile file, String repoName) throws IOException;
 }
