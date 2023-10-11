@@ -30,7 +30,7 @@ import java.io.IOException;
 import java.util.HashSet;
 
 @RestController
-@RequestMapping("/api/files")
+@RequestMapping("/api")
 public class FileController {
     /**
      * MongoDB repo.
