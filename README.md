@@ -99,7 +99,7 @@ for running our service.
 > | http code | content-type               | response                                                        |
 > |-----------|----------------------------|-----------------------------------------------------------------|
 > | `200`     | `application/octet-stream` | Image file content download                                     |
-> | `400`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 400}` |
+> | `404`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 404}` |
 
 </details>
 

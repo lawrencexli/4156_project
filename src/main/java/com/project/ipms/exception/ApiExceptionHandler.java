@@ -64,7 +64,7 @@ public final class ApiExceptionHandler {
     public ApiResponse handleFileNotFoundException(final FileNotFoundException e) {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
-        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        response.setStatusCode(HttpStatus.NOT_FOUND.value());
         return response;
     }
 
