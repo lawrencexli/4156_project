@@ -1,15 +1,17 @@
 package com.project.ipms.util;
 
-
 import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.exception.InvalidFileTypeException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import static com.project.ipms.util.ImageFileUtil.checkFileValid;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static com.project.ipms.util.ImageFileUtil.checkFileValid;
 
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 class ImageFileUtilTest {
 

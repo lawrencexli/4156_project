@@ -8,15 +8,8 @@ package com.project.ipms.service;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
-import java.util.List;
 
 public interface FileService {
-    /**
-     * List of files.
-     * @return A list of files in storage
-     */
-    List<String> listOfFiles();
-
     /**
      * Download file from Google Cloud Storage.
      * @param fileName Name of file

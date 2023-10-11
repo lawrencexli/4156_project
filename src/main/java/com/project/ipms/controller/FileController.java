@@ -21,8 +21,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/files")
@@ -43,20 +41,6 @@ public class FileController {
     }
 
     /**
-     * List all filename in the bucket storage.
-     * @return List of files as string
-     */
-    @GetMapping
-    public ApiResponse listOfFiles() {
-        List<String> files = fileService.listOfFiles();
-        ApiResponse response = new ApiResponse();
-        response.setResponseMessage(files.toString());
-        response.setStatusCode(HttpStatus.OK.value());
-        response.setZonedDateTime(ZonedDateTime.now());
-        return response;
-    }
-
-    /**
      * Upload a file.
      * @param file Representation of a file received in a multipart request
      * @return A success message
@@ -67,7 +51,6 @@ public class FileController {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage("File uploaded successfully");
         response.setStatusCode(HttpStatus.OK.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 

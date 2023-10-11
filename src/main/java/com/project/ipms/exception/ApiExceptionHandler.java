@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartException;
 
 import java.io.IOException;
-import java.time.ZonedDateTime;
 
 @ControllerAdvice
 public final class ApiExceptionHandler {
@@ -24,7 +23,6 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 
@@ -39,7 +37,6 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 
@@ -54,7 +51,6 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 
@@ -69,7 +65,6 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.NOT_FOUND.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 
@@ -84,7 +79,6 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-        response.setZonedDateTime(ZonedDateTime.now());
         return response;
     }
 }

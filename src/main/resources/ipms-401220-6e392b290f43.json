@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "ipms-401220",
+  "private_key_id": "6e392b290f431c32dcd1d2e046948a99eada97be",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDhzYRP/iXJ57Rv\nZozR4/e8sCyMg2nfdSnfkhVKw4knqkTNs8GrV0HEcET7C2ri/FxSd2N3LDqhLETj\n4be5cxIj80H7z+sYpnQBq0sIUrkwh1We7/z4ncV7xuODAGvXzP8M20XADks9wdaa\nLHEiVo8855F2qF4HqQkCLWtGE/0YPKsRQXNSslL9xB0YkfEMuRZaghigXoTC7j5Z\nvjlyS0sNWKi31sxEvxqmH6KgmRAYy46I7YY5aZ3dK9xznSich33TEsGonXjgpfDo\n9FI3RBIOsWGuepSLltD5P3u/74i0Hjjpui7ijHaMVmI65BgzICtmdIVZTzOJy+Ch\nV/TT8FGxAgMBAAECggEAAmPoTWd5k25UOuSpQ3SIFBOCWTdv6LlnCNKVTp4MxuJ2\nyX2oZG2vSMrOdCDeEAqPWKEiaKnLchbToNzsEra836wMzANar/9dFYJwcCVeB/06\nwwyzzxbudv23PVUFDzsAjSyKC7srATuaz7V+OhiT+hdScyDbo/WeXotICi0efgHr\nT3z3W4mbDcuVZj+xafZvyVlpznN4saB+YowGKfeaq5+zUpNK9Zz3tIIja9qZNwq7\n6OlP1pq8hll6N2wLDnGkjwVoSTjIaiuBpbGVVILSJYDz+AZN2gh/OW+VLwJyVx0U\nLw/kniap6s4g120KU/+e+VupV/R6MlL8IxUYfF4AcQKBgQDzFnUStIuRQG2XzshN\nmaI26buO7+5XMpe5FtUYVOvb/g5mh2kxpEr8+MZn8K6IFGzVWXjtZo+1SNMp4j2G\n5xVVAdw0w6suw/vI15pI8GBf1rC7TKLD8+XFQxXEnivu7jNSb3ohh/BvqDc8TDij\n+iIgUgUn6MPOJwFCkIIjmVyO+QKBgQDtzAQ/OJhgug70DYNIPzTa6Csgqfhhjsrw\nQkxoPpOwqMDSje3p/5ezOhdLet0hGp8iHWJsY5FCH+xeeI3bpd/BELH2eblRyUw4\nC7tC5lZ9+fjpLluYv2p4UTfJLeSusTDPXMsaKSaQiv08ynVM6KjP9DBf4zAaRgi3\nr+JuQYAueQKBgFg4BjTLoPsNzrgRK1A+OUiEerTdDjpG+hkJ2DwEVbR49vDuo5aI\ncU5tWlPOXQi1oOmslt5RIkZAL6I7oOicZHl9O1VKzY0jQvUYib1+vvsJBwpyPX+v\nu+ti9Ttty7Pibm20VzZkBzX+bk1LvCKGXGwuWACr0KO4NBTcLN6OgbDBAoGBAMuz\nVIADryRMvbp6SNd+rXxIHYmhkE+hzl35rRIvaLyQEn1Lb15fwEebn5Dc8sgE0gSb\nP1CyCiCm0AgtJPffI8lyz7/fjcxtr4jjI8qvHbBUjdDSEUzLzBy9FhiT461xw+oe\nBy2lyo9PQJbup4T2WIWrHDVHnFElZRpU5JamLXOhAoGBAOshPsj4nuZj0G08NvT0\nLGV/dQWb5AUFH+v6cYcT+/94Ob3LDR/5vRo1QHvx9YRj7daVogjcDH9xi7+EdG6+\nQsZiFeY7psXFS3sA0AKtp9RJTvgVMQEGmiENxkufgyx/i2PFePC2sOb+EXHfx7rt\n/UELr6/9+5m3oBCFCy1RkKN1\n-----END PRIVATE KEY-----\n",
+  "client_email": "ipms-service@ipms-401220.iam.gserviceaccount.com",
+  "client_id": "104322794102809678117",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/ipms-service%40ipms-401220.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
