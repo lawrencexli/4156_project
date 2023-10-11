@@ -71,12 +71,13 @@ for running our service.
 
 #### Responses
 
-> | http code | content-type       | response                                                                               |
-> |-----------|--------------------|----------------------------------------------------------------------------------------|
-> | `200`     | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                 |
-> | `400`     | `application/json` | `{"responseMessage": "File has no content or file is null", "statusCode": 400}`        |
-> | `400`     | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}` |
-> | `415`     | `application/json` | `{"responseMessage": "Not a supported file type", "statusCode": 415}`                  |                                                     
+> | http code | content-type       | response                                                                                                                                      |
+> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------------------------|
+> | `200`     | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                                                                        |
+> | `400`     | `application/json` | `{"responseMessage": "File has no content or file is null", "statusCode": 400}`                                                               |
+> | `400`     | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`                                                        |
+> | `415`     | `application/json` | `{"responseMessage": "Not a supported file type", "statusCode": 415}`                                                                         |                                                     
+> | `500`     | `application/json` | `{"responseMessage": "{Any other interval server error messages (e.g. file access errors, temporary store fails, etc.)}", "statusCode": 500}` |
 
 </details>
 
