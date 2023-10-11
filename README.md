@@ -94,7 +94,7 @@ for running our service.
 > |----------|-----------|-----------|-------------------------------------|
 > | `fileID` |  required | string    | The specified image ID for download |
 
-##### Responses
+#### Responses
 
 > | http code | content-type               | response                                                        |
 > |-----------|----------------------------|-----------------------------------------------------------------|
