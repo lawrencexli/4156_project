@@ -9,9 +9,7 @@ import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.exception.FileNotFoundException;
-import com.project.ipms.util.ImageFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -66,12 +64,7 @@ public class FileServiceImpl implements FileService {
      */
     @Override
     public void uploadFile(final MultipartFile file) throws IOException {
-        if (file.isEmpty()) {
-            throw new BadRequestException("File has no content or file is null");
-        }
-        String originalFileName = file.getOriginalFilename();
-        ImageFileUtil.checkFileValid(originalFileName);
-        BlobId blobId = BlobId.of(bucketName, Objects.requireNonNull(originalFileName));
+        BlobId blobId = BlobId.of(bucketName, Objects.requireNonNull(file.getOriginalFilename()));
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(file.getContentType()).build();
         storage.create(blobInfo, file.getBytes());
     }

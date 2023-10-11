@@ -96,10 +96,11 @@ for running our service.
 
 #### Responses
 
-> | http code | content-type               | response                                                        |
-> |-----------|----------------------------|-----------------------------------------------------------------|
-> | `200`     | `application/octet-stream` | Image file content download                                     |
-> | `404`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 404}` |
+> | http code | content-type               | response                                                              |
+> |-----------|----------------------------|-----------------------------------------------------------------------|
+> | `200`     | `application/octet-stream` | Image file content download                                           |
+> | `400`     | `application/json`         | `{"responseMessage": "Filename is null or empty", "statusCode": 400}` |
+> | `404`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 404}`       |
 
 </details>
 
