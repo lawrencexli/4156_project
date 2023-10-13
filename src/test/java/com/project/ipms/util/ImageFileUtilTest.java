@@ -96,6 +96,6 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest7() {
         // This should pass
-        checkFileValid("}{:';.:<::?:?]..{)_8h3bv}}>?<?23&%^.,JnjM..ffvf.d.png");
+        checkFileValid("}{:';.:<::?:你好我是?]..{)_8h3bv}成步堂}>?<?23&%龙一^.,JnjM..ffvf.d.png");
     }
 }

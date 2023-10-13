@@ -29,14 +29,16 @@ class ClientEntryTest {
         assertTrue(testClientEntry2.getImageFileList().isEmpty());
 
         String testFileName = "not_exist.jpg";
+        String testFileName2 = "fake3.jpeg";
         assertFalse(testClientEntry2.fileNameInImageFileList(testFileName));
 
         testClientEntry2.addToImageFileList("fake1.jpg");
         testClientEntry2.addToImageFileList("fake2.png");
+        assertFalse(testClientEntry2.fileNameInImageFileList(testFileName2));
         testClientEntry2.addToImageFileList("fake3.jpeg");
         assertEquals(testClientEntry2.getImageFileList().size(), 3);
-
-        String testFileName2 = "fake3.jpeg";
+        testClientEntry2.addToImageFileList("fake4.jpeg");
+        assertEquals(testClientEntry2.getImageFileList().size(), 4);
         assertTrue(testClientEntry2.fileNameInImageFileList(testFileName2));
     }
 }
