@@ -44,10 +44,10 @@ class FileServiceImplTest {
     }
 
     @Test
-    void downloadFile() throws SQLException {
+    void downloadFile() {
     }
 
     @Test
-    void uploadFile() throws IOException {
+    void uploadFile() {
     }
 }
