@@ -109,4 +109,18 @@ public final class ApiExceptionHandler {
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
         return response;
     }
+
+    /**
+     * Handle FileAlreadyExistsException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(FileAlreadyExistsException.class)
+    @ResponseBody
+    public ApiResponse handleFileAlreadyExistsException(final FileAlreadyExistsException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.CONFLICT.value());
+        return response;
+    }
 }
