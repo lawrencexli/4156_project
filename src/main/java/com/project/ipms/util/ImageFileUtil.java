@@ -18,7 +18,7 @@ public final class ImageFileUtil {
      */
     public static void checkFileValid(final String fileName) {
         if (fileName == null || fileName.isBlank()) {
-            throw new BadRequestException("Original file name is empty or null");
+            throw new BadRequestException("Filename is empty or null");
         }
 
         if (!fileName.contains(".")) {

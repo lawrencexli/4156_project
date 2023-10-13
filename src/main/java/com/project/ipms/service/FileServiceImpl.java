@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
     /**
      * Upload file to Google Cloud Storage.
      * @param file Representation of a file received in a multipart request
-     * @throws IOException If file does not exist or filename is inappropriate
+     * @throws IOException If file does not exist, file has no content, or filename is inappropriate
      */
     @Override
     public void uploadFile(final MultipartFile file,
