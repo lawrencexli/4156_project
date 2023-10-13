@@ -60,9 +60,8 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        Exception exception = assertThrows(FileNotFoundException.class, () -> {
-            mongoDBService.mongoDBFileCheck(testID, fileName);
-        });
+        Exception exception = assertThrows(FileNotFoundException.class, () ->
+                mongoDBService.mongoDBFileCheck(testID, fileName));
 
         String expectedMessage = "File does not exist";
         String actualMessage = exception.getMessage();
@@ -78,9 +77,8 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
                 thenReturn(null);
 
-        Exception exception = assertThrows(InvalidCredentialsException.class, () -> {
-            mongoDBService.mongoDBFileCheck(testID, fileName);
-        });
+        Exception exception = assertThrows(InvalidCredentialsException.class, () ->
+                mongoDBService.mongoDBFileCheck(testID, fileName));
 
         String expectedMessage = "Invalid Client ID";
         String actualMessage = exception.getMessage();
@@ -111,9 +109,8 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
                 thenReturn(null);
 
-        Exception exception = assertThrows(InvalidCredentialsException.class, () -> {
-            mongoDBService.uploadFile(testID, fileName);
-        });
+        Exception exception = assertThrows(InvalidCredentialsException.class, () ->
+                mongoDBService.uploadFile(testID, fileName));
 
         String expectedMessage = "Invalid Client ID";
         String actualMessage = exception.getMessage();
@@ -133,9 +130,8 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        Exception exception = assertThrows(FileAlreadyExistsException.class, () -> {
-            mongoDBService.uploadFile(testID, fileName);
-        });
+        Exception exception = assertThrows(FileAlreadyExistsException.class, () ->
+                mongoDBService.uploadFile(testID, fileName));
 
         String expectedMessage = "Filename already exists";
         String actualMessage = exception.getMessage();

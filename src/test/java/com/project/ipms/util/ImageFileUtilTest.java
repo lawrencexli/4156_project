@@ -18,9 +18,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest1() {
 
-        Exception exception = assertThrows(BadRequestException.class, () -> {
-            checkFileValid(null);
-        });
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                checkFileValid(null));
 
         String expectedMessage = "Original file name is empty or null";
         String actualMessage = exception.getMessage();
@@ -31,9 +30,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest2() {
 
-        Exception exception = assertThrows(BadRequestException.class, () -> {
-            checkFileValid("");
-        });
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                checkFileValid(""));
 
         String expectedMessage = "Original file name is empty or null";
         String actualMessage = exception.getMessage();
@@ -44,9 +42,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest3() {
 
-        Exception exception = assertThrows(BadRequestException.class, () -> {
-            checkFileValid("abc");
-        });
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                checkFileValid("abc"));
 
         String expectedMessage = "Original file name is missing file extension";
         String actualMessage = exception.getMessage();
@@ -57,9 +54,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest4() {
 
-        Exception exception = assertThrows(InvalidFileTypeException.class, () -> {
-            checkFileValid("abc.");
-        });
+        Exception exception = assertThrows(InvalidFileTypeException.class, () ->
+                checkFileValid("abc."));
 
         String expectedMessage = "Not a supported file type";
         String actualMessage = exception.getMessage();
@@ -70,9 +66,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest5() {
 
-        Exception exception = assertThrows(InvalidFileTypeException.class, () -> {
-            checkFileValid("abc.pdf");
-        });
+        Exception exception = assertThrows(InvalidFileTypeException.class, () ->
+                checkFileValid("abc.pdf"));
 
         String expectedMessage = "Not a supported file type";
         String actualMessage = exception.getMessage();
@@ -83,9 +78,8 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest6() {
 
-        Exception exception = assertThrows(InvalidFileTypeException.class, () -> {
-            checkFileValid(":2[]1=--|<>`~~~.wwe.er23.afdvf....~~1");
-        });
+        Exception exception = assertThrows(InvalidFileTypeException.class, () ->
+                checkFileValid(":2[]1=--|<>`~~~.wwe.er23.afdvf....~~1"));
 
         String expectedMessage = "Not a supported file type";
         String actualMessage = exception.getMessage();
