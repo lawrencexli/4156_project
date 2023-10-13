@@ -8,9 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 @SpringBootTest
 class FileServiceImplTest {
 
