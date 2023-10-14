@@ -70,7 +70,7 @@ Windows:
 
 > | http code | content-type | response           |
 > |-----------|--------------|--------------------|
-> | `200`     | `String`     | `Welcome to IPMS!` |
+> | `200`     | string       | `Welcome to IPMS!` |
 
 </details>
 
