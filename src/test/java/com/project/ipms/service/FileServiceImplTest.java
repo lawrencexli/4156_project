@@ -50,6 +50,7 @@ class FileServiceImplTest {
     @AfterEach
     void tearDown() {
         fileService = null;
+        fakeBucketName = null;
     }
 
     @Test
