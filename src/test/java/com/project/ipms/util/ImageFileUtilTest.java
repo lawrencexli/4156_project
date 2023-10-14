@@ -20,7 +20,7 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid(null));
 
-        String expectedMessage = "Original file name is empty or null";
+        String expectedMessage = "Filename is empty or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -31,7 +31,7 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid(""));
 
-        String expectedMessage = "Original file name is empty or null";
+        String expectedMessage = "Filename is empty or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -42,7 +42,7 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid("abc"));
 
-        String expectedMessage = "Original file name is missing file extension";
+        String expectedMessage = "Filename is missing file extension";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -53,7 +53,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc."));
 
-        String expectedMessage = "Not a supported file type";
+        String expectedMessage = "Not a supported file type. " +
+                                 "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -64,7 +65,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc.pdf"));
 
-        String expectedMessage = "Not a supported file type";
+        String expectedMessage = "Not a supported file type. " +
+                                 "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -75,7 +77,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid(":2[]1=--|<>`~~~.wwe.er23.afdvf....~~1"));
 
-        String expectedMessage = "Not a supported file type";
+        String expectedMessage = "Not a supported file type. " +
+                                 "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));

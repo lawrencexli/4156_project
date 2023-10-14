@@ -22,7 +22,7 @@ public final class ImageFileUtil {
         }
 
         if (!fileName.contains(".")) {
-            throw new BadRequestException("Original file name is missing file extension");
+            throw new BadRequestException("Filename is missing file extension");
         }
 
         for (String extension: SUPPORTED_EXTENSIONS) {
@@ -31,6 +31,8 @@ public final class ImageFileUtil {
             }
         }
 
-        throw new InvalidFileTypeException("Not a supported file type");
+        throw new InvalidFileTypeException(
+                "Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png."
+        );
     }
 }

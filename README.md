@@ -111,18 +111,18 @@ Windows:
 
 #### Responses
 
-> | http code | content-type       | response                                                                                 |
-> |-----------|--------------------|------------------------------------------------------------------------------------------|
-> | `200`     | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                   |
-> | `400`     | `application/json` | `{"responseMessage": "File has no content or file is null", "statusCode": 400}`          |
-> | `400`     | `application/json` | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                    |
-> | `400`     | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`   |
-> | `400`     | `application/json` | `{"responseMessage": "Client ID is missing or is null", "statusCode": 400}`              |
-> | `400`     | `application/json` | `{"responseMessage": "Original file name is missing file extension", "statusCode": 400}` |
-> | `403`     | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                            |
-> | `409`     | `application/json` | `{"responseMessage": "Filename already exists", "statusCode": 409}`                      |
-> | `415`     | `application/json` | `{"responseMessage": "Not a supported file type", "statusCode": 415}`                    |                                                     
-> | `500`     | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`      |
+> | http code | content-type       | response                                                                               |
+> |-----------|--------------------|----------------------------------------------------------------------------------------|
+> | `200`     | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                 |
+> | `400`     | `application/json` | `{"responseMessage": "File has no content or file is null", "statusCode": 400}`        |
+> | `400`     | `application/json` | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                  |
+> | `400`     | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}` |
+> | `400`     | `application/json` | `{"responseMessage": "Client ID is missing or is null", "statusCode": 400}`            |
+> | `400`     | `application/json` | `{"responseMessage": "Filename is missing file extension", "statusCode": 400}`         |
+> | `403`     | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                          |
+> | `409`     | `application/json` | `{"responseMessage": "Filename already exists", "statusCode": 409}`                    |
+> | `415`     | `application/json` | `{"responseMessage": "Not a supported file type", "statusCode": 415}`                  |                                                     
+> | `500`     | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`    |
 
 </details>
 

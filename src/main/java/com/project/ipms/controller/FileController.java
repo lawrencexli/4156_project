@@ -61,10 +61,10 @@ public class FileController {
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
                                   @RequestParam final String id) throws IOException {
         if (file == null || file.isEmpty()) {
-            throw new BadRequestException("File has no content or file is null");
+            throw new BadRequestException("File has no content or is null");
         }
         if (id == null || id.isBlank()) {
-            throw new BadRequestException("Client ID is missing or is null");
+            throw new BadRequestException("Client ID is missing or null");
         }
         mongoDBService.uploadFile(id, file.getOriginalFilename());
         fileService.uploadFile(file, id);
@@ -84,10 +84,10 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@RequestParam final String fileName,
                                                  @RequestParam final String id) {
         if (fileName == null || fileName.isBlank()) {
-            throw new BadRequestException("Filename is null or empty");
+            throw new BadRequestException("Filename is empty or null");
         }
         if (id == null || id.isBlank()) {
-            throw new BadRequestException("Client ID is missing or is null");
+            throw new BadRequestException("Client ID is missing or null");
         }
         mongoDBService.mongoDBFileCheck(id, fileName);
         ByteArrayResource resource = fileService.downloadFile(id + "/" + fileName);

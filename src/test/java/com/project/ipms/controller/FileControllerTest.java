@@ -81,7 +81,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.uploadFile(testMultipartFile, fakeID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -101,7 +101,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.uploadFile(testMultipartFile, fakeID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -121,7 +121,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.uploadFile(testMultipartFile, fakeID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -141,7 +141,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.uploadFile(testMultipartFile, fakeID));
 
-        String expectedMessage = "File has no content or file is null";
+        String expectedMessage = "File has no content or is null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -161,7 +161,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.uploadFile(testMultipartFile, fakeID));
 
-        String expectedMessage = "File has no content or file is null";
+        String expectedMessage = "File has no content or is null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -189,7 +189,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Filename is null or empty";
+        String expectedMessage = "Filename is empty or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -203,7 +203,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Filename is null or empty";
+        String expectedMessage = "Filename is empty or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -217,7 +217,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Filename is null or empty";
+        String expectedMessage = "Filename is empty or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -231,7 +231,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -245,7 +245,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -259,7 +259,7 @@ class FileControllerTest {
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.downloadFile(testImageFile, testID));
 
-        String expectedMessage = "Client ID is missing or is null";
+        String expectedMessage = "Client ID is missing or null";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
