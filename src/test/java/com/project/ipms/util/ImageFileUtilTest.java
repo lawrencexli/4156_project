@@ -17,7 +17,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest1() {
-
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid(null));
 
@@ -29,7 +28,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest2() {
-
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid(""));
 
@@ -41,7 +39,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest3() {
-
         Exception exception = assertThrows(BadRequestException.class, () ->
                 checkFileValid("abc"));
 
@@ -53,7 +50,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest4() {
-
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc."));
 
@@ -65,7 +61,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest5() {
-
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc.pdf"));
 
@@ -77,7 +72,6 @@ class ImageFileUtilTest {
 
     @Test
     void checkFileValidTest6() {
-
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid(":2[]1=--|<>`~~~.wwe.er23.afdvf....~~1"));
 
