@@ -17,19 +17,13 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.FileNameMap;
 import java.net.URLConnection;
 
 @RestController
@@ -170,11 +164,10 @@ public class FileController {
         ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
         // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
         ImageIO.write(resultImage, resultFileExtension.substring(1), byteImageOutput);
-        FileNameMap fileNameMap = URLConnection.getFileNameMap();
 
         fileService.uploadFile(
                 result,
-                fileNameMap.getContentTypeFor(result),
+                URLConnection.getFileNameMap().getContentTypeFor(result),
                 byteImageOutput.toByteArray(),
                 id
         );
