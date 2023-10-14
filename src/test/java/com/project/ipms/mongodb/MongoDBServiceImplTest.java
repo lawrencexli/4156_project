@@ -3,11 +3,13 @@ package com.project.ipms.mongodb;
 import com.project.ipms.exception.FileAlreadyExistsException;
 import com.project.ipms.exception.FileNotFoundException;
 import com.project.ipms.exception.InvalidCredentialsException;
+import com.project.ipms.util.ImageFileUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockedStatic;
 import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -57,7 +59,7 @@ class MongoDBServiceImplTest {
         testImageFileList.add("test3.jpg");
 
         String fileName = "non-existent.jpg";
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
         Exception exception = assertThrows(FileNotFoundException.class, () ->
@@ -74,7 +76,7 @@ class MongoDBServiceImplTest {
         String testID = "invalid-id-404";
         String fileName = "test1.jpg";
 
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(null);
 
         Exception exception = assertThrows(InvalidCredentialsException.class, () ->
@@ -95,7 +97,7 @@ class MongoDBServiceImplTest {
         testImageFileList.add("test3.jpg");
 
         String fileName = "test1.jpg";
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
         mongoDBService.mongoDBFileCheck(testID, fileName);
@@ -106,16 +108,22 @@ class MongoDBServiceImplTest {
         String testID = "invalid-id-404";
         String fileName = "test1.jpg";
 
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(null);
 
-        Exception exception = assertThrows(InvalidCredentialsException.class, () ->
-                mongoDBService.uploadFile(testID, fileName));
+        // Mock ImageFileUtil.checkFileValid() static method from utility class
+        try (MockedStatic<ImageFileUtil> utilities = Mockito.mockStatic(ImageFileUtil.class)) {
+            utilities.when(() -> ImageFileUtil.checkFileValid(fileName)).
+                    thenReturn(".jpg");
 
-        String expectedMessage = "Invalid Client ID";
-        String actualMessage = exception.getMessage();
+            Exception exception = assertThrows(InvalidCredentialsException.class, () ->
+                    mongoDBService.uploadFile(testID, fileName));
 
-        assertTrue(actualMessage.contains(expectedMessage));
+            String expectedMessage = "Invalid Client ID";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+        }
     }
 
     @Test
@@ -127,16 +135,22 @@ class MongoDBServiceImplTest {
         testImageFileList.add("test3.jpg");
 
         String fileName = "test1.jpg";
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        Exception exception = assertThrows(FileAlreadyExistsException.class, () ->
-                mongoDBService.uploadFile(testID, fileName));
+        // Mock ImageFileUtil.checkFileValid() static method from utility class
+        try (MockedStatic<ImageFileUtil> utilities = Mockito.mockStatic(ImageFileUtil.class)) {
+            utilities.when(() -> ImageFileUtil.checkFileValid(fileName)).
+                    thenReturn(".jpg");
 
-        String expectedMessage = "Filename already exists";
-        String actualMessage = exception.getMessage();
+            Exception exception = assertThrows(FileAlreadyExistsException.class, () ->
+                    mongoDBService.uploadFile(testID, fileName));
 
-        assertTrue(actualMessage.contains(expectedMessage));
+            String expectedMessage = "Filename already exists";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+        }
     }
 
     @Test
@@ -148,9 +162,15 @@ class MongoDBServiceImplTest {
         testImageFileList.add("test3.jpg");
 
         String fileName = "test4.jpg";
-        Mockito.when(fakeIpmsMongoRepo.findClientEntryById(testID)).
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        mongoDBService.uploadFile(testID, fileName);
+        // Mock ImageFileUtil.checkFileValid() static method from utility class
+        try (MockedStatic<ImageFileUtil> utilities = Mockito.mockStatic(ImageFileUtil.class)) {
+            utilities.when(() -> ImageFileUtil.checkFileValid(fileName)).
+                    thenReturn(".jpg");
+
+            mongoDBService.uploadFile(testID, fileName);
+        }
     }
 }

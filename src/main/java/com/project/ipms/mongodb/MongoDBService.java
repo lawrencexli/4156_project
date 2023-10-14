@@ -24,4 +24,14 @@ public interface MongoDBService {
      * @param fileName fileName intended for upload
      */
     void uploadFile(String id, String fileName) throws IOException;
+
+    /**
+     * Check if the client ID is in the database.
+     * Then check if the target filename associated with the client ID exists
+     * And check if the result filename associated with the client ID is available
+     * @param targetFileName Target filename for operation
+     * @param resultFileName Result filename after the processing is done
+     * @param id client ID
+     */
+    void mongoDBOperationCheck(String id, String targetFileName, String resultFileName);
 }

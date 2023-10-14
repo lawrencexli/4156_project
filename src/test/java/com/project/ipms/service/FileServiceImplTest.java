@@ -91,6 +91,11 @@ class FileServiceImplTest {
                 "image-content".getBytes()
         );
 
-        fileService.uploadFile(testMultipartFile, testRepoName);
+        fileService.uploadFile(
+                testMultipartFile.getOriginalFilename(),
+                testMultipartFile.getContentType(),
+                testMultipartFile.getBytes(),
+                testRepoName
+        );
     }
 }

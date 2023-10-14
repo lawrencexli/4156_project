@@ -8,8 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static com.project.ipms.util.ImageFileUtil.checkFileValid;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -75,7 +74,7 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest6() {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
-                checkFileValid(":2[]1=--|<>`~~~.wwe.er23.afdvf....~~1"));
+                checkFileValid("test-name.jpg.png.pdfpng"));
 
         String expectedMessage = "Not a supported file type. " +
                                  "Currently, we support the following image file types: jpg, jpeg, png.";
@@ -87,6 +86,32 @@ class ImageFileUtilTest {
     @Test
     void checkFileValidTest7() {
         // This should pass
-        checkFileValid("}{:';.:<::?:你好我是?]..{)_8h3bv}成步堂}>?<?23&%龙一^.,JnjM..ffvf.d.png");
+        String extension = checkFileValid("}.:':你好我是?]..{)_8}成步堂}>&%龙一^.,JnjM..ffvf.d.png");
+        assertEquals(extension, ".png");
+    }
+
+    @Test
+    void checkFileValidTest8() {
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                checkFileValid(".jpg"));
+
+        String expectedMessage = "Filename cannot start with a dot '.'";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void checkFileValidTest9() {
+        // This should pass
+        String extension = checkFileValid("ace-attorney.png.jpg");
+        assertEquals(extension, ".jpg");
+    }
+
+    @Test
+    void checkFileValidTest10() {
+        // This should pass
+        String extension = checkFileValid("ace-attorney.jpg.png.jpeg.jpeg");
+        assertEquals(extension, ".jpeg");
     }
 }

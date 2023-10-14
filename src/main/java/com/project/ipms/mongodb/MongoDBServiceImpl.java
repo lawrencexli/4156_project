@@ -39,18 +39,42 @@ public class MongoDBServiceImpl implements MongoDBService {
 
     /**
      * Check if the client ID is in the database.
-     * Then check if the fileName associated with the client ID exists
+     * Then check if the filename associated with the client ID exists
      * @param fileName Name of file
      * @param id client ID
      */
     @Override
     public void mongoDBFileCheck(final String id, final String fileName) {
-        ClientEntry clientEntry = ipmsMongoRepo.findClientEntryById(id);
+        ClientEntry clientEntry = ipmsMongoRepo.getClientEntryById(id);
         if (clientEntry == null) {
             throw new InvalidCredentialsException("Invalid Client ID");
         }
         if (!clientEntry.fileNameInImageFileList(fileName)) {
             throw new FileNotFoundException("File does not exist");
+        }
+    }
+
+    /**
+     * Check if the client ID is in the database.
+     * Then check if the target filename associated with the client ID exists
+     * And check if the result filename associated with the client ID is available
+     * @param targetFileName Target filename for operation
+     * @param resultFileName Result filename after the processing is done
+     * @param id client ID
+     */
+    @Override
+    public void mongoDBOperationCheck(final String id,
+                                      final String targetFileName,
+                                      final String resultFileName) {
+        ClientEntry clientEntry = ipmsMongoRepo.getClientEntryById(id);
+        if (clientEntry == null) {
+            throw new InvalidCredentialsException("Invalid Client ID");
+        }
+        if (!clientEntry.fileNameInImageFileList(targetFileName)) {
+            throw new FileNotFoundException("Target file does not exist");
+        }
+        if (clientEntry.fileNameInImageFileList(resultFileName)) {
+            throw new FileAlreadyExistsException("Result filename already exists");
         }
     }
 
@@ -61,7 +85,7 @@ public class MongoDBServiceImpl implements MongoDBService {
      */
     @Override
     public void uploadFile(final String id, final String fileName) {
-        ClientEntry clientEntry = ipmsMongoRepo.findClientEntryById(id);
+        ClientEntry clientEntry = ipmsMongoRepo.getClientEntryById(id);
         if (clientEntry == null) {
             throw new InvalidCredentialsException("Invalid Client ID");
         }

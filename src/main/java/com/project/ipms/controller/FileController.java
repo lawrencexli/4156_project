@@ -8,6 +8,8 @@ package com.project.ipms.controller;
 import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
+import com.project.ipms.service.ImageTransparency;
+import com.project.ipms.util.ImageFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -17,12 +19,18 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.net.FileNameMap;
+import java.net.URLConnection;
 
 @RestController
 @RequestMapping("/api")
@@ -56,6 +64,7 @@ public class FileController {
      * @param file Representation of a file received in a multipart request
      * @param id Client id
      * @return A success message
+     * @throws IOException For exceptions in reading and writing image bytes
      */
     @PostMapping("upload")
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
@@ -67,7 +76,13 @@ public class FileController {
             throw new BadRequestException("Client ID is missing or null");
         }
         mongoDBService.uploadFile(id, file.getOriginalFilename());
-        fileService.uploadFile(file, id);
+        System.out.println(file.getOriginalFilename() + " ; " + file.getContentType());
+        fileService.uploadFile(
+                file.getOriginalFilename(),
+                file.getContentType(),
+                file.getBytes(),
+                id
+        );
         ApiResponse response = new ApiResponse();
         response.setResponseMessage("File uploaded successfully");
         response.setStatusCode(HttpStatus.OK.value());
@@ -109,6 +124,63 @@ public class FileController {
         String newClientID = mongoDBService.generateNewKey();
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(newClientID);
+        response.setStatusCode(HttpStatus.OK.value());
+        return response;
+    }
+
+    /**
+     * Make image transparent.
+     * @param target Target filename in client's repository
+     * @param result Result filename after processing
+     * @param id Client ID credential
+     * @param alpha Alpha value for transparency
+     * @return json response for operation success
+     * @throws IOException For exceptions in reading and writing image bytes
+     */
+    @PutMapping("transparent")
+    public ApiResponse imageTransparent(@RequestParam final String target,
+                                        @RequestParam final String result,
+                                        @RequestParam final String id,
+                                        @RequestParam final float alpha) throws IOException {
+        // Check if all inputs are valid
+        if (target == null || target.isBlank()
+                || result == null || result.isBlank()) {
+            throw new BadRequestException("Target filename or result filename is empty or null");
+        }
+        if (id == null || id.isBlank()) {
+            throw new BadRequestException("Client ID is missing or null");
+        }
+        String targetFileExtension = ImageFileUtil.checkFileValid(target);
+        String resultFileExtension = ImageFileUtil.checkFileValid(result);
+        if (!targetFileExtension.equals(resultFileExtension)) {
+            throw new BadRequestException("Target file extension is different from result file extension");
+        }
+        if (alpha < 0 || alpha > 1) {
+            throw new BadRequestException("The alpha value should be in the range of 0 to 1");
+        }
+        // Retrieve the image file from storage
+        mongoDBService.mongoDBOperationCheck(id, target, result);
+        ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
+        BufferedImage targetImage = ImageIO.read(resource.getInputStream());
+        // Execute transparent functionality
+        ImageTransparency transparencyService = new ImageTransparency(targetImage, alpha, targetFileExtension);
+        BufferedImage resultImage = transparencyService.doDrawing();
+        // Upload the result image
+        mongoDBService.uploadFile(id, result);
+        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
+        // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
+        ImageIO.write(resultImage, resultFileExtension.substring(1), byteImageOutput);
+        FileNameMap fileNameMap = URLConnection.getFileNameMap();
+
+        fileService.uploadFile(
+                result,
+                fileNameMap.getContentTypeFor(result),
+                byteImageOutput.toByteArray(),
+                id
+        );
+
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage("Operation success");
         response.setStatusCode(HttpStatus.OK.value());
         return response;
     }
