@@ -17,7 +17,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -144,16 +149,19 @@ public class FileController {
         if (id == null || id.isBlank()) {
             throw new BadRequestException("Client ID is missing or null");
         }
+        if (alpha < 0 || alpha > 1) {
+            throw new BadRequestException("The alpha value should be in the range of 0 to 1");
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+        mongoDBService.mongoDBOperationCheck(id, target, result);
         String targetFileExtension = ImageFileUtil.checkFileValid(target);
         String resultFileExtension = ImageFileUtil.checkFileValid(result);
         if (!targetFileExtension.equals(resultFileExtension)) {
             throw new BadRequestException("Target file extension is different from result file extension");
         }
-        if (alpha < 0 || alpha > 1) {
-            throw new BadRequestException("The alpha value should be in the range of 0 to 1");
-        }
         // Retrieve the image file from storage
-        mongoDBService.mongoDBOperationCheck(id, target, result);
         ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
         // Execute transparent functionality
