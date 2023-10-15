@@ -75,7 +75,6 @@ public class FileController {
             throw new BadRequestException("Client ID is missing or null");
         }
         mongoDBService.uploadFile(id, file.getOriginalFilename());
-        System.out.println(file.getOriginalFilename() + " ; " + file.getContentType());
         fileService.uploadFile(
                 file.getOriginalFilename(),
                 file.getContentType(),
