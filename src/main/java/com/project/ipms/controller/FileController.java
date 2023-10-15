@@ -1,6 +1,5 @@
 /**
- * Code for Spring Boot + Google Cloud Storage integration
- * From: https://www.knowledgefactory.net/2023/03/google-cloud-storage-spring-boot-file-upload-download-and-delete.html
+ * Code for Spring Boot + Google Cloud Storage integration.
  */
 
 package com.project.ipms.controller;
@@ -8,7 +7,7 @@ package com.project.ipms.controller;
 import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
-import com.project.ipms.service.ImageTransparency;
+import com.project.ipms.service.ImageService;
 import com.project.ipms.util.ImageFileUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -19,10 +18,10 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -46,16 +45,24 @@ public class FileController {
     private final MongoDBService mongoDBService;
 
     /**
+     * An image processing service object for calling methods.
+     */
+    private final ImageService imageService;
+
+    /**
      * Constructor for FileController.
      * Autowire and link MongoDB repo.
      * @param fileService A file service object for calling methods
      * @param mongoDBService A MongoDB database service for calling methods
+     * @param imageService An image service for calling methods
      */
     @Autowired
     public FileController(final FileService fileService,
-                          final MongoDBService mongoDBService) {
+                          final MongoDBService mongoDBService,
+                          final ImageService imageService) {
         this.fileService = fileService;
         this.mongoDBService = mongoDBService;
+        this.imageService = imageService;
     }
 
     /**
@@ -160,12 +167,10 @@ public class FileController {
         if (!targetFileExtension.equals(resultFileExtension)) {
             throw new BadRequestException("Target file extension is different from result file extension");
         }
-        // Retrieve the image file from storage
+        // Retrieve and process image file from storage
         ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
-        // Execute transparent functionality
-        ImageTransparency transparencyService = new ImageTransparency(targetImage, alpha, targetFileExtension);
-        BufferedImage resultImage = transparencyService.doDrawing();
+        BufferedImage resultImage = imageService.imageTransparency(targetImage, alpha, targetFileExtension);
         // Upload the result image
         mongoDBService.uploadFile(id, result);
         ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();

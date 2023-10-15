@@ -173,4 +173,64 @@ class MongoDBServiceImplTest {
             mongoDBService.uploadFile(testID, fileName);
         }
     }
+
+    @Test
+    void testMongoDBOperationCheck1() {
+        String testID = "maya-fey";
+        List<String> testImageFileList = new ArrayList<>();
+        testImageFileList.add("test1.jpg");
+        testImageFileList.add("test2.jpg");
+        testImageFileList.add("test3.jpg");
+
+        String targetFileName = "test1.jpg";
+        String resultFileName = "test1-result.jpg";
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
+                thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
+
+        mongoDBService.mongoDBOperationCheck(testID, targetFileName, resultFileName);
+    }
+
+    @Test
+    void testMongoDBOperationCheck2() {
+        String testID = "maya-fey";
+        List<String> testImageFileList = new ArrayList<>();
+        testImageFileList.add("test1.jpg");
+        testImageFileList.add("test2.jpg");
+        testImageFileList.add("test3.jpg");
+
+        String targetFileName = "test4.jpg";
+        String resultFileName = "test4-result.jpg";
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
+                thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
+
+        Exception exception = assertThrows(FileNotFoundException.class, () ->
+                mongoDBService.mongoDBOperationCheck(testID, targetFileName, resultFileName));
+
+        String expectedMessage = "Target file does not exist";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testMongoDBOperationCheck3() {
+        String testID = "maya-fey";
+        List<String> testImageFileList = new ArrayList<>();
+        testImageFileList.add("test1.jpg");
+        testImageFileList.add("test2.jpg");
+        testImageFileList.add("test3.jpg");
+
+        String targetFileName = "test3.jpg";
+        String resultFileName = "test2.jpg";
+        Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
+                thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
+
+        Exception exception = assertThrows(FileAlreadyExistsException.class, () ->
+                mongoDBService.mongoDBOperationCheck(testID, targetFileName, resultFileName));
+
+        String expectedMessage = "Result filename already exists";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }

@@ -1,6 +1,5 @@
 /**
- * Code for Spring Boot + Google Cloud Storage integration
- * From: https://www.knowledgefactory.net/2023/03/google-cloud-storage-spring-boot-file-upload-download-and-delete.html
+ * Code for Spring Boot + Google Cloud Storage integration.
  */
 
 package com.project.ipms.service;

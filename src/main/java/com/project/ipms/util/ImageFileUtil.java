@@ -3,10 +3,6 @@ package com.project.ipms.util;
 import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.exception.InvalidFileTypeException;
 
-import java.awt.image.BufferedImage;
-import java.awt.image.ColorModel;
-import java.awt.image.WritableRaster;
-
 public final class ImageFileUtil {
 
     /**
@@ -43,18 +39,5 @@ public final class ImageFileUtil {
         throw new InvalidFileTypeException(
                 "Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png."
         );
-    }
-
-    /**
-     * Copy Buffered Image.
-     * Source: "<a href="https://stackoverflow.com/questions/3514158/how-do-you-clone-a-bufferedimage">...</a>"
-     * @param bi Original buffered image
-     * @return New identical copy of original buffered image
-     */
-    public static BufferedImage copyBufferedImage(final BufferedImage bi) {
-        ColorModel cm = bi.getColorModel();
-        boolean isAlphaPremultiplied = cm.isAlphaPremultiplied();
-        WritableRaster raster = bi.copyData(null);
-        return new BufferedImage(cm, raster, isAlphaPremultiplied, null);
     }
 }
