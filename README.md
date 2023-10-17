@@ -47,10 +47,24 @@ Windows:
 1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java)
 2. Run `IpmService` class.
 
-## Test instructions
+## Unit Test instructions
 
 1. Go to [Test directory](src/test/java/com/project/ipms)
 2. Run every test classes under the directory.
+
+## API Test instructions
+
+Our API entry points are tested using Postman. Download the app [here](https://www.postman.com/downloads/).
+
+Here is how you set up the Postman API test:
+1. Open the Postman app, go to **Settings**, and go to **Working directory**, set the location to our repository.
+For example: `/path/to/our/repository/4156_project`
+2. Click **Import** and select our repository folder. Postman will automatically 
+detect API test files and import them accordingly. You should see an `ipms-api-test` collection file and an 
+`ipms-api-test-environment` environment file. Import all of them. 
+3. You should see `ipms-api-test` under **Collections**. On the top right hand corner of your screen, you should
+also set up the environment as `ipms-api-test-environment`.
+4. Now you can run the test by either running them one by one or run the whole collection.
 
 ------------------------------------------------------------------------------------------
 ## IPMS API Documentation
