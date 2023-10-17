@@ -37,7 +37,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/C:/Users/lawre/Desktop/objection.png"
+							"src": "src/test/test_img/objection.png"
 						}
 					]
 				},
@@ -249,7 +249,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/ace-attorney-cover-art.jpg"
+							"src": "src/test/test_img/ace-attorney-cover-art.jpg"
 						}
 					]
 				},
@@ -548,7 +548,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/ace-attorney-trilogy-logo.jpg"
+							"src": "src/test/test_img/ace-attorney-trilogy-logo.jpg"
 						}
 					]
 				},
@@ -584,7 +584,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/ace-attorney-trilogy-logo.png"
+							"src": "src/test/test_img/ace-attorney-trilogy-logo.png"
 						}
 					]
 				},
@@ -818,7 +818,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/courtroom-entrance.png"
+							"src": "src/test/test_img/courtroom-entrance.png"
 						}
 					]
 				},
@@ -854,7 +854,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/test1.jpg"
+							"src": "src/test/test_img/test1.jpg"
 						}
 					]
 				},
@@ -890,7 +890,7 @@
 						{
 							"key": "file",
 							"type": "file",
-							"src": "/Users/lawrence/4156_project/src/test/test_img/miles-edgeworth.png"
+							"src": "src/test/test_img/miles-edgeworth.png"
 						}
 					]
 				},
