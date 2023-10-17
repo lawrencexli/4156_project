@@ -1,0 +1,1088 @@
+{
+	"info": {
+		"_postman_id": "f6c475e7-bed4-45d3-9a8c-272e36dc3a9d",
+		"name": "IPMS API Test",
+		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "22372916"
+	},
+	"item": [
+		{
+			"name": "Index page",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token1\", jsonData.responseMessage)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload1_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/objection.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload1_Conflict",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/objection.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token2\", jsonData.responseMessage)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload1_bad",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": []
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index page (Copy)",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload1_bad",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": [],
+							"disabled": true
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload2_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/ace-attorney-trilogy-logo.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token2}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token3\", jsonData.responseMessage)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download1_NotFound",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token1}}&fileName=not-exist.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						},
+						{
+							"key": "fileName",
+							"value": "not-exist.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download1_OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token1}}&fileName=objection.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						},
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent2_OK",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id={{token2}}&target=ace-attorney-trilogy-logo.jpg&result=logo-transparent-0.7.jpg&alpha=0.7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-transparent-0.7.jpg"
+						},
+						{
+							"key": "alpha",
+							"value": "0.7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent_invalid_client",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id=invalid-client-id&target=test.png&result=result.png&alpha=0.9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "invalid-client-id"
+						},
+						{
+							"key": "target",
+							"value": "test.png"
+						},
+						{
+							"key": "result",
+							"value": "result.png"
+						},
+						{
+							"key": "alpha",
+							"value": "0.9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download2_OK",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token2}}&fileName=logo-transparent-0.7.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "fileName",
+							"value": "logo-transparent-0.7.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload1_invalid_image_file",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/nope.pdf"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token1}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index page (Copy) Copy",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload3_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/ace-attorney-cover-art.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token3}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download_invalid_client_id 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id=&fileName=objection.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": ""
+						},
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent1_NotFound",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id={{token1}}&target=not-exist.jpg&result=not-exist-result.jpg&alpha=0.5",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						},
+						{
+							"key": "target",
+							"value": "not-exist.jpg"
+						},
+						{
+							"key": "result",
+							"value": "not-exist-result.jpg"
+						},
+						{
+							"key": "alpha",
+							"value": "0.5"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload3_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/ace-attorney-trilogy-logo.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token3}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download_invalid_client_id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id=invalid-client-id&fileName=objection.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "invalid-client-id"
+						},
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token4\", jsonData.responseMessage)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload4_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/courtroom-entrance.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token4}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token4}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent3_Conflict",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id={{token3}}&target=ace-attorney-trilogy-logo.png&result=ace-attorney-trilogy-logo.png&alpha=0.7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.png"
+						},
+						{
+							"key": "result",
+							"value": "ace-attorney-trilogy-logo.png"
+						},
+						{
+							"key": "alpha",
+							"value": "0.7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent3_Invalid_Alpha",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id={{token3}}&target=ace-attorney-trilogy-logo.png&result=logo-transparent-1.2.png&alpha=1.2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.png"
+						},
+						{
+							"key": "result",
+							"value": "logo-transparent-1.2.png"
+						},
+						{
+							"key": "alpha",
+							"value": "1.2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Index page (Copy) Copy 2",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download_no_filename",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token1}}&fileName=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						},
+						{
+							"key": "fileName",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload_invalid_client2",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/objection.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "generate5",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonData = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token5\", jsonData.responseMessage)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/generate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"generate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload_invalid_client",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/lawre/Desktop/objection.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id=invalid-id",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "invalid-id"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload5_OK",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/test_img/test1.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload?id={{token5}}",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token5}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent4_OK",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/transparent?id={{token4}}&target=courtroom-entrance.png&result=courtroom-entrance-result.png&alpha=0.52",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token4}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "courtroom-entrance-result.png"
+						},
+						{
+							"key": "alpha",
+							"value": "0.52"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
