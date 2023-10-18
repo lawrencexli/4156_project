@@ -170,12 +170,20 @@ public class FileController {
         // Retrieve and process image file from storage
         ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
-        BufferedImage resultImage = imageService.imageTransparency(targetImage, alpha, targetFileExtension);
+        BufferedImage resultImage = imageService.imageTransparency(
+                targetImage,
+                alpha,
+                targetFileExtension
+        );
         // Upload the result image
         mongoDBService.uploadFile(id, result);
         ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
         // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
-        ImageIO.write(resultImage, resultFileExtension.substring(1), byteImageOutput);
+        ImageIO.write(
+                resultImage,
+                resultFileExtension.substring(1),
+                byteImageOutput
+        );
 
         fileService.uploadFile(
                 result,

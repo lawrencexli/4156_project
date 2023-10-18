@@ -2,6 +2,8 @@ package com.project.ipms.service;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
+
+import com.project.ipms.util.ImageFileUtil;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,57 +25,57 @@ public class ImageServiceImplTest {
     }
 
     @Test
-    public void testImageCompare() {
-        BufferedImage img1 = null, img2 = null, img3 = null;
-        try {
-            File f1 = ResourceUtils.getFile("objection.png");
-            File f2 = ResourceUtils.getFile("objection_copy.png");
-            File f3 = ResourceUtils.getFile("miles-edgeworth.png");
-
-            img1 = ImageIO.read(f1);
-            img2 = ImageIO.read(f2);
-            img3 = ImageIO.read(f3);
-
-            boolean value1 = imageService.compare(img1, img2);
-            boolean value2 = imageService.compare(img1, img3);
-
-            Assertions.assertEquals(true, value1);
-            Assertions.assertEquals(true, value2);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-
-    @Test
     public void testImageTransparency() {
-        BufferedImage img1 = null, test1 = null, img2 = null, test2 = null;
+        BufferedImage img1, test1, img2, test2, testResultPng, testResultJpg;
         try {
-            File f1 = ResourceUtils.getFile("apple.png");
-            File f2 = ResourceUtils.getFile("trans_apple.png");
-            File f3 = ResourceUtils.getFile("tree.jpg");
-            File f4 = ResourceUtils.getFile("trans_tree.jpg");
+            File f1 = ResourceUtils.getFile("src/test/resources/apple.png");
+            File f2 = ResourceUtils.getFile("src/test/resources/trans_apple.png");
+            File f3 = ResourceUtils.getFile("src/test/resources/tree.jpg");
+            File f4 = ResourceUtils.getFile("src/test/resources/trans_tree.jpg");
 
             img1 = ImageIO.read(f1);
             test1 = ImageIO.read(f2);
             img2 = ImageIO.read(f3);
             test2 = ImageIO.read(f4);
 
-            String fileName = f1.getName();
-            String format = fileName.substring(fileName.lastIndexOf('.')+1);
-            BufferedImage trans_img1 = imageService.imageTransparency(img1, (float)0.5, format);
+            // Do image transparency
+            String format = f1.getName().substring(1);
+            BufferedImage transImg1 = imageService.imageTransparency(img1, 0.5F, format);
 
-            fileName = f3.getName();
-            format = fileName.substring(fileName.lastIndexOf('.')+1);
-            BufferedImage trans_img2 = imageService.imageTransparency(img2, (float)0.5, format);
+            String format2 = f3.getName().substring(1);
+            BufferedImage transImg2 = imageService.imageTransparency(img2, 0.5F, format2);
 
-            boolean value1 = imageService.compare(trans_img1, test1);
-            boolean value2 = imageService.compare(trans_img2, test2);
+            // Specify the file and path destination
+            String png_test_result = "src/test/resources/trans_apple_test.png";
+            String jpg_test_result = "src/test/resources/trans_tree_test.jpg";
 
-            Assertions.assertEquals(true, value1);
-            Assertions.assertEquals(true, value2);
+            // Write the result to file
+            File outputFile1 = new File(png_test_result);
+            ImageIO.write(transImg1, "png", outputFile1);
 
+            // To write a jpg image to file, we need to convert the color format to RGB.
+            // This is because the original transImg2 has RGBA as color format,
+            // which is incompatible with jpg file type.
+            BufferedImage jpgImage = new BufferedImage(
+                    transImg2.getWidth(),
+                    transImg2.getHeight(),
+                    BufferedImage.TYPE_INT_RGB
+            );
+            jpgImage.createGraphics().drawImage(transImg2, 0, 0, null);
+            File outputFile2 = new File(jpg_test_result);
+            ImageIO.write(jpgImage, "jpg", outputFile2);
+
+            // Read back the result and compare with the true images
+            File f5 = ResourceUtils.getFile(png_test_result);
+            File f6 = ResourceUtils.getFile(jpg_test_result);
+
+            testResultPng = ImageIO.read(f5);
+            testResultJpg = ImageIO.read(f6);
+
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, test1));
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultJpg, test2));
         } catch (Exception e) {
-            System.out.println(e);
+            throw new RuntimeException("Image transparency failed: " + e.getMessage());
         }
     }
 }

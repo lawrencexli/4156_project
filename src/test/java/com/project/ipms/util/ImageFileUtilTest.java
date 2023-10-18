@@ -6,9 +6,17 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.util.ResourceUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
 
 import static com.project.ipms.util.ImageFileUtil.checkFileValid;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -113,5 +121,27 @@ class ImageFileUtilTest {
         // This should pass
         String extension = checkFileValid("ace-attorney.jpg.png.jpeg.jpeg");
         assertEquals(extension, ".jpeg");
+    }
+
+    @Test
+    void testImageCompare() {
+        BufferedImage img1, img2, img3;
+        try {
+            File f1 = ResourceUtils.getFile("src/test/resources/objection.png");
+            File f2 = ResourceUtils.getFile("src/test/resources/objection_copy.png");
+            File f3 = ResourceUtils.getFile("src/test/resources/miles-edgeworth.png");
+
+            img1 = ImageIO.read(f1);
+            img2 = ImageIO.read(f2);
+            img3 = ImageIO.read(f3);
+
+            boolean value1 = ImageFileUtil.compareImagesEqual(img1, img2);
+            boolean value2 = ImageFileUtil.compareImagesEqual(img1, img3);
+
+            assertTrue(value1);
+            assertFalse(value2);
+        } catch (Exception e) {
+            throw new RuntimeException("Image comparison test failed: " + e.getMessage());
+        }
     }
 }
