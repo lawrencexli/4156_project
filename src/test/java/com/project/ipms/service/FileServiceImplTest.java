@@ -13,8 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.util.ReflectionTestUtils;
 
-import java.io.IOException;
-
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -63,7 +62,7 @@ class FileServiceImplTest {
         Mockito.when(mockedBlob.getContent()).
                 thenReturn("image-content".getBytes());
 
-        fileService.downloadFile(testFileName);
+        assertDoesNotThrow(() -> fileService.downloadFile(testFileName));
     }
 
     @Test
@@ -82,7 +81,7 @@ class FileServiceImplTest {
     }
 
     @Test
-    void testUploadFile() throws IOException {
+    void testUploadFile() {
         String testRepoName = "phoenix-wright-1011";
         MockMultipartFile testMultipartFile = new MockMultipartFile(
                 "test",
@@ -91,11 +90,12 @@ class FileServiceImplTest {
                 "image-content".getBytes()
         );
 
-        fileService.uploadFile(
-                testMultipartFile.getOriginalFilename(),
-                testMultipartFile.getContentType(),
-                testMultipartFile.getBytes(),
-                testRepoName
+        assertDoesNotThrow(() ->
+                fileService.uploadFile(
+                        testMultipartFile.getOriginalFilename(),
+                        testMultipartFile.getContentType(),
+                        testMultipartFile.getBytes(),
+                        testRepoName)
         );
     }
 }

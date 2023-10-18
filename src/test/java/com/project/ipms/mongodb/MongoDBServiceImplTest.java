@@ -19,6 +19,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
 class MongoDBServiceImplTest {
@@ -100,7 +101,7 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        mongoDBService.mongoDBFileCheck(testID, fileName);
+        assertDoesNotThrow(() -> mongoDBService.mongoDBFileCheck(testID, fileName));
     }
 
     @Test
@@ -170,7 +171,7 @@ class MongoDBServiceImplTest {
             utilities.when(() -> ImageFileUtil.checkFileValid(fileName)).
                     thenReturn(".jpg");
 
-            mongoDBService.uploadFile(testID, fileName);
+            assertDoesNotThrow(() -> mongoDBService.uploadFile(testID, fileName));
         }
     }
 
@@ -187,7 +188,7 @@ class MongoDBServiceImplTest {
         Mockito.when(fakeIpmsMongoRepo.getClientEntryById(testID)).
                 thenReturn(new ClientEntry(testID, new HashSet<>(testImageFileList)));
 
-        mongoDBService.mongoDBOperationCheck(testID, targetFileName, resultFileName);
+        assertDoesNotThrow(() -> mongoDBService.mongoDBOperationCheck(testID, targetFileName, resultFileName));
     }
 
     @Test
