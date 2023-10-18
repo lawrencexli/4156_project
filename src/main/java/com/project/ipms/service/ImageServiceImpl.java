@@ -18,10 +18,9 @@ public class ImageServiceImpl implements ImageService {
      * @return Processed image in BufferedImage format
      */
     @Override
-    public BufferedImage imageTransparency(
-            final BufferedImage inputImage,
-            final float alpha,
-            final String format) {
+    public BufferedImage imageTransparency(final BufferedImage inputImage,
+                                           final float alpha,
+                                           final String format) {
         BufferedImage transImg = new BufferedImage(
                 inputImage.getWidth(null),
                 inputImage.getHeight(null),
