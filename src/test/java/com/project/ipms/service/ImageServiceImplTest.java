@@ -23,7 +23,7 @@ public class ImageServiceImplTest {
     }
 
     @Test
-    public void testImageCompare1() {
+    public void testImageCompare() {
         BufferedImage img1 = null, img2 = null, img3 = null;
         try {
             File f1 = ResourceUtils.getFile("objection.png");
@@ -46,6 +46,34 @@ public class ImageServiceImplTest {
 
     @Test
     public void testImageTransparency() {
+        BufferedImage img1 = null, test1 = null, img2 = null, test2 = null;
+        try {
+            File f1 = ResourceUtils.getFile("apple.png");
+            File f2 = ResourceUtils.getFile("trans_apple.png");
+            File f3 = ResourceUtils.getFile("tree.jpg");
+            File f4 = ResourceUtils.getFile("trans_tree.jpg");
 
+            img1 = ImageIO.read(f1);
+            test1 = ImageIO.read(f2);
+            img2 = ImageIO.read(f3);
+            test2 = ImageIO.read(f4);
+
+            String fileName = f1.getName();
+            String format = fileName.substring(fileName.lastIndexOf('.')+1);
+            BufferedImage trans_img1 = imageService.imageTransparency(img1, (float)0.5, format);
+
+            fileName = f3.getName();
+            format = fileName.substring(fileName.lastIndexOf('.')+1);
+            BufferedImage trans_img2 = imageService.imageTransparency(img2, (float)0.5, format);
+
+            boolean value1 = imageService.compare(trans_img1, test1);
+            boolean value2 = imageService.compare(trans_img2, test2);
+
+            Assertions.assertEquals(true, value1);
+            Assertions.assertEquals(true, value2);
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 }
