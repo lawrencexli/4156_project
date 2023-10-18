@@ -10,5 +10,7 @@ public interface ImageService {
      * @param format Image file format
      * @return Processed image in BufferedImage format
      */
+    boolean compare(BufferedImage img1, BufferedImage img2);
+
     BufferedImage imageTransparency(BufferedImage inputImage, float alpha, String format);
 }
