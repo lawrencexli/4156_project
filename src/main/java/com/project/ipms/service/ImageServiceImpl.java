@@ -12,14 +12,14 @@ import java.awt.image.BufferedImage;
 public class ImageServiceImpl implements ImageService {
     /**
      * Make image transparent.
-     *
      * @param inputImage Image input
      * @param alpha      Alpha value for transparency
      * @param format     Image file format
      * @return Processed image in BufferedImage format
      */
     @Override
-    public BufferedImage imageTransparency(final BufferedImage inputImage,
+    public BufferedImage imageTransparency(
+            final BufferedImage inputImage,
             final float alpha,
             final String format) {
         BufferedImage transImg = new BufferedImage(
