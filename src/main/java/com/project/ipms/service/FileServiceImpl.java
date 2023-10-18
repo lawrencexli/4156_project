@@ -1,6 +1,5 @@
 /**
- * Code for Spring Boot + Google Cloud Storage integration
- * From: https://www.knowledgefactory.net/2023/03/google-cloud-storage-spring-boot-file-upload-download-and-delete.html
+ * Code for Spring Boot + Google Cloud Storage integration.
  */
 
 package com.project.ipms.service;
@@ -14,9 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 
 @Service
@@ -60,16 +56,20 @@ public class FileServiceImpl implements FileService {
 
     /**
      * Upload file to Google Cloud Storage.
-     * @param file Representation of a file received in a multipart request
-     * @throws IOException If file does not exist or filename is inappropriate
+     * @param fileName fileName
+     * @param fileContentType content type for file
+     * @param fileBytes the file content bytes
+     * @param repoName The client ID used to create folder name in GCP bucket
      */
     @Override
-    public void uploadFile(final MultipartFile file,
-                           final String repoName) throws IOException {
+    public void uploadFile(final String fileName,
+                           final String fileContentType,
+                           final byte[] fileBytes,
+                           final String repoName) {
         BlobId blobId = BlobId.of(bucketName,
-                repoName + "/" + file.getOriginalFilename());
+                repoName + "/" + fileName);
         BlobInfo blobInfo = BlobInfo.newBuilder(blobId).
-                setContentType(file.getContentType()).build();
-        storage.create(blobInfo, file.getBytes());
+                setContentType(fileContentType).build();
+        storage.create(blobInfo, fileBytes);
     }
 }

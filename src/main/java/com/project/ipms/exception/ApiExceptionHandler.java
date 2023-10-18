@@ -5,6 +5,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
 
 import java.io.IOException;
@@ -18,6 +19,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(InvalidFileTypeException.class)
+    @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ResponseBody
     public ApiResponse handleInvalidFileTypeException(final InvalidFileTypeException e) {
         ApiResponse response = new ApiResponse();
@@ -32,6 +34,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleBadRequestException(final BadRequestException e) {
         ApiResponse response = new ApiResponse();
@@ -46,6 +49,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(MultipartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleMultipartException(final MultipartException e) {
         ApiResponse response = new ApiResponse();
@@ -60,6 +64,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(FileNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public ApiResponse handleFileNotFoundException(final FileNotFoundException e) {
         ApiResponse response = new ApiResponse();
@@ -74,6 +79,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(IOException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ApiResponse handleIOException(final IOException e) {
         ApiResponse response = new ApiResponse();
@@ -88,6 +94,7 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(InvalidCredentialsException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public ApiResponse handleInvalidCredentialsException(final InvalidCredentialsException e) {
         ApiResponse response = new ApiResponse();
@@ -102,11 +109,27 @@ public final class ApiExceptionHandler {
      * @return exception json output
      */
     @ExceptionHandler(CriticalServerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ApiResponse handleCriticalServerException(final CriticalServerException e) {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+        return response;
+    }
+
+    /**
+     * Handle FileAlreadyExistsException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(FileAlreadyExistsException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    @ResponseBody
+    public ApiResponse handleFileAlreadyExistsException(final FileAlreadyExistsException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.CONFLICT.value());
         return response;
     }
 }

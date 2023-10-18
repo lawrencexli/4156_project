@@ -47,10 +47,24 @@ Windows:
 1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java)
 2. Run `IpmService` class.
 
-## Test instructions
+## Unit Test instructions
 
 1. Go to [Test directory](src/test/java/com/project/ipms)
 2. Run every test classes under the directory.
+
+## API Test instructions
+
+Our API entry points are tested using Postman. Download the app [here](https://www.postman.com/downloads/).
+
+Here is how you set up the Postman API test:
+1. Open the Postman app, go to **Settings**, and go to **Working directory**, set the location to our repository.
+For example: `/path/to/our/repository/4156_project`
+2. Click **Import** and select our repository folder. Postman will automatically 
+detect API test files and import them accordingly. You should see an `ipms-api-test` collection file and an 
+`ipms-api-test-environment` environment file. Import all of them. 
+3. You should see `ipms-api-test` under **Collections**. On the top right hand corner of your screen, you should
+also set up the environment as `ipms-api-test-environment`.
+4. Now you can run the test by either running them one by one or run the whole collection.
 
 ------------------------------------------------------------------------------------------
 ## IPMS API Documentation
@@ -58,6 +72,21 @@ Windows:
 ![version](https://img.shields.io/badge/Version-0.0.1--SNAPSHOT-brightgreen.svg)
 
 [http://localhost:8080](http://localhost:8080)
+
+------------------------------------------------------------------------------------------
+
+### Index Page
+
+<details>
+ <summary><code>GET</code> <code><b>/</b></code></summary>
+
+#### Responses
+
+> | http code | content-type | response           |
+> |-----------|--------------|--------------------|
+> | 200       | string       | `Welcome to IPMS!` |
+
+</details>
 
 ------------------------------------------------------------------------------------------
 
@@ -70,7 +99,7 @@ Windows:
 
 > | http code | content-type       | response                                                                                |
 > |-----------|--------------------|-----------------------------------------------------------------------------------------|
-> | `200`     | `application/json` | `{"responseMessage": {Your unique client ID as API key credential}, "statusCode": 200}` |
+> | 200       | `application/json` | `{"responseMessage": {Your unique client ID as API key credential}, "statusCode": 200}` |
 
 </details>
 
@@ -96,16 +125,19 @@ Windows:
 
 #### Responses
 
-> | http code | content-type       | response                                                                                                                  |
-> |-----------|--------------------|---------------------------------------------------------------------------------------------------------------------------|
-> | `200`     | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                                                    |
-> | `400`     | `application/json` | `{"responseMessage": "File has no content or file is null", "statusCode": 400}`                                           |
-> | `400`     | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`                                    |
-> | `400`     | `application/json` | `{"responseMessage": "Client ID is missing or is null", "statusCode": 400}`                                               |
-> | `400`     | `application/json` | `{"responseMessage": "Filename already exists", "statusCode": 400}`                                                       |
-> | `403`     | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                             |
-> | `415`     | `application/json` | `{"responseMessage": "Not a supported file type", "statusCode": 415}`                                                     |                                                     
-> | `500`     | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                       |
+> | http code | content-type       | response                                                                                                                                     |
+> |-----------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+> | 200       | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                                                                       |
+> | 400       | `application/json` | `{"responseMessage": "File has no content or is null", "statusCode": 400}`                                                                   |
+> | 400       | `application/json` | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                                                                        |
+> | 400       | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`                                                       |
+> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                                     |
+> | 400       | `application/json` | `{"responseMessage": "Filename is missing file extension", "statusCode": 400}`                                                               |
+> | 400       | `application/json` | `{"responseMessage": "Filename cannot start with a dot '.'", "statusCode": 400}`                                                             |
+> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                                                |
+> | 409       | `application/json` | `{"responseMessage": "Filename already exists", "statusCode": 409}`                                                                          |
+> | 415       | `application/json` | `{"responseMessage": "Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png.", "statusCode": 415}` |                                                     
+> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                                          |
 
 </details>
 
@@ -127,19 +159,49 @@ Windows:
 
 > | http code | content-type               | response                                                                                                                    |
 > |-----------|----------------------------|-----------------------------------------------------------------------------------------------------------------------------|
-> | `200`     | `application/octet-stream` | Image file content download                                                                                                 |
-> | `400`     | `application/json`         | `{"responseMessage": "Filename is null or empty", "statusCode": 400}`                                                       |
-> | `400`     | `application/json`         | `{"responseMessage": "Client ID is missing or is null", "statusCode": 400}`                                                 |
-> | `403`     | `application/json`         | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
-> | `404`     | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 404}`                                                             |
-> | `500`     | `application/json`         | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
+> | 200       | `application/octet-stream` | Image file content download                                                                                                 |
+> | 400       | `application/json`         | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                                                       |
+> | 400       | `application/json`         | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
+> | 403       | `application/json`         | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
+> | 404       | `application/json`         | `{"responseMessage": "File does not exist", "statusCode": 404}`                                                             |
+> | 500       | `application/json`         | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
 
 </details>
 
 ------------------------------------------------------------------------------------------
 
+### Make an image transparent
 
+<details>
+ <summary><code>PUT</code> <code><b>/api/transparent?id={clientID}&target={targetFileName}&result={resultFileName}&alpha={alphaValue}</b></code></summary>
 
+#### Parameters
+
+> | name             | type     | data type | description                                            |
+> |------------------|----------|-----------|--------------------------------------------------------|
+> | `clientID`       | required | string    | Your client ID credential                              |
+> | `targetFileName` | required | string    | Image filename targeted for processing                 |
+> | `resultFileName` | required | string    | Desired filename for the image result after processing |
+> | `alphaValue`     | required | float     | Desired alpha value for transparency                   |
+
+#### Responses
+
+> | http code | content-type       | response                                                                                                                    |
+> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+> | 200       | `application/json` | `{"responseMessage": "Operation success", "statusCode": 200}`                                                               |
+> | 400       | `application/json` | `{"responseMessage": "Target filename or result filename is empty or null", "statusCode": 400}`                             |
+> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
+> | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
+> | 400       | `application/json` | `{"responseMessage": "The alpha value should be in the range of 0 to 1", "statusCode": 400}`                                |
+> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
+> | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
+> | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
+> | 500       | `application/json` | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
+> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
+
+</details>
+
+------------------------------------------------------------------------------------------
 
 
 
