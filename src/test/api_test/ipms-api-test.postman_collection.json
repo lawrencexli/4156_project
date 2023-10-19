@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "f6c475e7-bed4-45d3-9a8c-272e36dc3a9d",
+		"_postman_id": "b26c8c57-ff28-4579-82bb-6e4243d572b8",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22372916"
+		"_exporter_id": "30467905"
 	},
 	"item": [
 		{
@@ -506,6 +506,56 @@
 			"response": []
 		},
 		{
+			"name": "crop_image1_file_not_found",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=not_found.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": "not_found.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "generate2",
 			"event": [
 				{
@@ -648,6 +698,56 @@
 			"response": []
 		},
 		{
+			"name": "crop_image2_OK.jpg",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "download_no_filename",
 			"request": {
 				"method": "GET",
@@ -769,6 +869,56 @@
 						{
 							"key": "alpha",
 							"value": "0.9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crop_image_invalid_client_id",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id=invalid_client_id&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "invalid_client_id"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
 						}
 					]
 				}
@@ -954,6 +1104,56 @@
 			"response": []
 		},
 		{
+			"name": "crop_image3_no_filename",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": ""
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent3_conflict",
 			"request": {
 				"method": "PUT",
@@ -985,6 +1185,56 @@
 						{
 							"key": "alpha",
 							"value": "0.7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crop_image3_conflict",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=courtroom-entrance.png&result=miles-edgeworth.png&x=0&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "miles-edgeworth.png"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
 						}
 					]
 				}
@@ -1030,6 +1280,206 @@
 			"response": []
 		},
 		{
+			"name": "crop_image3_invalid_x",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=courtroom-result.png&x=-1&y=0&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "courtroom-result.png"
+						},
+						{
+							"key": "x",
+							"value": "-1"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crop_image3_invalid_y",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=2000&width=600&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "2000"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crop_image3_invalid_width",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=3000&height=559",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "3000"
+						},
+						{
+							"key": "height",
+							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "crop_image3_invalid_height",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.jpg"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent3_inconsistent_file_type",
 			"request": {
 				"method": "PUT",
@@ -1066,6 +1516,62 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "crop_image3_inconsistent_file_type",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.png&x=0&y=0&width=600&height=600",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped.png"
+						},
+						{
+							"key": "x",
+							"value": "0"
+						},
+						{
+							"key": "y",
+							"value": "0"
+						},
+						{
+							"key": "width",
+							"value": "600"
+						},
+						{
+							"key": "height",
+							"value": "600"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "token1",
+			"value": "65307844c6e481599156261a"
 		}
 	]
 }
