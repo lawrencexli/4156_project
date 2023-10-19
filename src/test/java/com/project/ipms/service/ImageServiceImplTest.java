@@ -15,7 +15,7 @@ public class ImageServiceImplTest {
     /**
      * An image processing service object for calling methods.
      */
-    ImageServiceImpl imageService;
+    private ImageServiceImpl imageService;
 
     @BeforeEach
     final void setUp() {
@@ -50,10 +50,10 @@ public class ImageServiceImplTest {
             test2 = ImageIO.read(f4);
 
             // Do image transparency
-            String format = f1.getName().substring(1);
+            String format = ".png";
             BufferedImage transImg1 = imageService.imageTransparency(img1, 0.5F, format);
 
-            String format2 = f3.getName().substring(1);
+            String format2 = ".jpg";
             BufferedImage transImg2 = imageService.imageTransparency(img2, 0.5F, format2);
 
             // Specify the file and path destination
@@ -112,10 +112,10 @@ public class ImageServiceImplTest {
             test2 = ImageIO.read(f4);
 
             // Do image transparency
-            String format = f1.getName().substring(1);
+            String format = ".png";
             BufferedImage croppedImg1 = imageService.imageCropping(img1, 0, 0, 1150, 893, format);
 
-            String format2 = f3.getName().substring(1);
+            String format2 = ".jpg";
             BufferedImage croppedImg2 = imageService.imageCropping(img2, 0, 0, 403, 422, format2);
 
             // Specify the file and path destination
