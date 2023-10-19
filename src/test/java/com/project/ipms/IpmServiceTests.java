@@ -13,14 +13,14 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class IpmServiceTests {
-	/**
-	 * File Controller.
-	 */
-	@Autowired
-	private FileController homeFileController;
+    /**
+     * File Controller.
+     */
+    @Autowired
+    private FileController homeFileController;
 
-	@Test
-	void contextLoads() {
-		assertThat(homeFileController).isNotNull();
-	}
+    @Test
+    void contextLoads() {
+        assertThat(homeFileController).isNotNull();
+    }
 }

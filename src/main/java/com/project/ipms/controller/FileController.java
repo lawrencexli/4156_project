@@ -176,6 +176,84 @@ public class FileController {
                 targetFileExtension
         );
         // Upload the result image
+        return uploadResult(result, id, resultImage, resultFileExtension);
+    }
+
+    /**
+     * Crop the image.
+     * @param target     Target filename in client's repository
+     * @param result     Result filename after processing
+     * @param id         Client ID credential
+     * @param x          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param y          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param width      The width of the specified rectangular region
+     * @param height     The height of the specified rectangular region
+     * @return           Processed image in BufferedImage format
+     */
+    @PutMapping("crop")
+    public ApiResponse imageCrop(@RequestParam final String target,
+                                 @RequestParam final String result,
+                                 @RequestParam final String id,
+                                 @RequestParam final int x,
+                                 @RequestParam final int y,
+                                 @RequestParam final int width,
+                                 @RequestParam final int height) throws IOException {
+        // Check if all inputs are valid
+        if (target == null || target.isBlank()
+                || result == null || result.isBlank()) {
+            throw new BadRequestException("Target filename or result filename is empty or null");
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+        mongoDBService.mongoDBOperationCheck(id, target, result);
+        String targetFileExtension = ImageFileUtil.checkFileValid(target);
+        String resultFileExtension = ImageFileUtil.checkFileValid(result);
+        if (!targetFileExtension.equals(resultFileExtension)) {
+            throw new BadRequestException("Target file extension is different from result file extension");
+        }
+        // Retrieve and process image file from storage
+        ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
+        BufferedImage targetImage = ImageIO.read(resource.getInputStream());
+        // Check if the x, y, width, height are correct
+        if (x < 0 || x > targetImage.getWidth()) {
+            throw new BadRequestException("The x value should be in the range of 0 to the width of the target image");
+        }
+        if (y < 0 || y > targetImage.getHeight()) {
+            throw new BadRequestException("The y value should be in the range of 0 to the height of the target image");
+        }
+        if (width < 0 || width > targetImage.getWidth() - x) {
+            throw new BadRequestException("The width value should be from 0 to (target image's width - x)");
+        }
+        if (height < 0 || height > targetImage.getHeight() - y) {
+            throw new BadRequestException("The height value should be from 0 to (target image's height - y)");
+        }
+        BufferedImage resultImage = imageService.imageCropping(
+                targetImage,
+                x, y, width, height,
+                targetFileExtension
+        );
+        // Upload the result image
+        return uploadResult(result, id, resultImage, resultFileExtension);
+    }
+
+    /**
+     * Wrapper function for uploading processed image file.
+     * NOTE: This wrapper method will be tested from other methods from this class
+     * like imageCrop() and imageTransparent() as part of the image feature controller test.
+     * @param result The name of the result image file
+     * @param id Client ID credential
+     * @param resultImage BufferedImage object of processed image
+     * @param resultFileExtension The file extension of processed image file
+     * @return ApiResponse object for client end
+     * @throws IOException For errors in reading/writing image bytes to file
+     */
+    private ApiResponse uploadResult(final String result,
+                                     final String id,
+                                     final BufferedImage resultImage,
+                                     final String resultFileExtension) throws IOException {
         mongoDBService.uploadFile(id, result);
         ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
         // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
@@ -184,14 +262,12 @@ public class FileController {
                 resultFileExtension.substring(1),
                 byteImageOutput
         );
-
         fileService.uploadFile(
                 result,
                 URLConnection.getFileNameMap().getContentTypeFor(result),
                 byteImageOutput.toByteArray(),
                 id
         );
-
         ApiResponse response = new ApiResponse();
         response.setResponseMessage("Operation success");
         response.setStatusCode(HttpStatus.OK.value());

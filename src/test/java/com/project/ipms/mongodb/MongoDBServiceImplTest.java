@@ -28,13 +28,13 @@ class MongoDBServiceImplTest {
      * Mock MongoDB client repository.
      */
     @Mock
-    ClientRepository fakeIpmsMongoRepo;
+    private ClientRepository fakeIpmsMongoRepo;
 
     /**
      * The class for unit test.
      */
     @InjectMocks
-    MongoDBServiceImpl mongoDBService;
+    private MongoDBServiceImpl mongoDBService;
 
     @BeforeEach
     void setUp() {

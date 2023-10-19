@@ -3,6 +3,7 @@ package com.project.ipms.util;
 import com.project.ipms.exception.BadRequestException;
 import com.project.ipms.exception.InvalidFileTypeException;
 
+import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 
 public final class ImageFileUtil {
@@ -69,6 +70,32 @@ public final class ImageFileUtil {
                 }
             }
             return true;
+        }
+    }
+
+    /**
+     * Convert the BufferedImage's color component to RGB for jpg/jpeg,
+     * otherwise keep RGBA for png.
+     * NOTE: This method will be tested from ImageServiceImplTest as part of
+     * ImageServiceImpl testing.
+     * @param format File extension for image file (.png, .jpeg, .jpg)
+     * @param transImg The BufferedImage object for conversion
+     * @return Converted BufferedImage object in RGB for jpg/jpeg, or RGBA for png
+     */
+    public static BufferedImage getBufferedImageResult(final String format,
+                                                       final BufferedImage transImg) {
+        if (format.equals(".jpg") || format.equals(".jpeg")) {
+            BufferedImage newImage = new BufferedImage(
+                    transImg.getWidth(),
+                    transImg.getHeight(),
+                    BufferedImage.TYPE_INT_RGB);
+            Graphics g = newImage.createGraphics();
+            g.drawImage(transImg, 0, 0, null);
+            g.dispose();
+            return newImage;
+        } else {
+            assert format.equals(".png") : "File extension is not one of (.png, .jpeg, .jpg), got " + format;
+            return transImg;
         }
     }
 }
