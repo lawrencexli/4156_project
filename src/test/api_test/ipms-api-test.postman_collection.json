@@ -1,11 +1,11 @@
 {
 	"info": {
-		"_postman_id": "b26c8c57-ff28-4579-82bb-6e4243d572b8",
+		"_postman_id": "25d1b569-a2db-4f7d-9b2f-f70d77e21b2f",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30634037",
-		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30467905-b26c8c57-ff28-4579-82bb-6e4243d572b8?action=share&source=collection_link&creator=30634037"
+		"_exporter_id": "30467905",
+		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30634037-25d1b569-a2db-4f7d-9b2f-f70d77e21b2f?action=share&source=collection_link&creator=30467905"
 	},
 	"item": [
 		{
@@ -462,7 +462,7 @@
 							"});",
 							"",
 							"pm.test(\"Response has correct error message\", function () {",
-							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"Current request is not a multipart request\", \"File has no content or is null\"]);",
+							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"File has no content or is null\", \"Current request is not a multipart request\"]);",
 							"});",
 							"",
 							"pm.test(\"Response has correct status code\", function () {",
@@ -1175,6 +1175,63 @@
 			"response": []
 		},
 		{
+			"name": "saturation2_OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Operation success\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token2}}&target=ace-attorney-trilogy-logo.jpg&result=logo-saturation-200.jpg&saturationCoeff=200",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "logo-saturation-200.jpg"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "download_no_filename",
 			"event": [
 				{
@@ -1779,6 +1836,65 @@
 			"response": []
 		},
 		{
+			"name": "saturation3_no_filename",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target filename or result filename is empty or null'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Target filename or result filename is empty or null\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=&result=&saturationCoeff=0.3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": ""
+						},
+						{
+							"key": "result",
+							"value": ""
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "0.3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent3_conflict",
 			"event": [
 				{
@@ -1904,6 +2020,65 @@
 						{
 							"key": "height",
 							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saturation3_conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Result filename already exists\");",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=miles-edgeworth.png&saturationCoeff=0.3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "miles-edgeworth.png"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "0.3"
 						}
 					]
 				}
@@ -2258,6 +2433,124 @@
 			"response": []
 		},
 		{
+			"name": "saturation3_invalid_coeff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target filename or result filename is empty or null'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The saturation coefficient should be in the range of 0 to 255\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=courtroom-entrance-result.png&saturationCoeff=256",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "courtroom-entrance-result.png"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "256"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saturation3_invalid2_coeff",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target filename or result filename is empty or null'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The saturation coefficient should be in the range of 0 to 255\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=courtroom-entrance-result.png&saturationCoeff=-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "courtroom-entrance-result.png"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "-1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent3_inconsistent_file_type",
 			"event": [
 				{
@@ -2386,12 +2679,33 @@
 			"response": []
 		},
 		{
-			"name": "saturation1_ok",
+			"name": "saturation3_inconsistent_file_type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target filename or result filename is empty or null'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Target file extension is different from result file extension\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=saturated-courtroom-entrance.png&saturationCoeff=0",
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=courtroom-entrance-result.jpg&saturationCoeff=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -2412,11 +2726,11 @@
 						},
 						{
 							"key": "result",
-							"value": "saturated-courtroom-entrance.png"
+							"value": "courtroom-entrance-result.jpg"
 						},
 						{
 							"key": "saturationCoeff",
-							"value": "0"
+							"value": "2"
 						}
 					]
 				}
