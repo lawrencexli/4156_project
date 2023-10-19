@@ -98,6 +98,7 @@ class FileControllerTest {
     @AfterEach
     void tearDown() {
         testFileController = null;
+        dummyImageByte = null;
     }
 
     @Test

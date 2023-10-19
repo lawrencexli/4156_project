@@ -85,7 +85,7 @@ public class ImageServiceImplTest {
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, test1));
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultJpg, test2));
         } catch (Exception e) {
-            throw new RuntimeException("Image transparency failed: " + e.getMessage());
+            throw new RuntimeException("Image transparency test failed: " + e.getMessage());
         }
     }
 
@@ -148,7 +148,7 @@ public class ImageServiceImplTest {
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, test1));
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultJpg, test2));
         } catch (Exception e) {
-            throw new RuntimeException("Image transparency failed: " + e.getMessage());
+            throw new RuntimeException("Image cropping test failed: " + e.getMessage());
         }
     }
 
@@ -169,7 +169,7 @@ public class ImageServiceImplTest {
             BufferedImage output1 = imageService.imageSaturation(test1, 0, ".png");
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(check1, output1));
         } catch (Exception e) {
-            throw new RuntimeException("Image saturation failed" + e.getMessage());
+            throw new RuntimeException("Image saturation test failed" + e.getMessage());
         }
     }
 }

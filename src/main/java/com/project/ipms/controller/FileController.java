@@ -317,25 +317,6 @@ public class FileController {
                 targetFileExtension
         );
         // Upload the result image
-        mongoDBService.uploadFile(id, result);
-        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
-        // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
-        ImageIO.write(
-                resultImage,
-                resultFileExtension.substring(1),
-                byteImageOutput
-        );
-
-        fileService.uploadFile(
-                result,
-                URLConnection.getFileNameMap().getContentTypeFor(result),
-                byteImageOutput.toByteArray(),
-                id
-        );
-
-        ApiResponse response = new ApiResponse();
-        response.setResponseMessage("Operation success");
-        response.setStatusCode(HttpStatus.OK.value());
-        return response;
+        return uploadResult(result, id, resultImage, resultFileExtension);
     }
 }
