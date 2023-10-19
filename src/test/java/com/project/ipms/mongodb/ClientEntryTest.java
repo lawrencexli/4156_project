@@ -24,6 +24,9 @@ class ClientEntryTest {
 
     @Test
     void clientEntryTest2() {
+        final int fake3Size = 3;
+        final int fake4Size = 4;
+
         ClientEntry testClientEntry2 = new ClientEntry(null, new HashSet<>());
         assertNull(testClientEntry2.getId());
         assertTrue(testClientEntry2.getImageFileList().isEmpty());
@@ -36,9 +39,9 @@ class ClientEntryTest {
         testClientEntry2.addToImageFileList("fake2.png");
         assertFalse(testClientEntry2.fileNameInImageFileList(testFileName2));
         testClientEntry2.addToImageFileList("fake3.jpeg");
-        assertEquals(testClientEntry2.getImageFileList().size(), 3);
+        assertEquals(testClientEntry2.getImageFileList().size(), fake3Size);
         testClientEntry2.addToImageFileList("fake4.jpeg");
-        assertEquals(testClientEntry2.getImageFileList().size(), 4);
+        assertEquals(testClientEntry2.getImageFileList().size(), fake4Size);
         assertTrue(testClientEntry2.fileNameInImageFileList(testFileName2));
     }
 }
