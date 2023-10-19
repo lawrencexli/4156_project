@@ -234,6 +234,45 @@ also set up the environment as `ipms-api-test-environment`.
 
 </details>
 
+------------------------------------------------------------------------------------------
+
+### Crop the image
+
+<details>
+ <summary><code>PUT</code> <code><b>/api/crop?id={clientID}&target={targetFileName}&result={resultFileName}&x={x}&y={y}&width={width}&height={height}</b></code></summary>
+
+#### Parameters
+
+> | name             | type     | data type | description                                            |
+> |------------------|----------|-----------|--------------------------------------------------------|
+> | `clientID`       | required | string    | Your client ID credential                              |
+> | `targetFileName` | required | string    | Image filename targeted for processing                 |
+> | `resultFileName` | required | string    | Desired filename for the image result after processing |
+> | `x`              | required | int       | Upper left corner x value                              |
+> | `y`              | required | int       | Upper left corner y value                              |
+> | `width`          | required | int       | Width of the cropped region                            |
+> | `height`         | required | int       | Height of the cropped region                           |
+
+#### Responses
+
+> | http code | content-type       | response                                                                                                                    |
+> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+> | 200       | `application/json` | `{"responseMessage": "Operation success", "statusCode": 200}`                                                               |
+> | 400       | `application/json` | `{"responseMessage": "Target filename or result filename is empty or null", "statusCode": 400}`                             |
+> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
+> | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
+> | 400       | `application/json` | `{"responseMessage": "The x value should be in the range of 0 to the width of the target image", "statusCode": 400}`  |
+> | 400       | `application/json` | `{"responseMessage": "The y value should be in the range of 0 to the height of the target image", "statusCode": 400}`    |
+> | 400       | `application/json` | `{"responseMessage": "The width value should be from 0 to (target image's width - x)", "statusCode": 400}`                            |
+> | 400       | `application/json` | `{"responseMessage": "The height value should be from 0 to (target image's height - y)", "statusCode": 400}`   |
+> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
+> | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
+> | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
+> | 500       | `application/json` | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
+> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
+
+</details>
+
 
 
 
