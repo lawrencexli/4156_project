@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "6aeb6ab1-9c09-4729-bfbd-acd0e753983f",
+		"_postman_id": "25d1b569-a2db-4f7d-9b2f-f70d77e21b2f",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30634037"
+		"_exporter_id": "30467905",
+		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30634037-25d1b569-a2db-4f7d-9b2f-f70d77e21b2f?action=share&source=collection_link&creator=30467905"
 	},
 	"item": [
 		{

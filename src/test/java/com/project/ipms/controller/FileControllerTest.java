@@ -719,4 +719,20 @@ class FileControllerTest {
 
         assertTrue(actualMessage2.contains(expectedMessage));
     }
+
+    @Test
+    void testImageSaturation3() {
+        String testTarget = "target.png";
+        String testResult = "result.jpg";
+        String testID = "clientID";
+        float saturationCoeff = 1;
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff));
+
+        String expectedMessage = "Target file extension is different from result file extension";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }
