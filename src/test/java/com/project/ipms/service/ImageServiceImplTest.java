@@ -78,4 +78,21 @@ public class ImageServiceImplTest {
             throw new RuntimeException("Image transparency failed: " + e.getMessage());
         }
     }
+
+    @Test
+    public void testImageSaturation() {
+        BufferedImage test1, check1;
+        try {
+            File test1File = new File("src/test/resources/courtroom-entrance.png");
+            File check1File = new File("src/test/resources/sat-courtroom-entrance.png");
+
+            test1 = ImageIO.read(test1File);
+            check1 = ImageIO.read(check1File);
+
+            BufferedImage output1 = imageService.imageSaturation(test1, 0, ".png");
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(check1, output1));
+        } catch (Exception e) {
+            throw new RuntimeException("Image saturation failed" + e.getMessage());
+        }
+    }
 }
