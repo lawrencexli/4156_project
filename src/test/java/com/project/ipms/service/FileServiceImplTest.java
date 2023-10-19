@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 class FileServiceImplTest {
 
     /**
-     * Fake Bucket Name
+     * Fake Bucket Name.
      */
     String fakeBucketName;
 

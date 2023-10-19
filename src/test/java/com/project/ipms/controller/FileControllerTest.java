@@ -191,8 +191,8 @@ class FileControllerTest {
                 thenReturn(new ByteArrayResource("image-file-content".getBytes()));
 
         ResponseEntity<Resource> content = testFileController.downloadFile(testImageFile, testID);
-        String expected = "<200 OK OK,[Content-Type:\"application/octet-stream\", " +
-                "Content-Disposition:\"attachment; filename=\"maya-fey.jpg\"\"]>";
+        String expected = "<200 OK OK,[Content-Type:\"application/octet-stream\", "
+                + "Content-Disposition:\"attachment; filename=\"maya-fey.jpg\"\"]>";
         assertEquals(content.toString(), expected);
     }
 
@@ -357,6 +357,274 @@ class FileControllerTest {
 
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.imageTransparent(testTarget, testResult, testID, alpha));
+
+        String expectedMessage = "Target file extension is different from result file extension";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageCrop1() throws IOException {
+        // Arrange
+        String target = "target.png";
+        String result = "result.png";
+        String id = "clientID";
+        int x = 0;
+        int y = 0;
+        int width = 100;
+        int height = 100;
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+        BufferedImage mockResultImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target)).thenReturn(mockResource);
+        Mockito.when(fakeImageFileService.imageCropping(mockTargetImage,
+                                                        x,
+                                                        y,
+                                                        width,
+                                                        height,
+                                                        "png"
+                                                        )).thenReturn(mockResultImage);
+
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+                imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                        thenReturn(mockTargetImage);
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(target)).
+                        thenReturn(".png");
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(result)).
+                        thenReturn(".png");
+
+                // Set the width and height of mockTargetImage
+                Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+                Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+                // Act
+                ApiResponse response = testFileController.imageCrop(target, result, id, x, y, width, height);
+
+                //Assert
+                assertEquals(response.getResponseMessage(), "Operation success");
+                assertEquals(response.getStatusCode(), 200);
+        }
+    }
+
+    @Test
+    void testImageCrop2() throws IOException {
+        // Arrange
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        String testID = "clientID";
+        int x = -1;
+        int y = 0;
+        int width = 100;
+        int height = 100;
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).thenReturn(mockResource);
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+                imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                        thenReturn(mockTargetImage);
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testTarget)).
+                        thenReturn(".png");
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
+                        thenReturn(".png");
+
+                // Set the width and height of mockTargetImage
+                Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+                Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+                Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
+
+                String expectedMessage = "The x value should be in the range of 0 to the width of the target image";
+                String actualMessage = exception.getMessage();
+
+                assertTrue(actualMessage.contains(expectedMessage));
+
+                int x2 = 700;
+                Exception exception2 = assertThrows(BadRequestException.class, () ->
+                        testFileController.imageCrop(testTarget, testResult, testID, x2, y, width, height));
+
+                String expectedMessage2 = "The x value should be in the range of 0 to the width of the target image";
+                String actualMessage2 = exception2.getMessage();
+
+                assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageCrop3() throws IOException {
+        // Arrange
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        String testID = "clientID";
+        int x = 0;
+        int y = -1;
+        int width = 100;
+        int height = 100;
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).thenReturn(mockResource);
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+                imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                        thenReturn(mockTargetImage);
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testTarget)).
+                        thenReturn(".png");
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
+                        thenReturn(".png");
+
+                // Set the width and height of mockTargetImage
+                Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+                Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+                Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
+
+                String expectedMessage = "The y value should be in the range of 0 to the height of the target image";
+                String actualMessage = exception.getMessage();
+
+                assertTrue(actualMessage.contains(expectedMessage));
+
+                int y2 = 601;
+                Exception exception2 = assertThrows(BadRequestException.class, () ->
+                        testFileController.imageCrop(testTarget, testResult, testID, x, y2, width, height));
+
+                String expectedMessage2 = "The y value should be in the range of 0 to the height of the target image";
+                String actualMessage2 = exception2.getMessage();
+
+                assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageCrop4() throws IOException {
+        // Arrange
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        String testID = "clientID";
+        int x = 0;
+        int y = 0;
+        int width = -1;
+        int height = 100;
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).thenReturn(mockResource);
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+                imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                        thenReturn(mockTargetImage);
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testTarget)).
+                        thenReturn(".png");
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
+                        thenReturn(".png");
+
+                // Set the width and height of mockTargetImage
+                Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+                Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+                Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
+
+                String expectedMessage = "The width value should be from 0 to (target image's width - x)";
+                String actualMessage = exception.getMessage();
+
+                assertTrue(actualMessage.contains(expectedMessage));
+
+                int width2 = 601;
+                Exception exception2 = assertThrows(BadRequestException.class, () ->
+                        testFileController.imageCrop(testTarget, testResult, testID, x, y, width2, height));
+
+                String expectedMessage2 = "The width value should be from 0 to (target image's width - x)";
+                String actualMessage2 = exception2.getMessage();
+
+                assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageCrop5() throws IOException {
+        // Arrange
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        String testID = "clientID";
+        int x = 0;
+        int y = 0;
+        int width = 100;
+        int height = -1;
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).thenReturn(mockResource);
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+                imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                        thenReturn(mockTargetImage);
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testTarget)).
+                        thenReturn(".png");
+
+                mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
+                        thenReturn(".png");
+
+                // Set the width and height of mockTargetImage
+                Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+                Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+                Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
+
+                String expectedMessage = "The height value should be from 0 to (target image's height - y)";
+                String actualMessage = exception.getMessage();
+
+                assertTrue(actualMessage.contains(expectedMessage));
+
+                int height2 = 601;
+                Exception exception2 = assertThrows(BadRequestException.class, () ->
+                        testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height2));
+
+                String expectedMessage2 = "The height value should be from 0 to (target image's height - y)";
+                String actualMessage2 = exception2.getMessage();
+
+                assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageCrop6() {
+        String testTarget = "target.png";
+        String testResult = "result.jpg";
+        String testID = "clientID";
+        int x = 0;
+        int y = 0;
+        int width = 100;
+        int height = 100;
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
