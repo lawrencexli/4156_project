@@ -152,9 +152,13 @@ public class ImageServiceImplTest {
         }
     }
 
+    /**
+     * Test image saturation.
+     */
     @Test
     public void testImageSaturation() {
-        BufferedImage test1, check1;
+        BufferedImage test1;
+        BufferedImage check1;
         try {
             File test1File = new File("src/test/resources/courtroom-entrance.png");
             File check1File = new File("src/test/resources/sat-courtroom-entrance.png");

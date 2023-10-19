@@ -3,8 +3,6 @@ package com.project.ipms.service;
 import com.project.ipms.util.ImageFileUtil;
 import org.springframework.stereotype.Service;
 
-// import com.google.type.Color;
-
 import java.awt.AlphaComposite;
 import java.awt.Graphics2D;
 import java.awt.Transparency;
@@ -86,17 +84,6 @@ public class ImageServiceImpl implements ImageService {
                 inputImage.setRGB(x, y, newRGB);
             }
         }
-        if (format.equals(".jpg") || format.equals(".jpeg")) {
-            BufferedImage newImage = new BufferedImage(
-                    inputImage.getWidth(),
-                    inputImage.getHeight(),
-                    BufferedImage.TYPE_INT_RGB);
-            Graphics g = newImage.createGraphics();
-            g.drawImage(inputImage, 0, 0, null);
-            g.dispose();
-            return newImage;
-        } else {
-            return inputImage;
-        }
+        return ImageFileUtil.getBufferedImageResult(format, inputImage);
     }
 }
