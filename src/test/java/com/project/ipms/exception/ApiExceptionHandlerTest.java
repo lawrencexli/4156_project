@@ -5,6 +5,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartException;
 
 import java.io.IOException;
@@ -17,7 +18,7 @@ class ApiExceptionHandlerTest {
     /**
      * Handler class.
      */
-    ApiExceptionHandler testHandler;
+    private ApiExceptionHandler testHandler;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +35,7 @@ class ApiExceptionHandlerTest {
         InvalidFileTypeException e = new InvalidFileTypeException("error");
         ApiResponse apiResponse = testHandler.handleInvalidFileTypeException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 415);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());
     }
 
     @Test
@@ -42,7 +43,7 @@ class ApiExceptionHandlerTest {
         BadRequestException e = new BadRequestException("error");
         ApiResponse apiResponse = testHandler.handleBadRequestException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 400);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
@@ -50,7 +51,7 @@ class ApiExceptionHandlerTest {
         MultipartException e = new MultipartException("error");
         ApiResponse apiResponse = testHandler.handleMultipartException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 400);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
 
     @Test
@@ -58,7 +59,7 @@ class ApiExceptionHandlerTest {
         FileNotFoundException e = new FileNotFoundException("error");
         ApiResponse apiResponse = testHandler.handleFileNotFoundException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 404);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.NOT_FOUND.value());
     }
 
     @Test
@@ -66,7 +67,7 @@ class ApiExceptionHandlerTest {
         IOException e = new IOException("error");
         ApiResponse apiResponse = testHandler.handleIOException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 500);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @Test
@@ -74,7 +75,7 @@ class ApiExceptionHandlerTest {
         InvalidCredentialsException e = new InvalidCredentialsException("error");
         ApiResponse apiResponse = testHandler.handleInvalidCredentialsException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 403);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.FORBIDDEN.value());
     }
 
     @Test
@@ -82,7 +83,7 @@ class ApiExceptionHandlerTest {
         CriticalServerException e = new CriticalServerException("error");
         ApiResponse apiResponse = testHandler.handleCriticalServerException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 500);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.INTERNAL_SERVER_ERROR.value());
     }
 
     @Test
@@ -90,6 +91,6 @@ class ApiExceptionHandlerTest {
         FileAlreadyExistsException e = new FileAlreadyExistsException("error");
         ApiResponse apiResponse = testHandler.handleFileAlreadyExistsException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
-        assertEquals(apiResponse.getStatusCode(), 409);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.CONFLICT.value());
     }
 }

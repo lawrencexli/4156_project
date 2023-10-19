@@ -22,21 +22,21 @@ import static org.mockito.Mockito.mock;
 class FileServiceImplTest {
 
     /**
-     * Fake Bucket Name
+     * Fake Bucket Name.
      */
-    String fakeBucketName;
+    private String fakeBucketName;
 
     /**
      * Fake Google Cloud Storage object.
      */
     @Mock
-    Storage fakeStorage;
+    private Storage fakeStorage;
 
     /**
      * FileService for unit test.
      */
     @InjectMocks
-    FileServiceImpl fileService;
+    private FileServiceImpl fileService;
 
     @BeforeEach
     void setUp() {

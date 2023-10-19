@@ -60,8 +60,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc."));
 
-        String expectedMessage = "Not a supported file type. " +
-                                 "Currently, we support the following image file types: jpg, jpeg, png.";
+        String expectedMessage = "Not a supported file type. "
+                + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -72,8 +72,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("abc.pdf"));
 
-        String expectedMessage = "Not a supported file type. " +
-                                 "Currently, we support the following image file types: jpg, jpeg, png.";
+        String expectedMessage = "Not a supported file type. "
+                + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -84,8 +84,8 @@ class ImageFileUtilTest {
         Exception exception = assertThrows(InvalidFileTypeException.class, () ->
                 checkFileValid("test-name.jpg.png.pdfpng"));
 
-        String expectedMessage = "Not a supported file type. " +
-                                 "Currently, we support the following image file types: jpg, jpeg, png.";
+        String expectedMessage = "Not a supported file type. "
+                + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -125,7 +125,9 @@ class ImageFileUtilTest {
 
     @Test
     void testImageCompare() {
-        BufferedImage img1, img2, img3;
+        BufferedImage img1;
+        BufferedImage img2;
+        BufferedImage img3;
         try {
             File f1 = ResourceUtils.getFile("src/test/resources/objection.png");
             File f2 = ResourceUtils.getFile("src/test/resources/objection_copy.png");

@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
 
@@ -35,25 +36,25 @@ class FileControllerTest {
      * Mock GCB file service interface.
      */
     @Mock
-    FileService fakeFileService;
+    private FileService fakeFileService;
 
     /**
      * Mock MongoDB service interface.
      */
     @Mock
-    MongoDBService fakeMongoDBService;
+    private MongoDBService fakeMongoDBService;
 
     /**
      * Mock Image file service interface.
      */
     @Mock
-    ImageService fakeImageFileService;
+    private ImageService fakeImageFileService;
 
     /**
      * File controller.
      */
     @InjectMocks
-    FileController testFileController;
+    private FileController testFileController;
 
     @BeforeEach
     void setUp() {
@@ -81,7 +82,7 @@ class FileControllerTest {
 
         ApiResponse apiResponse = testFileController.uploadFile(testMultipartFile, fakeID);
         assertEquals(apiResponse.getResponseMessage(), "File uploaded successfully");
-        assertEquals(apiResponse.getStatusCode(), 200);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.OK.value());
     }
 
     @Test
@@ -191,8 +192,8 @@ class FileControllerTest {
                 thenReturn(new ByteArrayResource("image-file-content".getBytes()));
 
         ResponseEntity<Resource> content = testFileController.downloadFile(testImageFile, testID);
-        String expected = "<200 OK OK,[Content-Type:\"application/octet-stream\", " +
-                "Content-Disposition:\"attachment; filename=\"maya-fey.jpg\"\"]>";
+        String expected = "<200 OK OK,[Content-Type:\"application/octet-stream\", "
+                + "Content-Disposition:\"attachment; filename=\"maya-fey.jpg\"\"]>";
         assertEquals(content.toString(), expected);
     }
 
@@ -285,7 +286,7 @@ class FileControllerTest {
 
         ApiResponse apiResponse = testFileController.generateClientID();
         assertEquals(apiResponse.getResponseMessage(), "miles-edgeworth");
-        assertEquals(apiResponse.getStatusCode(), 200);
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.OK.value());
     }
 
     @Test
@@ -318,7 +319,7 @@ class FileControllerTest {
 
             ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, alpha);
             assertEquals(response.getResponseMessage(), "Operation success");
-            assertEquals(response.getStatusCode(), 200);
+            assertEquals(response.getStatusCode(), HttpStatus.OK.value());
         }
     }
 
