@@ -91,7 +91,7 @@ public class ImageServiceImplTest {
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, test1));
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultJpg, test2));
         } catch (Exception e) {
-            throw new RuntimeException("Image transparency failed: " + e.getMessage());
+            throw new RuntimeException("Image transparency test failed: " + e.getMessage());
         }
     }
 }

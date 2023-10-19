@@ -12,6 +12,12 @@ import org.mockito.Mockito;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.util.ResourceUtils;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -38,12 +44,27 @@ class FileServiceImplTest {
     @InjectMocks
     private FileServiceImpl fileService;
 
+    /**
+     * Test image file.
+     */
+    private byte[] dummyImageByte;
+
     @BeforeEach
     void setUp() {
-        String testBucketName = "test-bucket-name";
-        fileService = new FileServiceImpl(fakeStorage);
-        ReflectionTestUtils.setField(fileService, "bucketName", testBucketName);
-        fakeBucketName = testBucketName;
+        try {
+            String testBucketName = "test-bucket-name";
+            fileService = new FileServiceImpl(fakeStorage);
+            ReflectionTestUtils.setField(fileService, "bucketName", testBucketName);
+            fakeBucketName = testBucketName;
+            BufferedImage dummyImageBuffer = ImageIO.read(
+                    ResourceUtils.getFile("src/test/resources/test1.jpg")
+            );
+            ByteArrayOutputStream dummyImageStream = new ByteArrayOutputStream();
+            ImageIO.write(dummyImageBuffer, "jpg", dummyImageStream);
+            dummyImageByte = dummyImageStream.toByteArray();
+        } catch (IOException e) {
+            throw new RuntimeException("File service test set up failed: " + e.getMessage());
+        }
     }
 
     @AfterEach
@@ -60,7 +81,7 @@ class FileServiceImplTest {
                 thenReturn(mockedBlob);
 
         Mockito.when(mockedBlob.getContent()).
-                thenReturn("image-content".getBytes());
+                thenReturn(dummyImageByte);
 
         assertDoesNotThrow(() -> fileService.downloadFile(testFileName));
     }
@@ -87,7 +108,7 @@ class FileServiceImplTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "image-content".getBytes()
+                dummyImageByte
         );
 
         assertDoesNotThrow(() ->

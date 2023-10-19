@@ -18,16 +18,18 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.util.ResourceUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
-
 
 @SpringBootTest
 class FileControllerTest {
@@ -56,12 +58,42 @@ class FileControllerTest {
     @InjectMocks
     private FileController testFileController;
 
+    /**
+     * Bad alpha value 1.
+     */
+    private static final float BAD_ALPHA_VALUE1 = -0.034F;
+
+    /**
+     * Bad alpha value 2.
+     */
+    private static final float BAD_ALPHA_VALUE2 = 1.12F;
+
+    /**
+     * Good alpha value.
+     */
+    private static final float GOOD_ALPHA_VALUE = 0.87F;
+
+    /**
+     * Test image file.
+     */
+    private byte[] dummyImageByte;
+
     @BeforeEach
     void setUp() {
-        testFileController = new FileController(
-                fakeFileService,
-                fakeMongoDBService,
-                fakeImageFileService);
+        try {
+            testFileController = new FileController(
+                    fakeFileService,
+                    fakeMongoDBService,
+                    fakeImageFileService);
+            BufferedImage dummyImageBuffer = ImageIO.read(
+                    ResourceUtils.getFile("src/test/resources/test1.jpg")
+            );
+            ByteArrayOutputStream dummyImageStream = new ByteArrayOutputStream();
+            ImageIO.write(dummyImageBuffer, "jpg", dummyImageStream);
+            dummyImageByte = dummyImageStream.toByteArray();
+        } catch (Exception e) {
+            throw new RuntimeException("Controller test set up failed: " + e.getMessage());
+        }
     }
 
     @AfterEach
@@ -75,7 +107,7 @@ class FileControllerTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "image-content-byte".getBytes()
+                dummyImageByte
         );
 
         String fakeID = "ace-attorney-7";
@@ -91,7 +123,7 @@ class FileControllerTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "image-content-byte".getBytes()
+                dummyImageByte
         );
 
         String fakeID = "     ";
@@ -111,7 +143,7 @@ class FileControllerTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "image-content-byte".getBytes()
+                dummyImageByte
         );
 
         String fakeID = "";
@@ -131,7 +163,7 @@ class FileControllerTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "image-content-byte".getBytes()
+                dummyImageByte
         );
 
         Exception exception = assertThrows(BadRequestException.class, () ->
@@ -149,7 +181,7 @@ class FileControllerTest {
                 "test",
                 "test.jpg",
                 "image/jpg",
-                "".getBytes()
+                new byte[0]
         );
 
         String fakeID = "ace-attorney-7";
@@ -189,7 +221,7 @@ class FileControllerTest {
         String testID = "ace-attorney-6";
 
         Mockito.when(fakeFileService.downloadFile(testImageFile)).
-                thenReturn(new ByteArrayResource("image-file-content".getBytes()));
+                thenReturn(new ByteArrayResource(dummyImageByte));
 
         ResponseEntity<Resource> content = testFileController.downloadFile(testImageFile, testID);
         String expected = "<200 OK OK,[Content-Type:\"application/octet-stream\", "
@@ -294,7 +326,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float alpha = 0.5F;
+        float alpha = GOOD_ALPHA_VALUE;
 
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
         BufferedImage mockTarget = mock(BufferedImage.class);
@@ -328,20 +360,17 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float alpha = 1.2F;
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, alpha));
+                testFileController.imageTransparent(testTarget, testResult, testID, BAD_ALPHA_VALUE1));
 
         String expectedMessage = "The alpha value should be in the range of 0 to 1";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
 
-        float alpha2 = -0.034F;
-
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, alpha2));
+                testFileController.imageTransparent(testTarget, testResult, testID, BAD_ALPHA_VALUE2));
 
         String expectedMessage2 = "The alpha value should be in the range of 0 to 1";
         String actualMessage2 = exception2.getMessage();
@@ -354,10 +383,9 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.jpg";
-        float alpha = 0.8F;
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, alpha));
+                testFileController.imageTransparent(testTarget, testResult, testID, GOOD_ALPHA_VALUE));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
