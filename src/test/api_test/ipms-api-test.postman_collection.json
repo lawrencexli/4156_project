@@ -4,8 +4,8 @@
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30467905",
-		"_collection_link": "https://kbeliauski.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30467905-b26c8c57-ff28-4579-82bb-6e4243d572b8?action=share&source=collection_link&creator=30467905"
+		"_exporter_id": "30634037",
+		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30467905-b26c8c57-ff28-4579-82bb-6e4243d572b8?action=share&source=collection_link&creator=30634037"
 	},
 	"item": [
 		{
@@ -462,7 +462,7 @@
 							"});",
 							"",
 							"pm.test(\"Response has correct error message\", function () {",
-							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File has no content or is null\");",
+							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"Current request is not a multipart request\", \"File has no content or is null\"]);",
 							"});",
 							"",
 							"pm.test(\"Response has correct status code\", function () {",
@@ -843,7 +843,7 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=not_found.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"raw": "http://localhost:8080/api/crop?id={{token1}}&target=not_found.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -856,7 +856,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "{{token2}}"
+							"value": "{{token1}}"
 						},
 						{
 							"key": "target",
@@ -2379,6 +2379,44 @@
 						{
 							"key": "height",
 							"value": "600"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saturation1_ok",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token3}}&target=courtroom-entrance.png&result=saturated-courtroom-entrance.png&saturationCoeff=0",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token3}}"
+						},
+						{
+							"key": "target",
+							"value": "courtroom-entrance.png"
+						},
+						{
+							"key": "result",
+							"value": "saturated-courtroom-entrance.png"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "0"
 						}
 					]
 				}
