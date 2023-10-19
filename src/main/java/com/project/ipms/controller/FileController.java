@@ -176,26 +176,7 @@ public class FileController {
                 targetFileExtension
         );
         // Upload the result image
-        mongoDBService.uploadFile(id, result);
-        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
-        // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
-        ImageIO.write(
-                resultImage,
-                resultFileExtension.substring(1),
-                byteImageOutput
-        );
-
-        fileService.uploadFile(
-                result,
-                URLConnection.getFileNameMap().getContentTypeFor(result),
-                byteImageOutput.toByteArray(),
-                id
-        );
-
-        ApiResponse response = new ApiResponse();
-        response.setResponseMessage("Operation success");
-        response.setStatusCode(HttpStatus.OK.value());
-        return response;
+        return uploadResult(result, id, resultImage, resultFileExtension);
     }
 
     /**
@@ -236,7 +217,6 @@ public class FileController {
         // Retrieve and process image file from storage
         ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
-
         // Check if the x, y, width, height are correct
         if (x < 0 || x > targetImage.getWidth()) {
             throw new BadRequestException("The x value should be in the range of 0 to the width of the target image");
@@ -256,6 +236,24 @@ public class FileController {
                 targetFileExtension
         );
         // Upload the result image
+        return uploadResult(result, id, resultImage, resultFileExtension);
+    }
+
+    /**
+     * Wrapper function for uploading processed image file.
+     * NOTE: This wrapper method will be tested from other methods from this class
+     * like imageCrop() and imageTransparent() as part of the image feature controller test.
+     * @param result The name of the result image file
+     * @param id Client ID credential
+     * @param resultImage BufferedImage object of processed image
+     * @param resultFileExtension The file extension of processed image file
+     * @return ApiResponse object for client end
+     * @throws IOException For errors in reading/writing image bytes to file
+     */
+    private ApiResponse uploadResult(final String result,
+                                     final String id,
+                                     final BufferedImage resultImage,
+                                     final String resultFileExtension) throws IOException {
         mongoDBService.uploadFile(id, result);
         ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
         // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
@@ -264,14 +262,12 @@ public class FileController {
                 resultFileExtension.substring(1),
                 byteImageOutput
         );
-
         fileService.uploadFile(
                 result,
                 URLConnection.getFileNameMap().getContentTypeFor(result),
                 byteImageOutput.toByteArray(),
                 id
         );
-
         ApiResponse response = new ApiResponse();
         response.setResponseMessage("Operation success");
         response.setStatusCode(HttpStatus.OK.value());

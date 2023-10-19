@@ -55,10 +55,10 @@ public class ImageServiceImplTest {
             test2 = ImageIO.read(f4);
 
             // Do image transparency
-            String format = f1.getName().substring(1);
+            String format = ".png";
             BufferedImage transImg1 = imageService.imageTransparency(img1, TEST_ALPHA_VALUE, format);
 
-            String format2 = f3.getName().substring(1);
+            String format2 = ".jpg";
             BufferedImage transImg2 = imageService.imageTransparency(img2, TEST_ALPHA_VALUE, format2);
 
             // Specify the file and path destination

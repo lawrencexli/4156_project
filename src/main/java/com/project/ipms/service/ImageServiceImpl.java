@@ -1,9 +1,9 @@
 package com.project.ipms.service;
 
+import com.project.ipms.util.ImageFileUtil;
 import org.springframework.stereotype.Service;
 
 import java.awt.AlphaComposite;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Transparency;
 import java.awt.image.BufferedImage;
@@ -30,19 +30,7 @@ public class ImageServiceImpl implements ImageService {
         g2d.setComposite(alphaComposite);
         g2d.drawImage(inputImage, 0, 0, null);
         g2d.dispose();
-
-        if (format.equals(".jpg") || format.equals(".jpeg")) {
-            BufferedImage newImage = new BufferedImage(
-                    transImg.getWidth(),
-                    transImg.getHeight(),
-                    BufferedImage.TYPE_INT_RGB);
-            Graphics g = newImage.createGraphics();
-            g.drawImage(transImg, 0, 0, null);
-            g.dispose();
-            return newImage;
-        } else {
-            return transImg;
-        }
+        return ImageFileUtil.getBufferedImageResult(format, transImg);
     }
 
     /**
@@ -59,24 +47,12 @@ public class ImageServiceImpl implements ImageService {
      */
     @Override
     public BufferedImage imageCropping(final BufferedImage inputImage,
-                                   final int x,
-                                   final int y,
-                                   final int width,
-                                   final int height,
-                                   final String format) {
+                                       final int x,
+                                       final int y,
+                                       final int width,
+                                       final int height,
+                                       final String format) {
         BufferedImage croppedImage = inputImage.getSubimage(x, y, width, height);
-
-        if (format.equals(".jpg") || format.equals(".jpeg")) {
-            BufferedImage newImage = new BufferedImage(
-                    croppedImage.getWidth(),
-                    croppedImage.getHeight(),
-                    BufferedImage.TYPE_INT_RGB);
-            Graphics g = newImage.createGraphics();
-            g.drawImage(croppedImage, 0, 0, null);
-            g.dispose();
-            return newImage;
-        } else {
-            return croppedImage;
-        }
+        return ImageFileUtil.getBufferedImageResult(format, croppedImage);
     }
 }
