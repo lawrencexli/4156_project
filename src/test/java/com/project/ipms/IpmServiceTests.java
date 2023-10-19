@@ -13,7 +13,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
 class IpmServiceTests {
-
     /**
      * File Controller.
      */

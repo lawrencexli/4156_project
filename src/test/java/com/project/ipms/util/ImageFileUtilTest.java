@@ -61,7 +61,7 @@ class ImageFileUtilTest {
                 checkFileValid("abc."));
 
         String expectedMessage = "Not a supported file type. "
-                + "Currently, we support the following image file types: jpg, jpeg, png.";
+                                 + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -73,7 +73,7 @@ class ImageFileUtilTest {
                 checkFileValid("abc.pdf"));
 
         String expectedMessage = "Not a supported file type. "
-                + "Currently, we support the following image file types: jpg, jpeg, png.";
+                                 + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
@@ -85,7 +85,7 @@ class ImageFileUtilTest {
                 checkFileValid("test-name.jpg.png.pdfpng"));
 
         String expectedMessage = "Not a supported file type. "
-                + "Currently, we support the following image file types: jpg, jpeg, png.";
+                                 + "Currently, we support the following image file types: jpg, jpeg, png.";
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
