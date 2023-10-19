@@ -58,9 +58,6 @@ java/build/**
 **/build/
 !src/**/build/
 
-# Checkstyle
-!checkstyle/checkstyle-10.12.4-all.jar
-
 # Ignore Gradle GUI config
 gradle-app.setting
 
