@@ -4,11 +4,48 @@
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30467905"
+		"_exporter_id": "30467905",
+		"_collection_link": "https://kbeliauski.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30467905-b26c8c57-ff28-4579-82bb-6e4243d572b8?action=share&source=collection_link&creator=30467905"
 	},
 	"item": [
 		{
 			"name": "Index page",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response body contains the expected message\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Welcome to IPMS!\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response body is not empty\", function () {",
+							"    pm.expect(pm.response.text()).to.not.be.empty;",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response time is less than 200ms\", function () {",
+							"    pm.expect(pm.response.responseTime).to.be.below(200);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response headers contain the expected content type\", function () {",
+							"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"text\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -28,6 +65,29 @@
 		},
 		{
 			"name": "upload_invalid_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"",
+							"pm.test(\"Response status code is 403\", function () {",
+							"  pm.expect(pm.response.code).to.equal(403);",
+							"});",
+							"",
+							"",
+							"pm.test(\"Response message is 'Invalid Client ID'\", function () {",
+							"    const responseData = pm.response.json();",
+							"    ",
+							"    pm.expect(responseData.responseMessage).to.equal(\"Invalid Client ID\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -64,6 +124,30 @@
 		},
 		{
 			"name": "upload_missing_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Verify that the responseMessage field is equal to 'Client ID is missing or null'\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.responseMessage).to.equal(\"Client ID is missing or null\");",
+							"});",
+							"",
+							"",
+							"pm.test(\"Verify statusCode is equal to 400\", function () {",
+							"  const responseData = pm.response.json();",
+							"  ",
+							"  pm.expect(responseData.statusCode).to.equal(400);",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -106,7 +190,17 @@
 					"script": {
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"token1\", jsonData.responseMessage)"
+							"postman.setEnvironmentVariable(\"token1\", jsonData.responseMessage)\r",
+							"\r",
+							"pm.test(\"Error code is correct\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.statusCode).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is equal to token1\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseMessage).to.equal(pm.environment.get(\"token1\"));\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -132,6 +226,27 @@
 		},
 		{
 			"name": "upload1_invalid_image_file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 415\", function () {",
+							"    pm.response.to.have.status(415);",
+							"});",
+							"",
+							"pm.test(\"Response has property responseMessage with value 'Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png.'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png.\");",
+							"});",
+							"",
+							"pm.test(\"Response has property statusCode with value 415\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(415);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -168,6 +283,25 @@
 		},
 		{
 			"name": "upload1_objection.png",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File uploaded successfully\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -204,6 +338,27 @@
 		},
 		{
 			"name": "upload1_conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Filename already exists'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal('Filename already exists');",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 409\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -240,6 +395,27 @@
 		},
 		{
 			"name": "upload1_ace-attorney-cover-art.jpg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File uploaded successfully\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -276,6 +452,27 @@
 		},
 		{
 			"name": "upload1_bad_no_file_selected",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has correct error message\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File has no content or is null\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct status code\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -312,6 +509,27 @@
 		},
 		{
 			"name": "upload1_bad_missing_file_argument",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Current request is not a multipart request\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -349,6 +567,27 @@
 		},
 		{
 			"name": "download_missing_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Client ID is missing or null\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -379,6 +618,27 @@
 		},
 		{
 			"name": "download_invalid_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Invalid Client ID\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -409,6 +669,27 @@
 		},
 		{
 			"name": "download1_file_not_found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File does not exist\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -439,6 +720,19 @@
 		},
 		{
 			"name": "download1_objection.png",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -469,6 +763,27 @@
 		},
 		{
 			"name": "transparent1_file_not_found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the correct status code\", function () {",
+							"    pm.expect(pm.response.code).to.equal(404);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Target file does not exist\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -507,6 +822,23 @@
 		},
 		{
 			"name": "crop_image1_file_not_found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the correct message\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.eql(\"Target file does not exist\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct status code\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.eql(404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -563,7 +895,17 @@
 					"script": {
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"token2\", jsonData.responseMessage)"
+							"postman.setEnvironmentVariable(\"token2\", jsonData.responseMessage)\r",
+							"\r",
+							"pm.test(\"Error code is correct\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.statusCode).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is equal to token2\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseMessage).to.equal(pm.environment.get(\"token2\"));\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -589,6 +931,25 @@
 		},
 		{
 			"name": "upload2_ace-attorney-trilogy-logo.jpg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File uploaded successfully\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -625,6 +986,25 @@
 		},
 		{
 			"name": "upload2_ace-attorney-trilogy-logo.png",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File uploaded successfully\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -661,6 +1041,34 @@
 		},
 		{
 			"name": "transparent2_OK",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Operation success\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -699,6 +1107,25 @@
 		},
 		{
 			"name": "crop_image2_OK.jpg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Operation success\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -749,6 +1176,25 @@
 		},
 		{
 			"name": "download_no_filename",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Filename is empty or null\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -779,6 +1225,25 @@
 		},
 		{
 			"name": "download_other_client_file",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File does not exist\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -809,6 +1274,19 @@
 		},
 		{
 			"name": "download2_OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -839,6 +1317,27 @@
 		},
 		{
 			"name": "transparent_invalid_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Invalid Client ID\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -877,6 +1376,27 @@
 		},
 		{
 			"name": "crop_image_invalid_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Invalid Client ID\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -933,7 +1453,17 @@
 					"script": {
 						"exec": [
 							"var jsonData = JSON.parse(responseBody);\r",
-							"postman.setEnvironmentVariable(\"token3\", jsonData.responseMessage)"
+							"postman.setEnvironmentVariable(\"token3\", jsonData.responseMessage)\r",
+							"\r",
+							"pm.test(\"Error code is correct\", function () {\r",
+							"  var jsonData = pm.response.json();\r",
+							"  pm.expect(jsonData.statusCode).to.equal(200);\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Response message is equal to {{token3}}\", function () {\r",
+							"    var jsonData = pm.response.json();\r",
+							"    pm.expect(jsonData.responseMessage).to.equal(pm.environment.get(\"token3\"));\r",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -959,6 +1489,23 @@
 		},
 		{
 			"name": "upload3_courtroom-entrance.png",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File uploaded successfully\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -995,6 +1542,23 @@
 		},
 		{
 			"name": "upload3_test1.jpg",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has the expected responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File uploaded successfully\");",
+							"});",
+							"",
+							"pm.test(\"Response has the expected statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -1031,6 +1595,23 @@
 		},
 		{
 			"name": "upload3_miles-edgeworth.png",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response has correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"File uploaded successfully\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -1067,6 +1648,27 @@
 		},
 		{
 			"name": "transparent3_no_filename",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target filename or result filename is empty or null'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Target filename or result filename is empty or null\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1105,11 +1707,34 @@
 		},
 		{
 			"name": "crop_image3_no_filename",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected response message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"Target filename or result filename is empty or null\");",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected status code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=&result=logo-cropped.jpg&x=0&y=0&width=600&height=559",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1122,7 +1747,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "{{token2}}"
+							"value": "{{token3}}"
 						},
 						{
 							"key": "target",
@@ -1155,6 +1780,29 @@
 		},
 		{
 			"name": "transparent3_conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Response has correct responseMessage\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"Result filename already exists\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct statusCode\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.statusCode).to.equal(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1193,11 +1841,32 @@
 		},
 		{
 			"name": "crop_image3_conflict",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 409\", function () {",
+							"    pm.response.to.have.status(409);",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Result filename already exists\");",
+							"});",
+							"",
+							"pm.test(\"Response contains the expected statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(409);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token2}}&target=courtroom-entrance.png&result=miles-edgeworth.png&x=0&y=0&width=600&height=559",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=miles-edgeworth.png&x=0&y=0&width=600&height=559",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1210,7 +1879,7 @@
 					"query": [
 						{
 							"key": "id",
-							"value": "{{token2}}"
+							"value": "{{token3}}"
 						},
 						{
 							"key": "target",
@@ -1243,6 +1912,27 @@
 		},
 		{
 			"name": "transparent3_invalid_alpha",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The alpha value should be in the range of 0 to 1\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1281,6 +1971,27 @@
 		},
 		{
 			"name": "crop_image3_invalid_x",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The x value should be in the range of 0 to the width of the target image\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1331,11 +2042,34 @@
 		},
 		{
 			"name": "crop_image3_invalid_y",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has correct error message\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"The y value should be in the range of 0 to the height of the target image\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct status code\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=2000&width=600&height=559",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=courtroom-result.png&x=0&y=2000&width=600&height=559",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1352,11 +2086,11 @@
 						},
 						{
 							"key": "target",
-							"value": "ace-attorney-trilogy-logo.jpg"
+							"value": "courtroom-entrance.png"
 						},
 						{
 							"key": "result",
-							"value": "logo-cropped.jpg"
+							"value": "courtroom-result.png"
 						},
 						{
 							"key": "x",
@@ -1381,11 +2115,34 @@
 		},
 		{
 			"name": "crop_image3_invalid_width",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct structure\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.be.an('object').that.has.all.keys('responseMessage', 'statusCode');",
+							"});",
+							"",
+							"pm.test(\"responseMessage is 'The width value should be from 0 to (target image's width - x)'\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"The width value should be from 0 to (target image's width - x)\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=3000&height=559",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=courtroom-result.png&x=0&y=0&width=3000&height=559",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1402,11 +2159,11 @@
 						},
 						{
 							"key": "target",
-							"value": "ace-attorney-trilogy-logo.jpg"
+							"value": "courtroom-entrance.png"
 						},
 						{
 							"key": "result",
-							"value": "logo-cropped.jpg"
+							"value": "courtroom-result.png"
 						},
 						{
 							"key": "x",
@@ -1431,11 +2188,32 @@
 		},
 		{
 			"name": "crop_image3_invalid_height",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The height value should be from 0 to (target image's height - y)\");",
+							"});",
+							"",
+							"pm.test(\"Response has correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.jpg&x=0&y=0&width=600&height=-1",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=courtroom-result.png&x=0&y=0&width=600&height=-1",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1452,11 +2230,11 @@
 						},
 						{
 							"key": "target",
-							"value": "ace-attorney-trilogy-logo.jpg"
+							"value": "courtroom-entrance.png"
 						},
 						{
 							"key": "result",
-							"value": "logo-cropped.jpg"
+							"value": "courtroom-result.png"
 						},
 						{
 							"key": "x",
@@ -1481,6 +2259,25 @@
 		},
 		{
 			"name": "transparent3_inconsistent_file_type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage and statusCode\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"Target file extension is different from result file extension\");",
+							"    pm.expect(jsonData.statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -1519,11 +2316,32 @@
 		},
 		{
 			"name": "crop_image3_inconsistent_file_type",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has responseMessage property with value 'Target file extension is different from result file extension'\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Target file extension is different from result file extension\");",
+							"});",
+							"",
+							"pm.test(\"Response has statusCode property with value 400\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=ace-attorney-trilogy-logo.jpg&result=logo-cropped.png&x=0&y=0&width=600&height=600",
+					"raw": "http://localhost:8080/api/crop?id={{token3}}&target=courtroom-entrance.png&result=courtroom-result.jpg&x=0&y=0&width=600&height=600",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1540,11 +2358,11 @@
 						},
 						{
 							"key": "target",
-							"value": "ace-attorney-trilogy-logo.jpg"
+							"value": "courtroom-entrance.png"
 						},
 						{
 							"key": "result",
-							"value": "logo-cropped.png"
+							"value": "courtroom-result.jpg"
 						},
 						{
 							"key": "x",
