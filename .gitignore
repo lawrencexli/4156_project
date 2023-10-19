@@ -52,7 +52,6 @@ bin/
 build/
 /bin1/
 java/build/**
-!build/reports/
 
 # Gradle
 .gradle
