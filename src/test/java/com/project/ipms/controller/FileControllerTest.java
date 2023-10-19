@@ -58,21 +58,6 @@ class FileControllerTest {
     private FileController testFileController;
 
     /**
-     * Bad alpha value 1.
-     */
-    private static final float BAD_ALPHA_VALUE1 = -0.034F;
-
-    /**
-     * Bad alpha value 2.
-     */
-    private static final float BAD_ALPHA_VALUE2 = 1.12F;
-
-    /**
-     * Good alpha value.
-     */
-    private static final float GOOD_ALPHA_VALUE = 0.87F;
-
-    /**
      * Test image file.
      */
     private byte[] dummyImageByte;
@@ -326,7 +311,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float alpha = GOOD_ALPHA_VALUE;
+        float alpha = 0.7F;
 
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
         BufferedImage mockTarget = mock(BufferedImage.class);
@@ -362,7 +347,7 @@ class FileControllerTest {
         String testResult = "result.png";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, BAD_ALPHA_VALUE1));
+                testFileController.imageTransparent(testTarget, testResult, testID, -0.34F));
 
         String expectedMessage = "The alpha value should be in the range of 0 to 1";
         String actualMessage = exception.getMessage();
@@ -370,7 +355,7 @@ class FileControllerTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, BAD_ALPHA_VALUE2));
+                testFileController.imageTransparent(testTarget, testResult, testID, 100F));
 
         String expectedMessage2 = "The alpha value should be in the range of 0 to 1";
         String actualMessage2 = exception2.getMessage();
@@ -385,7 +370,7 @@ class FileControllerTest {
         String testResult = "result.jpg";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, GOOD_ALPHA_VALUE));
+                testFileController.imageTransparent(testTarget, testResult, testID, 0.8F));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();

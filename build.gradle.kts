@@ -2,6 +2,7 @@ plugins {
 	java
 	id("org.springframework.boot") version "3.1.4"
 	id("io.spring.dependency-management") version "1.1.3"
+	id("checkstyle")
 }
 
 group = "com.project"
@@ -27,6 +28,12 @@ dependencies {
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+}
+
+checkstyle {
+	toolVersion = "8.37"
+	configFile = file("config/checkstyle/sun_checks.xml")
+	isIgnoreFailures = false
 }
 
 dependencyManagement {
