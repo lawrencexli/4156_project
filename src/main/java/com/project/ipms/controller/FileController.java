@@ -273,4 +273,69 @@ public class FileController {
         response.setStatusCode(HttpStatus.OK.value());
         return response;
     }
+
+    /**
+    * Change image saturation.
+    * @param target Target filename in client's repository
+    * @param result Result filename after processing
+    * @param id Client ID credential
+    * @param saturationCoeff Alpha value for transparency
+    * @return json response for operation success
+    * @throws IOException For exceptions in reading and writing image bytes
+    */
+    @PutMapping("saturation")
+    public ApiResponse imageSaturate(@RequestParam final String target,
+                                        @RequestParam final String result,
+                                        @RequestParam final String id,
+                                        @RequestParam final float saturationCoeff) throws IOException {
+        // Check if all inputs are valid
+        if (target == null || target.isBlank()
+                || result == null || result.isBlank()) {
+            throw new BadRequestException("Target filename or result filename is empty or null");
+        }
+        if (id == null || id.isBlank()) {
+            throw new BadRequestException("Client ID is missing or null");
+        }
+        if (saturationCoeff < 0 || saturationCoeff > 255) {
+            throw new BadRequestException("The saturation coefficient should be in the range of 0 to 255");
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+        mongoDBService.mongoDBOperationCheck(id, target, result);
+        String targetFileExtension = ImageFileUtil.checkFileValid(target);
+        String resultFileExtension = ImageFileUtil.checkFileValid(result);
+        if (!targetFileExtension.equals(resultFileExtension)) {
+            throw new BadRequestException("Target file extension is different from result file extension");
+        }
+        // Retrieve and process image file from storage
+        ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
+        BufferedImage targetImage = ImageIO.read(resource.getInputStream());
+        BufferedImage resultImage = imageService.imageSaturation(
+                targetImage,
+                saturationCoeff,
+                targetFileExtension
+        );
+        // Upload the result image
+        mongoDBService.uploadFile(id, result);
+        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();
+        // resultFileExtension looks like ".jpg", ".png". Therefore, need to remove the dot "."
+        ImageIO.write(
+                resultImage,
+                resultFileExtension.substring(1),
+                byteImageOutput
+        );
+
+        fileService.uploadFile(
+                result,
+                URLConnection.getFileNameMap().getContentTypeFor(result),
+                byteImageOutput.toByteArray(),
+                id
+        );
+
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage("Operation success");
+        response.setStatusCode(HttpStatus.OK.value());
+        return response;
+    }
 }

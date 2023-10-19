@@ -659,4 +659,63 @@ class FileControllerTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void testImageSaturated1() throws IOException {
+        String testID = "apollo-justice";
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        float saturationCoeff = 0;
+
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTarget = mock(BufferedImage.class);
+        BufferedImage mockResult = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).
+                thenReturn(mockResource);
+
+        Mockito.when(fakeImageFileService.imageTransparency(mockTarget, saturationCoeff, ".png")).
+                thenReturn(mockResult);
+
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+            imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                    thenReturn(mockTarget);
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(testTarget)).
+                    thenReturn(".png");
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
+                    thenReturn(".png");
+
+            ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, saturationCoeff);
+            assertEquals(response.getResponseMessage(), "Operation success");
+            assertEquals(response.getStatusCode(), 200);
+        }
+    }
+
+    @Test
+    void testImageSaturation2() {
+        String testID = "apollo-justice";
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        float saturationCoeff = 256;
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff));
+
+        String expectedMessage = "The saturation coefficient should be in the range of 0 to 255";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        float saturationCoeff2 = -0.034F;
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff2));
+
+        String actualMessage2 = exception2.getMessage();
+
+        assertTrue(actualMessage2.contains(expectedMessage));
+    }
 }

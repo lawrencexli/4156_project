@@ -203,6 +203,37 @@ also set up the environment as `ipms-api-test-environment`.
 
 ------------------------------------------------------------------------------------------
 
+### Change the saturation of an image
+
+<details>
+ <summary><code>PUT</code> <code><b>/api/saturation?id={clientID}&target={targetFileName}&result={resultFileName}&saturationCoeff={satCoeffValue}</b></code></summary>
+
+#### Parameters
+
+> | name             | type     | data type | description                                            |
+> |------------------|----------|-----------|--------------------------------------------------------|
+> | `clientID`       | required | string    | Your client ID credential                              |
+> | `targetFileName` | required | string    | Image filename targeted for processing                 |
+> | `resultFileName` | required | string    | Desired filename for the image result after processing |
+> | `satCoValue`     | required | float     | Desired value to multiply saturation by (0-255)        |
+
+#### Responses
+
+> | http code | content-type       | response                                                                                                                    |
+> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+> | 200       | `application/json` | `{"responseMessage": "Operation success", "statusCode": 200}`                                                               |
+> | 400       | `application/json` | `{"responseMessage": "Target filename or result filename is empty or null", "statusCode": 400}`                             |
+> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
+> | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
+> | 400       | `application/json` | `{"responseMessage": "The saturation coefficient should be in the range of 0 to 255", "statusCode": 400}`                                |
+> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
+> | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
+> | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
+> | 500       | `application/json` | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
+> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
+
+</details>
+
 
 
 

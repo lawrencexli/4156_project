@@ -13,6 +13,15 @@ public interface ImageService {
     BufferedImage imageTransparency(BufferedImage inputImage, float alpha, String format);
 
     /**
+     * Change the saturation.
+     * @param inputImage Image input
+     * @param saturationCoeff Coefficient to multiply saturation by
+     * @param format Image file format
+     * @return Processed image in BufferedImage format
+     */
+    BufferedImage imageSaturation(BufferedImage inputImage, float saturationCoeff, String format);
+
+    /**
      * Crop the image.
      * @param inputImage Image input
      * @param x The X coordinate of the upper-left corner of the specified rectangular region
