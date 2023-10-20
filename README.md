@@ -55,7 +55,7 @@ Then, you will need to run the command that can prompt our Gradle
 to automatically download and install all required dependencies 
 for running our service. 
 
-Go to our respository, and run the following command:
+Go to our repository, and run the following command:
 
 For macOS/Linux:
 `./gradlew bootRun`
@@ -280,7 +280,7 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 > | `clientID`       | required | string    | Your client ID credential                              |
 > | `targetFileName` | required | string    | Image filename targeted for processing                 |
 > | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `satCoValue`     | required | float     | Desired value to multiply saturation by (0-255)        |
+> | `satCoeffValue`  | required | float     | Desired value to multiply saturation by (0-255)        |
 
 #### Responses
 

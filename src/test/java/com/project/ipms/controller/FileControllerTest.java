@@ -647,7 +647,7 @@ class FileControllerTest {
     }
 
     @Test
-    void testImageSaturated1() throws IOException {
+    void testImageSaturation1() throws IOException {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
