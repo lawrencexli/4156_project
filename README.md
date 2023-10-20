@@ -22,6 +22,27 @@ offers a multi-faceted solution in computer vision with several features:
 image IDs with our service. By that, we will host and maintain persistent data 
 storage in the form of images and their corresponding metadata. 
 
+- **Transparency**: Our transparency feature allows clients to change the opacity 
+of images from our image database. This is especially useful with our image overlay 
+feature for watermarking while developing free-trial online photo editing apps. 
+By using our service, clients can seamlessly generate watermarked images on-the-fly 
+with specific transparency levels.
+
+- **Cropping**: Our clients can use the cropping feature to trim or cut down images 
+to their desired dimensions by specifying desired edge coordinates. This is useful 
+for developers who may want to automatically crop user-uploaded images to fit a 
+specific format or dimension for their app.
+
+- **Change saturation**: With the saturation adjustment feature, our clients have the 
+ability to adjust the intensity of colors in an image by specifying a desired value. 
+Developers might use this feature to provide custom filters or effects that users can 
+apply to images within an app or online service.
+
+- **Image overlay (Not implemented yet)**: Our clients can use this feature of our 
+service to overlay one image on top of another image from our image database, which 
+can be particularly beneficial for watermarking, branding, or any other use cases 
+where overlaying images are necessary.
+
 ## Build instructions
 
 Here are the main required dependencies:
@@ -47,6 +68,9 @@ Windows:
 1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java)
 2. Run `IpmService` class.
 
+Alternatively, you can also run the `./gradlew bootRun` or `.\gradlew.bat bootRun` 
+command to start the service.
+
 ## Unit Test instructions
 
 1. Go to [Test directory](src/test/java/com/project/ipms)
@@ -64,7 +88,9 @@ detect API test files and import them accordingly. You should see an `ipms-api-t
 `ipms-api-test-environment` environment file. Import all of them. 
 3. You should see `ipms-api-test` under **Collections**. On the top right hand corner of your screen, you should
 also set up the environment as `ipms-api-test-environment`.
-4. Now you can run the test by either running them one by one or run the whole collection.
+4. Start the service by following the **Run instructions** section above. You should have `http://localhost:8080`
+set up. Go to the index page in your browser and check if `Welcome to IPMS!` message is displayed.
+5. Now you can run the test by either running them one by one or run the whole collection.
 
 ------------------------------------------------------------------------------------------
 ## IPMS API Documentation
@@ -203,39 +229,6 @@ also set up the environment as `ipms-api-test-environment`.
 
 ------------------------------------------------------------------------------------------
 
-### Change the saturation of an image
-
-<details>
- <summary><code>PUT</code> <code><b>/api/saturation?id={clientID}&target={targetFileName}&result={resultFileName}&saturationCoeff={satCoeffValue}</b></code></summary>
-
-#### Parameters
-
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `satCoValue`     | required | float     | Desired value to multiply saturation by (0-255)        |
-
-#### Responses
-
-> | http code | content-type       | response                                                                                                                    |
-> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
-> | 200       | `application/json` | `{"responseMessage": "Operation success", "statusCode": 200}`                                                               |
-> | 400       | `application/json` | `{"responseMessage": "Target filename or result filename is empty or null", "statusCode": 400}`                             |
-> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
-> | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
-> | 400       | `application/json` | `{"responseMessage": "The saturation coefficient should be in the range of 0 to 255", "statusCode": 400}`                   |
-> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
-> | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
-> | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
-> | 500       | `application/json` | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
-> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
-
-</details>
-
-------------------------------------------------------------------------------------------
-
 ### Crop the image
 
 <details>
@@ -272,6 +265,43 @@ also set up the environment as `ipms-api-test-environment`.
 > | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
 
 </details>
+
+------------------------------------------------------------------------------------------
+
+### Change the saturation of an image
+
+<details>
+ <summary><code>PUT</code> <code><b>/api/saturation?id={clientID}&target={targetFileName}&result={resultFileName}&saturationCoeff={satCoeffValue}</b></code></summary>
+
+#### Parameters
+
+> | name             | type     | data type | description                                            |
+> |------------------|----------|-----------|--------------------------------------------------------|
+> | `clientID`       | required | string    | Your client ID credential                              |
+> | `targetFileName` | required | string    | Image filename targeted for processing                 |
+> | `resultFileName` | required | string    | Desired filename for the image result after processing |
+> | `satCoValue`     | required | float     | Desired value to multiply saturation by (0-255)        |
+
+#### Responses
+
+> | http code | content-type       | response                                                                                                                    |
+> |-----------|--------------------|-----------------------------------------------------------------------------------------------------------------------------|
+> | 200       | `application/json` | `{"responseMessage": "Operation success", "statusCode": 200}`                                                               |
+> | 400       | `application/json` | `{"responseMessage": "Target filename or result filename is empty or null", "statusCode": 400}`                             |
+> | 400       | `application/json` | `{"responseMessage": "Client ID is missing or null", "statusCode": 400}`                                                    |
+> | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
+> | 400       | `application/json` | `{"responseMessage": "The saturation coefficient should be in the range of 0 to 255", "statusCode": 400}`                   |
+> | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
+> | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
+> | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
+> | 500       | `application/json` | `{"responseMessage": "CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records", "statusCode": 500}` |
+> | 500       | `application/json` | `{"responseMessage": {Generic error messages from IOException}, "statusCode": 500}`                                         |
+
+</details>
+
+------------------------------------------------------------------------------------------
+
+
 
 
 

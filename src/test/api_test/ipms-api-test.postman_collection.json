@@ -1,11 +1,10 @@
 {
 	"info": {
-		"_postman_id": "25d1b569-a2db-4f7d-9b2f-f70d77e21b2f",
+		"_postman_id": "13f3a0bf-aae6-4924-9d0f-410d3a8a452f",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30467905",
-		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30634037-25d1b569-a2db-4f7d-9b2f-f70d77e21b2f?action=share&source=collection_link&creator=30467905"
+		"_exporter_id": "30634037"
 	},
 	"item": [
 		{
@@ -888,6 +887,63 @@
 			"response": []
 		},
 		{
+			"name": "saturation1_file_not_found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {",
+							"    pm.response.to.have.status(404);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Target file does not exist\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 404);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id={{token1}}&target=not_found.jpg&result=not_found_result.jpg&saturationCoeff=200",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token1}}"
+						},
+						{
+							"key": "target",
+							"value": "not_found.jpg"
+						},
+						{
+							"key": "result",
+							"value": "not_found_result.jpg"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "200"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "generate2",
 			"event": [
 				{
@@ -1373,6 +1429,92 @@
 			"response": []
 		},
 		{
+			"name": "download2_OK2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token2}}&fileName=logo-cropped.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "fileName",
+							"value": "logo-cropped.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download2_OK3",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/download?id={{token2}}&fileName=logo-saturation-200.jpg",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "{{token2}}"
+						},
+						{
+							"key": "fileName",
+							"value": "logo-saturation-200.jpg"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent_invalid_client_id",
 			"event": [
 				{
@@ -1496,6 +1638,65 @@
 						{
 							"key": "height",
 							"value": "559"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saturation_invalid_client_id",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 403\", function () {",
+							"    pm.response.to.have.status(403);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Invalid Client ID\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(403);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/saturation?id=invalid-id&target=ace-attorney-trilogy-logo.jpg&result=ace-attorney-trilogy-logo-result.jpg&saturationCoeff=100",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "invalid-id"
+						},
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg"
+						},
+						{
+							"key": "result",
+							"value": "ace-attorney-trilogy-logo-result.jpg"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "100"
 						}
 					]
 				}
