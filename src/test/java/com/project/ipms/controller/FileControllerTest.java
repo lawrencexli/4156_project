@@ -23,7 +23,10 @@ import org.springframework.util.ResourceUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -198,6 +201,30 @@ class FileControllerTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testUploadFile7() throws IOException {
+        try (InputStream testInputStream = new FileInputStream("src/test/resources/fraud_pdf.png")) {
+            MockMultipartFile testMultipartFile = new MockMultipartFile(
+                    "test",
+                    "test.jpg",
+                    "image/jpg",
+                    testInputStream
+                    );
+
+            String fakeID = "ace-attorney-7";
+
+            Exception exception = assertThrows(BadRequestException.class, () ->
+                    testFileController.uploadFile(testMultipartFile, fakeID));
+
+            String expectedMessage = "Image file validation failed";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("[testUploadFile7] Test failed. Cannot read dummy image file data.");
+        }
     }
 
     @Test

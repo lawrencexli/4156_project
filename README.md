@@ -154,6 +154,7 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 > | http code | content-type       | response                                                                                                                                     |
 > |-----------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 > | 200       | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                                                                       |
+> | 400       | `application/json` | `{"responseMessage": "Image file validation failed: The file could be corrupted or is not an image file", "statusCode": 400}`                |
 > | 400       | `application/json` | `{"responseMessage": "File has no content or is null", "statusCode": 400}`                                                                   |
 > | 400       | `application/json` | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                                                                        |
 > | 400       | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`                                                       |

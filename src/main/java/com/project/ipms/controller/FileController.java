@@ -81,6 +81,11 @@ public class FileController {
         if (id == null || id.isBlank()) {
             throw new BadRequestException("Client ID is missing or null");
         }
+        if (ImageIO.read(file.getInputStream()) == null) {
+            String imageValidationErrorMsg = "Image file validation failed: "
+                    + "The file could be corrupted or is not an image file";
+            throw new BadRequestException(imageValidationErrorMsg);
+        }
         mongoDBService.uploadFile(id, file.getOriginalFilename());
         fileService.uploadFile(
                 file.getOriginalFilename(),

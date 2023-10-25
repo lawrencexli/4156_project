@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.IOException;
 
@@ -92,5 +93,13 @@ class ApiExceptionHandlerTest {
         ApiResponse apiResponse = testHandler.handleFileAlreadyExistsException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
         assertEquals(apiResponse.getStatusCode(), HttpStatus.CONFLICT.value());
+    }
+
+    @Test
+    void handleMissingServletRequestPartException() {
+        MissingServletRequestPartException e = new MissingServletRequestPartException("test_parameter");
+        ApiResponse apiResponse = testHandler.handleMissingServletRequestPartException(e);
+        assertEquals(apiResponse.getResponseMessage(), "Required part 'test_parameter' is not present.");
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
 }

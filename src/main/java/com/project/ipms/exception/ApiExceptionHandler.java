@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.IOException;
 
@@ -130,6 +131,21 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.CONFLICT.value());
+        return response;
+    }
+
+    /**
+     * Handle MissingServletRequestPartException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleMissingServletRequestPartException(final MissingServletRequestPartException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
         return response;
     }
 }
