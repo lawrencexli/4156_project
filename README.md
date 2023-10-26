@@ -99,7 +99,9 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 [http://localhost:8080](http://localhost:8080)
 
-#### **IMPORTANT:** Use `multipart/form-data` for all body arguments.
+#### **IMPORTANT:** 
+- **Use `multipart/form-data` for all body arguments.**
+- **For all non-file arguments, use `application/json` as Content-Type**
 
 ------------------------------------------------------------------------------------------
 
