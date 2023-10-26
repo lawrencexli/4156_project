@@ -99,6 +99,8 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 [http://localhost:8080](http://localhost:8080)
 
+#### **IMPORTANT:** Use `multipart/form-data` for all body arguments.
+
 ------------------------------------------------------------------------------------------
 
 ### Index Page
@@ -140,9 +142,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 - `jpeg`
 
 <details>
- <summary><code>POST</code> <code><b>/api/upload?id={clientID}</b></code></summary>
+ <summary><code>POST</code> <code><b>/api/upload</b></code></summary>
 
 #### Parameters
+##### Body
 
 > | name       | type     | data type           | description                                        |
 > |------------|----------|---------------------|----------------------------------------------------|
@@ -173,9 +176,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Download an image file
 
 <details>
- <summary><code>GET</code> <code><b>/api/download?id={clientID}&fileName={fileID}</b></code></summary>
+ <summary><code>GET</code> <code><b>/api/download</b></code></summary>
 
 #### Parameters
+##### Body
 
 > | name       | type     | data type | description                           |
 > |------------|----------|-----------|---------------------------------------|
@@ -200,9 +204,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Make an image transparent
 
 <details>
- <summary><code>PUT</code> <code><b>/api/transparent?id={clientID}&target={targetFileName}&result={resultFileName}&alpha={alphaValue}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/transparent</b></code></summary>
 
 #### Parameters
+##### Body
 
 > | name             | type     | data type | description                                            |
 > |------------------|----------|-----------|--------------------------------------------------------|
@@ -233,9 +238,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Crop the image
 
 <details>
- <summary><code>PUT</code> <code><b>/api/crop?id={clientID}&target={targetFileName}&result={resultFileName}&x={x}&y={y}&width={width}&height={height}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/crop</b></code></summary>
 
 #### Parameters
+##### Body
 
 > | name             | type     | data type | description                                            |
 > |------------------|----------|-----------|--------------------------------------------------------|
@@ -272,9 +278,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Change the saturation of an image
 
 <details>
- <summary><code>PUT</code> <code><b>/api/saturation?id={clientID}&target={targetFileName}&result={resultFileName}&saturationCoeff={satCoeffValue}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/saturation</b></code></summary>
 
 #### Parameters
+##### Body
 
 > | name             | type     | data type | description                                            |
 > |------------------|----------|-----------|--------------------------------------------------------|

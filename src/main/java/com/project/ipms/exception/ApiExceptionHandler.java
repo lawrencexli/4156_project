@@ -2,6 +2,7 @@ package com.project.ipms.exception;
 
 import com.project.ipms.controller.ApiResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -161,6 +162,21 @@ public final class ApiExceptionHandler {
     public ApiResponse handleMissingServletRequestParameterException(final MissingServletRequestParameterException e) {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return response;
+    }
+
+    /**
+     * Handle HttpMessageNotReadableException.
+     * @return exception json output
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleHttpMessageNotReadableException() {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage("Required request body is missing or incorrect. "
+                + "Please check the API documentation for correct body arguments.");
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
         return response;
     }

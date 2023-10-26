@@ -13,6 +13,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ApiExceptionHandlerTest {
@@ -113,6 +114,13 @@ class ApiExceptionHandlerTest {
         ApiResponse apiResponse = testHandler.handleMissingServletRequestParameterException(e);
         assertEquals(apiResponse.getResponseMessage(), "Required request parameter 'test_parameter' for method "
                 + "parameter type String is not present");
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void handleHttpMessageNotReadableException() {
+        ApiResponse apiResponse = testHandler.handleHttpMessageNotReadableException();
+        assertTrue(apiResponse.getResponseMessage().contains("Required request body is missing or incorrect"));
         assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
 }
