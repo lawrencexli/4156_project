@@ -101,7 +101,7 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 #### **IMPORTANT:** 
 - **Use `multipart/form-data` for all body arguments.**
-- **For all non-file arguments, use `application/json` as Content-Type**
+- **For all non-file arguments, use `application/json` as `Content-Type`.**
 
 ------------------------------------------------------------------------------------------
 
