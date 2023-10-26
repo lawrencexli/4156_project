@@ -147,10 +147,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 #### Parameters
 ##### Body
 
-> | name       | type     | data type           | description                                        |
-> |------------|----------|---------------------|----------------------------------------------------|
-> | `clientID` | required | string              | Your client ID credential                          |
-> | file       | required | multipart/form-data | Uploaded image file contents via multipart request |
+> | name | type     | data type           | description                                        |
+> |------|----------|---------------------|----------------------------------------------------|
+> | id   | required | string              | Your client ID credential                          |
+> | file | required | multipart/form-data | Uploaded image file contents via multipart request |
 
 #### Responses
 
@@ -181,10 +181,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 #### Parameters
 ##### Body
 
-> | name       | type     | data type | description                           |
-> |------------|----------|-----------|---------------------------------------|
-> | `clientID` | required | string    | Your client ID credential             |
-> | `fileID`   | required | string    | The specified image file for download |
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
+> | fileName | required | string    | The specified image file for download |
 
 #### Responses
 
@@ -209,12 +209,12 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 #### Parameters
 ##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `alphaValue`     | required | float     | Desired alpha value for transparency                   |
+> | name   | type     | data type | description                                            |
+> |--------|----------|-----------|--------------------------------------------------------|
+> | id     | required | string    | Your client ID credential                              |
+> | target | required | string    | Image filename targeted for processing                 |
+> | result | required | string    | Desired filename for the image result after processing |
+> | alpha  | required | float     | Desired alpha value for transparency                   |
 
 #### Responses
 
@@ -243,15 +243,15 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 #### Parameters
 ##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `x`              | required | int       | Upper left corner x value                              |
-> | `y`              | required | int       | Upper left corner y value                              |
-> | `width`          | required | int       | Width of the cropped region                            |
-> | `height`         | required | int       | Height of the cropped region                           |
+> | name   | type     | data type | description                                            |
+> |--------|----------|-----------|--------------------------------------------------------|
+> | id     | required | string    | Your client ID credential                              |
+> | target | required | string    | Image filename targeted for processing                 |
+> | result | required | string    | Desired filename for the image result after processing |
+> | x      | required | int       | Upper left corner x value                              |
+> | y      | required | int       | Upper left corner y value                              |
+> | width  | required | int       | Width of the cropped region                            |
+> | height | required | int       | Height of the cropped region                           |
 
 #### Responses
 
@@ -283,12 +283,12 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 #### Parameters
 ##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `satCoeffValue`  | required | float     | Desired value to multiply saturation by (0-255)        |
+> | name            | type     | data type | description                                            |
+> |-----------------|----------|-----------|--------------------------------------------------------|
+> | id              | required | string    | Your client ID credential                              |
+> | target          | required | string    | Image filename targeted for processing                 |
+> | result          | required | string    | Desired filename for the image result after processing |
+> | saturationCoeff | required | float     | Desired value to multiply saturation by (0-255)        |
 
 #### Responses
 
