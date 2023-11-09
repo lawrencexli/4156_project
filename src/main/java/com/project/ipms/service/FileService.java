@@ -6,6 +6,8 @@ package com.project.ipms.service;
 
 import org.springframework.core.io.ByteArrayResource;
 
+import java.util.List;
+
 public interface FileService {
     /**
      * Download file from Google Cloud Storage.
@@ -33,4 +35,11 @@ public interface FileService {
      * or False if the file or directory was not found.
      */
     boolean deleteFile(String name);
+
+    /**
+     * Return a list of files in a client's directory.
+     * @param id Client ID for the directory.
+     * @return A list of filenames.
+     */
+    List<String> listOfFiles(String id);
 }

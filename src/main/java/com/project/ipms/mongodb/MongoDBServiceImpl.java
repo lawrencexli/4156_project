@@ -79,6 +79,16 @@ public class MongoDBServiceImpl implements MongoDBService {
     }
 
     /**
+     * Delete a client from the database.
+     * Only for integration testing.
+     * @param id client ID to be deleted.
+     */
+    @Override
+    public void deleteClientEntry(final String id) {
+        ipmsMongoRepo.deleteClientEntryById(id);
+    }
+
+    /**
      * Post a filename record to associated client ID in MongoDB database.
      * @param id client ID
      * @param fileName fileName intended for upload

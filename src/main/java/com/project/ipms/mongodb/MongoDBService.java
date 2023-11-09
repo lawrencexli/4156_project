@@ -34,4 +34,11 @@ public interface MongoDBService {
      * @param id client ID
      */
     void mongoDBOperationCheck(String id, String targetFileName, String resultFileName);
+
+    /**
+     * Delete a client from the database.
+     * Only for integration testing.
+     * @param id client ID to be deleted.
+     */
+    void deleteClientEntry(String id);
 }

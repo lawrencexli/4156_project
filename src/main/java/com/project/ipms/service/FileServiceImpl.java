@@ -4,6 +4,7 @@
 
 package com.project.ipms.service;
 
+import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
@@ -13,6 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -86,5 +90,21 @@ public class FileServiceImpl implements FileService {
             return false;
         }
         return blob.delete();
+    }
+
+    /**
+     * Return a list of files in a client's directory.
+     * @param id Client ID for the directory.
+     * @return A list of filenames.
+     */
+    @Override
+    public List<String> listOfFiles(final String id) {
+        List<String> list = new ArrayList<>();
+        Page<Blob> blobs = storage.list(bucketName, Storage.BlobListOption.prefix(id + "/"),
+                Storage.BlobListOption.currentDirectory());
+        for (Blob blob : blobs.iterateAll()) {
+            list.add(blob.getName());
+        }
+        return list;
     }
 }

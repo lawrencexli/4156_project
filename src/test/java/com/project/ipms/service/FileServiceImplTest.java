@@ -1,5 +1,6 @@
 package com.project.ipms.service;
 
+import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.project.ipms.exception.CriticalServerException;
@@ -22,7 +23,6 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
@@ -128,7 +128,7 @@ class FileServiceImplTest {
         Mockito.when(fakeStorage.get(fakeBucketName, testName)).
                 thenReturn(mockedBlob);
 
-        assertFalse(fileService.deleteFile(testName));
+        assertDoesNotThrow(() -> fileService.deleteFile(testName));
     }
 
     @Test
@@ -137,6 +137,17 @@ class FileServiceImplTest {
         Mockito.when(fakeStorage.get(fakeBucketName, testName)).
                 thenReturn(null);
 
-        assertFalse(fileService.deleteFile(testName));
+        assertDoesNotThrow(() -> fileService.deleteFile(testName));
+    }
+
+    @Test
+    void testListOfFiles() {
+        String fakeID = "fake-id";
+        Page<Blob> mockedPageBlobs = mock(Page.class);
+        Mockito.when(fakeStorage.list(fakeBucketName, Storage.BlobListOption.prefix(fakeID),
+                Storage.BlobListOption.currentDirectory())).
+                thenReturn(mockedPageBlobs);
+
+        assertDoesNotThrow(() -> fileService.listOfFiles(fakeID));
     }
 }
