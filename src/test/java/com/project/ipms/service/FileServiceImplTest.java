@@ -22,6 +22,7 @@ import java.io.IOException;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
@@ -118,5 +119,24 @@ class FileServiceImplTest {
                         testMultipartFile.getBytes(),
                         testRepoName)
         );
+    }
+
+    @Test
+    void testDeleteFile1() {
+        String testName = "test123.jpg";
+        Blob mockedBlob = mock(Blob.class);
+        Mockito.when(fakeStorage.get(fakeBucketName, testName)).
+                thenReturn(mockedBlob);
+
+        assertFalse(fileService.deleteFile(testName));
+    }
+
+    @Test
+    void testDeleteFile2() {
+        String testName = "test123.jpg";
+        Mockito.when(fakeStorage.get(fakeBucketName, testName)).
+                thenReturn(null);
+
+        assertFalse(fileService.deleteFile(testName));
     }
 }

@@ -25,4 +25,12 @@ public interface FileService {
                     String fileContentType,
                     byte[] fileBytes,
                     String repoName);
+
+    /**
+     * Delete a file or a directory by its name.
+     * @param name Name of the file or directory
+     * @return True if the file or directory was deleted successfully,
+     * or False if the file or directory was not found.
+     */
+    boolean deleteFile(String name);
 }

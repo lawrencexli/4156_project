@@ -588,7 +588,7 @@ class FileControllerTest {
             Exception exception = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
 
-            String expectedMessage = "The width value should be from 0 to (target image's width - x)";
+            String expectedMessage = "The width value should be from 1 to (target image's width - x)";
             String actualMessage = exception.getMessage();
 
             assertTrue(actualMessage.contains(expectedMessage));
@@ -597,7 +597,7 @@ class FileControllerTest {
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width2, height));
 
-            String expectedMessage2 = "The width value should be from 0 to (target image's width - x)";
+            String expectedMessage2 = "The width value should be from 1 to (target image's width - x)";
             String actualMessage2 = exception2.getMessage();
 
             assertTrue(actualMessage2.contains(expectedMessage2));
@@ -613,7 +613,7 @@ class FileControllerTest {
         int x = 0;
         int y = 0;
         int width = 100;
-        int height = -1;
+        int height = 0;
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -638,7 +638,7 @@ class FileControllerTest {
             Exception exception = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
 
-            String expectedMessage = "The height value should be from 0 to (target image's height - y)";
+            String expectedMessage = "The height value should be from 1 to (target image's height - y)";
             String actualMessage = exception.getMessage();
 
             assertTrue(actualMessage.contains(expectedMessage));
@@ -647,7 +647,7 @@ class FileControllerTest {
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height2));
 
-            String expectedMessage2 = "The height value should be from 0 to (target image's height - y)";
+            String expectedMessage2 = "The height value should be from 1 to (target image's height - y)";
             String actualMessage2 = exception2.getMessage();
 
             assertTrue(actualMessage2.contains(expectedMessage2));

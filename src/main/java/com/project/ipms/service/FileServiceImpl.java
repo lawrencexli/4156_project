@@ -72,4 +72,19 @@ public class FileServiceImpl implements FileService {
                 setContentType(fileContentType).build();
         storage.create(blobInfo, fileBytes);
     }
+
+    /**
+     * Delete a file or a directory by its name.
+     * @param name Name of the file or directory
+     * @return True if the file or directory was deleted successfully,
+     * or False if the file or directory was not found.
+     */
+    @Override
+    public boolean deleteFile(final String name) {
+        Blob blob = storage.get(bucketName, name);
+        if (blob == null) {
+            return false;
+        }
+        return blob.delete();
+    }
 }

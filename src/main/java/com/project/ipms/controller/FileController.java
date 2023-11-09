@@ -230,11 +230,11 @@ public class FileController {
         if (y < 0 || y > targetImage.getHeight()) {
             throw new BadRequestException("The y value should be in the range of 0 to the height of the target image");
         }
-        if (width < 0 || width > targetImage.getWidth() - x) {
-            throw new BadRequestException("The width value should be from 0 to (target image's width - x)");
+        if (width <= 0 || width > targetImage.getWidth() - x) {
+            throw new BadRequestException("The width value should be from 1 to (target image's width - x)");
         }
-        if (height < 0 || height > targetImage.getHeight() - y) {
-            throw new BadRequestException("The height value should be from 0 to (target image's height - y)");
+        if (height <= 0 || height > targetImage.getHeight() - y) {
+            throw new BadRequestException("The height value should be from 1 to (target image's height - y)");
         }
         BufferedImage resultImage = imageService.imageCropping(
                 targetImage,
