@@ -51,6 +51,8 @@ target/
 bin/
 /bin1/
 java/build/**
+build/*
+!build/*/reports
 
 # Gradle
 .gradle
