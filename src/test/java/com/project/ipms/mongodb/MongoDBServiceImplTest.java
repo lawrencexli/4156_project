@@ -237,4 +237,18 @@ class MongoDBServiceImplTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
+    @Test
+    void testMongoDBOperationCheck4() {
+        String targetFileName = "test3.jpg";
+        String resultFileName = "test2.jpg";
+
+        Exception exception = assertThrows(InvalidCredentialsException.class, () ->
+                mongoDBService.mongoDBOperationCheck(null, targetFileName, resultFileName));
+
+        String expectedMessage = "Invalid Client ID";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
 }

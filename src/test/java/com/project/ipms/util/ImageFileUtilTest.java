@@ -124,7 +124,7 @@ class ImageFileUtilTest {
     }
 
     @Test
-    void testImageCompare() {
+    void testImageCompare1() {
         BufferedImage img1;
         BufferedImage img2;
         BufferedImage img3;
@@ -142,6 +142,24 @@ class ImageFileUtilTest {
 
             assertTrue(value1);
             assertFalse(value2);
+        } catch (Exception e) {
+            throw new RuntimeException("Image comparison test failed: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void testImageCompare2() {
+        BufferedImage img1;
+        BufferedImage img2;
+
+        try {
+            File f1 = ResourceUtils.getFile("src/test/resources/trans_tree.jpg");
+            File f2 = ResourceUtils.getFile("src/test/resources/trans_tree_alpha_1.jpg");
+
+            img1 = ImageIO.read(f1);
+            img2 = ImageIO.read(f2);
+
+            assertFalse(ImageFileUtil.compareImagesEqual(img1, img2));
         } catch (Exception e) {
             throw new RuntimeException("Image comparison test failed: " + e.getMessage());
         }

@@ -78,7 +78,7 @@ public class FileController {
     @PostMapping(&quot;upload&quot;)
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
                                   @RequestPart final String id) throws IOException {
-<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (file == null || file.isEmpty()) {</span>
+<span class="fc bfc" id="L81" title="All 4 branches covered.">        if (file == null || file.isEmpty()) {</span>
 <span class="fc" id="L82">            throw new BadRequestException(&quot;File has no content or is null&quot;);</span>
         }
 <span class="fc bfc" id="L84" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
@@ -156,12 +156,12 @@ public class FileController {
                                         @RequestPart final String id,
                                         @RequestPart final float alpha) throws IOException {
         // Check if all inputs are valid
-<span class="pc bpc" id="L159" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
-<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
-<span class="nc" id="L161">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L159" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L160" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L161">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
-<span class="pc bpc" id="L163" title="2 of 4 branches missed.">        if (id == null || id.isBlank()) {</span>
-<span class="nc" id="L164">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L163" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L164">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
 <span class="fc bfc" id="L166" title="All 4 branches covered.">        if (alpha &lt; 0 || alpha &gt; 1) {</span>
 <span class="fc" id="L167">            throw new BadRequestException(&quot;The alpha value should be in the range of 0 to 1&quot;);</span>
@@ -209,9 +209,9 @@ public class FileController {
                                  @RequestPart final int width,
                                  @RequestPart final int height) throws IOException {
         // Check if all inputs are valid
-<span class="pc bpc" id="L212" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
-<span class="pc bpc" id="L213" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
-<span class="nc" id="L214">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L212" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L213" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L214">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
@@ -262,12 +262,12 @@ public class FileController {
                                      @RequestPart final String id,
                                      @RequestPart final float saturationCoeff) throws IOException {
         // Check if all inputs are valid
-<span class="pc bpc" id="L265" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
-<span class="pc bpc" id="L266" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
-<span class="nc" id="L267">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L265" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L266" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L267">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
-<span class="pc bpc" id="L269" title="2 of 4 branches missed.">        if (id == null || id.isBlank()) {</span>
-<span class="nc" id="L270">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L269" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L270">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
 <span class="fc bfc" id="L272" title="All 4 branches covered.">        if (saturationCoeff &lt; 0 || saturationCoeff &gt; 255) {</span>
 <span class="fc" id="L273">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
