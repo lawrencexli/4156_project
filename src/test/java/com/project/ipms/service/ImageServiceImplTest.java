@@ -28,10 +28,10 @@ public class ImageServiceImplTest {
     }
 
     /**
-     * Test for Transparency.
+     * Test 1 for Transparency.
      */
     @Test
-    public void testImageTransparency() {
+    public void testImageTransparency1() {
         BufferedImage img1;
         BufferedImage test1;
         BufferedImage img2;

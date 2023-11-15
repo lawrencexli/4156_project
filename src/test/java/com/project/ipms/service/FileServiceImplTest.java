@@ -1,5 +1,6 @@
 package com.project.ipms.service;
 
+import com.google.api.gax.paging.Page;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Storage;
 import com.project.ipms.exception.CriticalServerException;
@@ -118,5 +119,35 @@ class FileServiceImplTest {
                         testMultipartFile.getBytes(),
                         testRepoName)
         );
+    }
+
+    @Test
+    void testDeleteFile1() {
+        String testName = "test123.jpg";
+        Blob mockedBlob = mock(Blob.class);
+        Mockito.when(fakeStorage.get(fakeBucketName, testName)).
+                thenReturn(mockedBlob);
+
+        assertDoesNotThrow(() -> fileService.deleteFile(testName));
+    }
+
+    @Test
+    void testDeleteFile2() {
+        String testName = "test123.jpg";
+        Mockito.when(fakeStorage.get(fakeBucketName, testName)).
+                thenReturn(null);
+
+        assertDoesNotThrow(() -> fileService.deleteFile(testName));
+    }
+
+    @Test
+    void testListOfFiles() {
+        String fakeID = "fake-id";
+        Page<Blob> mockedPageBlobs = mock(Page.class);
+        Mockito.when(fakeStorage.list(fakeBucketName, Storage.BlobListOption.prefix(fakeID),
+                Storage.BlobListOption.currentDirectory())).
+                thenReturn(mockedPageBlobs);
+
+        assertDoesNotThrow(() -> fileService.listOfFiles(fakeID));
     }
 }

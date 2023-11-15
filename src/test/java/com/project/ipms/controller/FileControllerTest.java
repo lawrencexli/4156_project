@@ -23,7 +23,10 @@ import org.springframework.util.ResourceUtils;
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -198,6 +201,30 @@ class FileControllerTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testUploadFile7() throws IOException {
+        try (InputStream testInputStream = new FileInputStream("src/test/resources/fraud_pdf.png")) {
+            MockMultipartFile testMultipartFile = new MockMultipartFile(
+                    "test",
+                    "test.jpg",
+                    "image/jpg",
+                    testInputStream
+                    );
+
+            String fakeID = "ace-attorney-7";
+
+            Exception exception = assertThrows(BadRequestException.class, () ->
+                    testFileController.uploadFile(testMultipartFile, fakeID));
+
+            String expectedMessage = "Image file validation failed";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException("[testUploadFile7] Test failed. Cannot read dummy image file data.");
+        }
     }
 
     @Test
@@ -561,7 +588,7 @@ class FileControllerTest {
             Exception exception = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
 
-            String expectedMessage = "The width value should be from 0 to (target image's width - x)";
+            String expectedMessage = "The width value should be from 1 to (target image's width - x)";
             String actualMessage = exception.getMessage();
 
             assertTrue(actualMessage.contains(expectedMessage));
@@ -570,7 +597,7 @@ class FileControllerTest {
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width2, height));
 
-            String expectedMessage2 = "The width value should be from 0 to (target image's width - x)";
+            String expectedMessage2 = "The width value should be from 1 to (target image's width - x)";
             String actualMessage2 = exception2.getMessage();
 
             assertTrue(actualMessage2.contains(expectedMessage2));
@@ -586,7 +613,7 @@ class FileControllerTest {
         int x = 0;
         int y = 0;
         int width = 100;
-        int height = -1;
+        int height = 0;
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -611,7 +638,7 @@ class FileControllerTest {
             Exception exception = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
 
-            String expectedMessage = "The height value should be from 0 to (target image's height - y)";
+            String expectedMessage = "The height value should be from 1 to (target image's height - y)";
             String actualMessage = exception.getMessage();
 
             assertTrue(actualMessage.contains(expectedMessage));
@@ -620,7 +647,7 @@ class FileControllerTest {
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height2));
 
-            String expectedMessage2 = "The height value should be from 0 to (target image's height - y)";
+            String expectedMessage2 = "The height value should be from 1 to (target image's height - y)";
             String actualMessage2 = exception2.getMessage();
 
             assertTrue(actualMessage2.contains(expectedMessage2));

@@ -99,6 +99,10 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 [http://localhost:8080](http://localhost:8080)
 
+#### **IMPORTANT:** 
+- **Use `multipart/form-data` for all body arguments.**
+- **For all non-file arguments, use `application/json` as `Content-Type`.**
+
 ------------------------------------------------------------------------------------------
 
 ### Index Page
@@ -140,20 +144,22 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 - `jpeg`
 
 <details>
- <summary><code>POST</code> <code><b>/api/upload?id={clientID}</b></code></summary>
+ <summary><code>POST</code> <code><b>/api/upload</b></code></summary>
 
 #### Parameters
+##### Body
 
-> | name       | type     | data type           | description                                        |
-> |------------|----------|---------------------|----------------------------------------------------|
-> | `clientID` | required | string              | Your client ID credential                          |
-> | file       | required | multipart/form-data | Uploaded image file contents via multipart request |
+> | name | type     | data type           | description                                        |
+> |------|----------|---------------------|----------------------------------------------------|
+> | id   | required | string              | Your client ID credential                          |
+> | file | required | multipart/form-data | Uploaded image file contents via multipart request |
 
 #### Responses
 
 > | http code | content-type       | response                                                                                                                                     |
 > |-----------|--------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
 > | 200       | `application/json` | `{"responseMessage": "File uploaded successfully", "statusCode": 200}`                                                                       |
+> | 400       | `application/json` | `{"responseMessage": "Image file validation failed: The file could be corrupted or is not an image file", "statusCode": 400}`                |
 > | 400       | `application/json` | `{"responseMessage": "File has no content or is null", "statusCode": 400}`                                                                   |
 > | 400       | `application/json` | `{"responseMessage": "Filename is empty or null", "statusCode": 400}`                                                                        |
 > | 400       | `application/json` | `{"responseMessage": "Current request is not a multipart request", "statusCode": 400}`                                                       |
@@ -172,14 +178,15 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Download an image file
 
 <details>
- <summary><code>GET</code> <code><b>/api/download?id={clientID}&fileName={fileID}</b></code></summary>
+ <summary><code>GET</code> <code><b>/api/download</b></code></summary>
 
 #### Parameters
+##### Body
 
-> | name       | type     | data type | description                           |
-> |------------|----------|-----------|---------------------------------------|
-> | `clientID` | required | string    | Your client ID credential             |
-> | `fileID`   | required | string    | The specified image file for download |
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
+> | fileName | required | string    | The specified image file for download |
 
 #### Responses
 
@@ -199,16 +206,17 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Make an image transparent
 
 <details>
- <summary><code>PUT</code> <code><b>/api/transparent?id={clientID}&target={targetFileName}&result={resultFileName}&alpha={alphaValue}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/transparent</b></code></summary>
 
 #### Parameters
+##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `alphaValue`     | required | float     | Desired alpha value for transparency                   |
+> | name   | type     | data type | description                                            |
+> |--------|----------|-----------|--------------------------------------------------------|
+> | id     | required | string    | Your client ID credential                              |
+> | target | required | string    | Image filename targeted for processing                 |
+> | result | required | string    | Desired filename for the image result after processing |
+> | alpha  | required | float     | Desired alpha value for transparency                   |
 
 #### Responses
 
@@ -232,19 +240,20 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Crop the image
 
 <details>
- <summary><code>PUT</code> <code><b>/api/crop?id={clientID}&target={targetFileName}&result={resultFileName}&x={x}&y={y}&width={width}&height={height}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/crop</b></code></summary>
 
 #### Parameters
+##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `x`              | required | int       | Upper left corner x value                              |
-> | `y`              | required | int       | Upper left corner y value                              |
-> | `width`          | required | int       | Width of the cropped region                            |
-> | `height`         | required | int       | Height of the cropped region                           |
+> | name   | type     | data type | description                                            |
+> |--------|----------|-----------|--------------------------------------------------------|
+> | id     | required | string    | Your client ID credential                              |
+> | target | required | string    | Image filename targeted for processing                 |
+> | result | required | string    | Desired filename for the image result after processing |
+> | x      | required | int       | Upper left corner x value                              |
+> | y      | required | int       | Upper left corner y value                              |
+> | width  | required | int       | Width of the cropped region                            |
+> | height | required | int       | Height of the cropped region                           |
 
 #### Responses
 
@@ -256,8 +265,8 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 > | 400       | `application/json` | `{"responseMessage": "Target file extension is different from result file extension", "statusCode": 400}`                   |
 > | 400       | `application/json` | `{"responseMessage": "The x value should be in the range of 0 to the width of the target image", "statusCode": 400}`        |
 > | 400       | `application/json` | `{"responseMessage": "The y value should be in the range of 0 to the height of the target image", "statusCode": 400}`       |
-> | 400       | `application/json` | `{"responseMessage": "The width value should be from 0 to (target image's width - x)", "statusCode": 400}`                  |
-> | 400       | `application/json` | `{"responseMessage": "The height value should be from 0 to (target image's height - y)", "statusCode": 400}`                |
+> | 400       | `application/json` | `{"responseMessage": "The width value should be from 1 to (target image's width - x)", "statusCode": 400}`                  |
+> | 400       | `application/json` | `{"responseMessage": "The height value should be from 1 to (target image's height - y)", "statusCode": 400}`                |
 > | 403       | `application/json` | `{"responseMessage": "Invalid Client ID", "statusCode": 403}`                                                               |
 > | 404       | `application/json` | `{"responseMessage": "Target file does not exist", "statusCode": 404}`                                                      |
 > | 409       | `application/json` | `{"responseMessage": "Result filename already exists", "statusCode": 409}`                                                  |
@@ -271,16 +280,17 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 ### Change the saturation of an image
 
 <details>
- <summary><code>PUT</code> <code><b>/api/saturation?id={clientID}&target={targetFileName}&result={resultFileName}&saturationCoeff={satCoeffValue}</b></code></summary>
+ <summary><code>PUT</code> <code><b>/api/saturation</b></code></summary>
 
 #### Parameters
+##### Body
 
-> | name             | type     | data type | description                                            |
-> |------------------|----------|-----------|--------------------------------------------------------|
-> | `clientID`       | required | string    | Your client ID credential                              |
-> | `targetFileName` | required | string    | Image filename targeted for processing                 |
-> | `resultFileName` | required | string    | Desired filename for the image result after processing |
-> | `satCoeffValue`  | required | float     | Desired value to multiply saturation by (0-255)        |
+> | name            | type     | data type | description                                            |
+> |-----------------|----------|-----------|--------------------------------------------------------|
+> | id              | required | string    | Your client ID credential                              |
+> | target          | required | string    | Image filename targeted for processing                 |
+> | result          | required | string    | Desired filename for the image result after processing |
+> | saturationCoeff | required | float     | Desired value to multiply saturation by (0-255)        |
 
 #### Responses
 

@@ -6,11 +6,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.IOException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @SpringBootTest
 class ApiExceptionHandlerTest {
@@ -92,5 +95,32 @@ class ApiExceptionHandlerTest {
         ApiResponse apiResponse = testHandler.handleFileAlreadyExistsException(e);
         assertEquals(apiResponse.getResponseMessage(), "error");
         assertEquals(apiResponse.getStatusCode(), HttpStatus.CONFLICT.value());
+    }
+
+    @Test
+    void handleMissingServletRequestPartException() {
+        MissingServletRequestPartException e = new MissingServletRequestPartException("test_parameter");
+        ApiResponse apiResponse = testHandler.handleMissingServletRequestPartException(e);
+        assertEquals(apiResponse.getResponseMessage(), "Required part 'test_parameter' is not present.");
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void handleMissingServletRequestParameterException() {
+        MissingServletRequestParameterException e = new MissingServletRequestParameterException(
+                "test_parameter",
+                "String"
+        );
+        ApiResponse apiResponse = testHandler.handleMissingServletRequestParameterException(e);
+        assertEquals(apiResponse.getResponseMessage(), "Required request parameter 'test_parameter' for method "
+                + "parameter type String is not present");
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
+    }
+
+    @Test
+    void handleHttpMessageNotReadableException() {
+        ApiResponse apiResponse = testHandler.handleHttpMessageNotReadableException();
+        assertTrue(apiResponse.getResponseMessage().contains("Required request body is missing or incorrect"));
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
 }

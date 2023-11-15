@@ -2,11 +2,14 @@ package com.project.ipms.exception;
 
 import com.project.ipms.controller.ApiResponse;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.multipart.MultipartException;
+import org.springframework.web.multipart.support.MissingServletRequestPartException;
 
 import java.io.IOException;
 
@@ -130,6 +133,51 @@ public final class ApiExceptionHandler {
         ApiResponse response = new ApiResponse();
         response.setResponseMessage(e.getMessage());
         response.setStatusCode(HttpStatus.CONFLICT.value());
+        return response;
+    }
+
+    /**
+     * Handle MissingServletRequestPartException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(MissingServletRequestPartException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleMissingServletRequestPartException(final MissingServletRequestPartException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return response;
+    }
+
+    /**
+     * Handle MissingServletRequestParameterException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(MissingServletRequestParameterException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleMissingServletRequestParameterException(final MissingServletRequestParameterException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return response;
+    }
+
+    /**
+     * Handle HttpMessageNotReadableException.
+     * @return exception json output
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleHttpMessageNotReadableException() {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage("Required request body is missing or incorrect. "
+                + "Please check the API documentation for correct body arguments.");
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
         return response;
     }
 }
