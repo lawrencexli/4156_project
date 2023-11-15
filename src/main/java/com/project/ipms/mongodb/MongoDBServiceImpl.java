@@ -4,6 +4,7 @@ import com.project.ipms.exception.FileAlreadyExistsException;
 import com.project.ipms.exception.FileNotFoundException;
 import com.project.ipms.exception.InvalidCredentialsException;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,7 @@ public class MongoDBServiceImpl implements MongoDBService {
      * Implementation of the MongoDBService.
      * @param ipmsMongoRepo The MongoDB repository service
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     @Autowired
     public MongoDBServiceImpl(final ClientRepository ipmsMongoRepo) {
         this.ipmsMongoRepo = ipmsMongoRepo;

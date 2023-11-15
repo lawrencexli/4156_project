@@ -4,6 +4,7 @@ import com.project.ipms.exception.FileAlreadyExistsException;
 import com.project.ipms.exception.FileNotFoundException;
 import com.project.ipms.exception.InvalidCredentialsException;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -22,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @SpringBootTest
+@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
 class MongoDBServiceImplTest {
 
     /**
@@ -126,6 +128,7 @@ class MongoDBServiceImplTest {
             assertTrue(actualMessage.contains(expectedMessage));
         }
     }
+
 
     @Test
     void testUploadFile2() {

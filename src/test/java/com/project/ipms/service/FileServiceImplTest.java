@@ -144,7 +144,7 @@ class FileServiceImplTest {
     void testListOfFiles() {
         String fakeID = "fake-id";
         Page<Blob> mockedPageBlobs = mock(Page.class);
-        Mockito.when(fakeStorage.list(fakeBucketName, Storage.BlobListOption.prefix(fakeID),
+        Mockito.when(fakeStorage.list(fakeBucketName, Storage.BlobListOption.prefix(fakeID + "/"),
                 Storage.BlobListOption.currentDirectory())).
                 thenReturn(mockedPageBlobs);
 

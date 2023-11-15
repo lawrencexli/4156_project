@@ -10,6 +10,7 @@ import com.google.cloud.storage.BlobId;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
 import com.project.ipms.exception.CriticalServerException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ByteArrayResource;
@@ -38,6 +39,7 @@ public class FileServiceImpl implements FileService {
      * @param storage Google cloud storage object
      */
     @Autowired
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     public FileServiceImpl(final Storage storage) {
         this.storage = storage;
     }

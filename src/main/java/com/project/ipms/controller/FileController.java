@@ -9,6 +9,7 @@ import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
 import com.project.ipms.service.ImageService;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -57,6 +58,7 @@ public class FileController {
      * @param mongoDBService A MongoDB database service for calling methods
      * @param imageService An image service for calling methods
      */
+    @SuppressFBWarnings("EI_EXPOSE_REP2")
     @Autowired
     public FileController(final FileService fileService,
                           final MongoDBService mongoDBService,

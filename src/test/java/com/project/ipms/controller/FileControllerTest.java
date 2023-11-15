@@ -5,6 +5,7 @@ import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
 import com.project.ipms.service.ImageService;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
+@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
 class FileControllerTest {
 
     /**
@@ -672,6 +674,7 @@ class FileControllerTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
     }
+
 
     @Test
     void testImageSaturation1() throws IOException {

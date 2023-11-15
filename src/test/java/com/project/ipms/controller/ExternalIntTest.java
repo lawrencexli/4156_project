@@ -4,6 +4,7 @@ import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
 import com.project.ipms.service.ImageService;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,6 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 @SpringBootTest
+@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 public class ExternalIntTest {
 
     /**
