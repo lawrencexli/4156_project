@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<BugCollection version="4.4.2" sequence="0" timestamp="1700087227802" analysisTimestamp="1700087227923" release="0.0.1-SNAPSHOT">
+  <Project projectName="ipms (spotbugsTest)">
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\controller\ExternalIntTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\controller\FileControllerTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\exception\ApiExceptionHandlerTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\IpmServiceTests.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\mongodb\ClientEntryTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\mongodb\MongoDBServiceImplTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\service\FileServiceImplTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\service\ImageServiceImplTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\service\ImageServiceIntTest.class</Jar>
+    <Jar>C:\Users\lawre\4156_project\build\classes\java\test\com\project\ipms\util\ImageFileUtilTest.class</Jar>
+    <AuxClasspathEntry>C:\Users\lawre\4156_project\build\classes\java\main</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\4156_project\build\resources\main</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-web\3.1.4\a0da0751207173c93f9e92e74cae430b53544576\spring-boot-starter-web-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\spring-cloud-gcp-starter-storage\4.8.0\4d09e36d44e7b2151e2b2a9b72a596c581b6e15b\spring-cloud-gcp-starter-storage-4.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.github.spotbugs\spotbugs-annotations\4.0.1\192f5794e6aa74968a883ecdf5bf7d961843579f\spotbugs-annotations-4.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-test\3.1.4\1990ee664a265366b09ac723002f72697ebd0925\spring-boot-starter-test-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.mockito\mockito-junit-jupiter\5.3.1\d6ac0f6d54addf02def4ba1213f73a15ae6c2308\mockito-junit-jupiter-5.3.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.mockito\mockito-core\5.6.0\550b7a0eb22e1d72d33dcc2e5ef6954f73100d76\mockito-core-5.6.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-data-mongodb\3.1.4\957854a690b5ae667510667599ef5ad29476aae4\spring-boot-starter-data-mongodb-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-json\3.1.4\2dafafeb1ca78678a970947c51def69723c7442c\spring-boot-starter-json-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\spring-cloud-gcp-starter\4.8.0\19f145a2ba33bab68807f5c677963a15ad2a4088\spring-cloud-gcp-starter-4.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter\3.1.4\8a615e53a9f45eecc4821917b1423daa68afcf19\spring-boot-starter-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-tomcat\3.1.4\b8f55488574671d085f8d31c137c6f6d8d79cc24\spring-boot-starter-tomcat-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-webmvc\6.0.12\c7cf897d23da555a20e570d170f8f1541b04564d\spring-webmvc-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-web\6.0.12\89a20bbd7c1f973dc246b1d790b34e0b3e28e74d\spring-web-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\spring-cloud-gcp-storage\4.8.0\7d9f0fd10f784e72c630629215ffe7c65309153c\spring-cloud-gcp-storage-4.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.data\spring-data-mongodb\4.1.4\8777507de95bb13e360d871f42ceb36b64343b0\spring-data-mongodb-4.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\spring-cloud-gcp-autoconfigure\4.8.0\6906d7da9f165ba6b8ffaddd016eaec5f8555df8\spring-cloud-gcp-autoconfigure-4.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\spring-cloud-gcp-core\4.8.0\bf555e0f95c2ef3d598bb9b62b368882e6587447\spring-cloud-gcp-core-4.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.data\spring-data-commons\3.1.4\7b16d91221c7f9492f63a99e97a1d907f6bf540c\spring-data-commons-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-starter-logging\3.1.4\e3533d7b6e2e9b5ca9b05dce2a9a2504aad5b889\spring-boot-starter-logging-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-classic\1.4.11\54450c0c783e896a1a6d88c043bd2f1daba1c382\logback-classic-1.4.11.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-to-slf4j\2.20.0\d37f81f8978e2672bc32c82712ab4b3f66624adc\log4j-to-slf4j-2.20.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.slf4j\jul-to-slf4j\2.0.9\9ef7c70b248185845f013f49a33ff9ca65b7975\jul-to-slf4j-2.0.9.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.slf4j\slf4j-api\2.0.9\7cf2726fdcfbc8610f9a71fb3ed639871f315340\slf4j-api-2.0.9.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\google-cloud-storage\2.27.0\930b523d460ff88e0d9305b8133e125e8f62340e\google-cloud-storage-2.27.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\google-cloud-core\2.23.0\199634a25d1ad967c85323664b3cdb44bc518525\google-cloud-core-2.23.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api\gax\2.33.0\951807b1ee6facb792aa112d2be6536edc42fd5e\gax-2.33.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.auth\google-auth-library-oauth2-http\1.19.0\bcfcec571016784a2b5d45b8493204b77fade9fc\google-auth-library-oauth2-http-1.19.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.http-client\google-http-client-gson\1.43.3\252e267acf720ef6333488740a696a1d5e204639\google-http-client-gson-1.43.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.http-client\google-http-client\1.43.3\a758b82e55a2f5f681e289c5ed384d3dbda6f3cd\google-http-client-1.43.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.opencensus\opencensus-contrib-http-util\0.31.1\3c13fc5715231fadb16a9b74a44d9d59c460cfa8\opencensus-contrib-http-util-0.31.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api\api-common\2.16.0\95ff9321582d6e85b1630ce8ab89abc37d39eecd\api-common-2.16.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.protobuf\protobuf-java-util\3.23.2\645a4c458c87399503a7a8e3d1dfbe043c94ea4d\protobuf-java-util-3.23.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.guava\guava\32.1.2-jre\5e64ec7e056456bef3a4bc4c6fdaef71e8ab6318\guava-32.1.2-jre.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.code.findbugs\jsr305\3.0.2\25ea2e8b0c338a877313bd4672d3fe056ea78f0d\jsr305-3.0.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.assertj\assertj-core\3.24.2\ebbf338e33f893139459ce5df023115971c2786f\assertj-core-3.24.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy\1.14.8\505d7d8937ff00cc55db79723e26c94069b87d66\byte-buddy-1.14.8.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\net.bytebuddy\byte-buddy-agent\1.14.8\ae6ebe485f3bcd0a1e20241488a32e6400a501ef\byte-buddy-agent-1.14.8.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.mongodb\mongodb-driver-sync\4.9.1\38dfe9593bc7c268b1bc735d3ce682af6cdb6fa\mongodb-driver-sync-4.9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-test-autoconfigure\3.1.4\129458471bf8a379613a09bdd2250a34ff169650\spring-boot-test-autoconfigure-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-test\3.1.4\189c105270b2b109fbb26c709e2e42133aef5ab3\spring-boot-test-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.jayway.jsonpath\json-path\2.8.0\b4ab3b7a9e425655a0ca65487bbbd6d7ddb75160\json-path-2.8.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\jakarta.xml.bind\jakarta.xml.bind-api\4.0.1\ca2330866cbc624c7e5ce982e121db1125d23e15\jakarta.xml.bind-api-4.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\net.minidev\json-smart\2.4.11\cc5888f14a5768f254b97bafe8b9fd29b31e872e\json-smart-2.4.11.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.hamcrest\hamcrest\2.2\1820c0968dba3a11a1b30669bb1f01978a91dedc\hamcrest-2.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-params\5.9.3\9e2a4bf6016a1975f408a73523392875cff7c26f\junit-jupiter-params-5.9.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter-api\5.9.3\815818ad6ffcc8d320d8fbdf3d748c753cf83201\junit-jupiter-api-5.9.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.junit.platform\junit-platform-commons\1.9.3\36b2e26a90c41603be7f0094bee80e3f8a2cd4d4\junit-platform-commons-1.9.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.junit.jupiter\junit-jupiter\5.9.3\72e840501e1550e9799c9a5cc9483d7d6b29e0ba\junit-jupiter-5.9.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.skyscreamer\jsonassert\1.5.1\6d842d0faf4cf6725c509a5e5347d319ee0431c3\jsonassert-1.5.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-test\6.0.12\45ba109a7e19561dbbad64c9d033f2fecb434e85\spring-test-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot-autoconfigure\3.1.4\ae53253f6330787f8b77a13aa90d6514597a20d0\spring-boot-autoconfigure-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework.boot\spring-boot\3.1.4\7a0a6349e28227a93f2b4efde897e87b3343bf3a\spring-boot-3.1.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-context\6.0.12\f1964518e07796b2fdc1b9be2108485ffe1b4566\spring-context-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-aop\6.0.12\ba7ecdbdc2abaf172d49692b8110f65ecd2d250c\spring-aop-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-tx\6.0.12\b4e997baac7dd14593f3e4f815e3646279e9a63f\spring-tx-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-beans\6.0.12\dfa53afbf1ab65f36c60333443ed1109ed331504\spring-beans-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-expression\6.0.12\9283ad418f06f918e834b1981998a5f62a05b355\spring-expression-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-core\6.0.12\a55e70359371b03ee29dacd75c3b40d0baf3a656\spring-core-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.xmlunit\xmlunit-core\2.9.1\e5833662d9a1279a37da3ef6f62a1da29fcd68c4\xmlunit-core-2.9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\jakarta.annotation\jakarta.annotation-api\2.1.1\48b9bda22b091b1f48b13af03fe36db3be6e1ae3\jakarta.annotation-api-2.1.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.yaml\snakeyaml\1.33\2cd0a87ff7df953f810c344bdf2fe3340b954c69\snakeyaml-1.33.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jsr310\2.15.2\30d16ec2aef6d8094c5e2dce1d95034ca8b6cb42\jackson-datatype-jsr310-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.module\jackson-module-parameter-names\2.15.2\75f8d2788db20f6c587c7a19e94fb6248c314241\jackson-module-parameter-names-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-annotations\2.15.2\4724a65ac8e8d156a24898d50fd5dbd3642870b8\jackson-annotations-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-core\2.15.2\a6fe1836469a69b3ff66037c324d75fc66ef137c\jackson-core-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.datatype\jackson-datatype-jdk8\2.15.2\66a50e089cfd2f93896b9b6f7a734cea7bcf2f31\jackson-datatype-jdk8-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.fasterxml.jackson.core\jackson-databind\2.15.2\9353b021f10c307c00328f52090de2bdb4b6ff9c\jackson-databind-2.15.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-websocket\10.1.13\540a79df9699435e4f7cb8983daab272d29d093f\tomcat-embed-websocket-10.1.13.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-core\10.1.13\6909967f2ed6c323108c2cc7f20586d6f7eb6455\tomcat-embed-core-10.1.13.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.tomcat.embed\tomcat-embed-el\10.1.13\22c8845f7528334905c582e48a3eeefab616b0a5\tomcat-embed-el-10.1.13.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-observation\1.11.4\1aa2f6ba1dae42c403543bd14ea5f302d7ed6d85\micrometer-observation-1.11.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.mongodb\mongodb-driver-core\4.9.1\eae9e4ce359af23bed2208f7d6c28be236288d30\mongodb-driver-core-4.9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.mongodb\bson\4.9.1\49ee664d02bd6ee138e677f1113934c24e7b42c7\bson-4.9.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\jakarta.activation\jakarta.activation-api\2.1.2\640c0d5aff45dbff1e1a1bc09673ff3a02b1ba12\jakarta.activation-api-2.1.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\net.minidev\accessors-smart\2.4.11\245ceca7bdf3190fbb977045c852d5f3c8efece1\accessors-smart-2.4.11.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.vaadin.external.google\android-json\0.0.20131108.vaadin1\fa26d351fe62a6a17f5cda1287c1c6110dec413f\android-json-0.0.20131108.vaadin1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.springframework\spring-jcl\6.0.12\44a1d1d105063d4eb9c5dc705245ef6fa4162520\spring-jcl-6.0.12.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.micrometer\micrometer-commons\1.11.4\6dfbbc07ecad294bffacff0648d6eaa4de78f332\micrometer-commons-1.11.4.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.commons\commons-lang3\3.12.0\c6842c86792ff03b9f1d1fe2aab8dc23aa6c6f0e\commons-lang3-3.12.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.guava\failureaccess\1.0.1\1dcf1de382a0bf95a3d8b0849546c88bac1292c9\failureaccess-1.0.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.guava\listenablefuture\9999.0-empty-to-avoid-conflict-with-guava\b421526c5f297295adef1c886e5246c39d4ac629\listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.errorprone\error_prone_annotations\2.18.0\89b684257096f548fa39a7df9fdaa409d4d4df91\error_prone_annotations-2.18.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.j2objc\j2objc-annotations\2.8\c85270e307e7b822f1086b93689124b89768e273\j2objc-annotations-2.8.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.http-client\google-http-client-jackson2\1.43.3\689da86469d19a01c726c8c24477b95c8a834bbe\google-http-client-jackson2-1.43.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api-client\google-api-client\2.2.0\10e53fd4d987e37190432e896bdaa62e8ea2c628\google-api-client-2.2.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\commons-codec\commons-codec\1.15\49d94806b6e3dc933dacbd8acb0fdbab8ebd1e5d\commons-codec-1.15.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.oauth-client\google-oauth-client\1.34.1\4a4f88c5e13143f882268c98239fb85c3b2c6cb2\google-oauth-client-1.34.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.http-client\google-http-client-apache-v2\1.43.3\3e224b1b9e18dd28c89a764b1feea498ba952579\google-http-client-apache-v2-1.43.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.apis\google-api-services-storage\v1-rev20230907-2.0.0\2253d11659564359b9a540f7ff7cc6b60ac6176f\google-api-services-storage-v1-rev20230907-2.0.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.code.gson\gson\2.10.1\b3add478d4382b78ea20b1671390a858002feb6c\gson-2.10.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.auto.value\auto-value-annotations\1.10.2\337954851fc17058d9b4b692b6e67e57b20e14f0\auto-value-annotations-1.10.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\google-cloud-core-http\2.23.0\9913d0806fcfbfbc4a775f29865126ed8465464b\google-cloud-core-http-2.23.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.http-client\google-http-client-appengine\1.43.3\9d6cbdde6ea3469a67601a811b4e83de3e68a79\google-http-client-appengine-1.43.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api\gax-httpjson\2.33.0\7107021ac58453dd7372f9e2be2c8419cd0b7c6e\gax-httpjson-2.33.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.cloud\google-cloud-core-grpc\2.23.0\59b8ba75c618b6cffbff301dfaa15913d0e28596\google-cloud-core-grpc-2.23.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api\gax-grpc\2.33.0\a13dfd511f62fe0c85036ab5207553974ba08d4d\gax-grpc-2.33.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-alts\1.56.1\f06f2588112b1f8307454ffd67ae6fc0823771c\grpc-alts-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-grpclb\1.56.1\60fce9afcb2bab2c8e9f366c3a214e8644d0dbba\grpc-grpclb-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.conscrypt\conscrypt-openjdk-uber\2.5.2\d858f142ea189c62771c505a6548d8606ac098fe\conscrypt-openjdk-uber-2.5.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-auth\1.56.1\a984b71f0e51a79cc9b3d9943397e0187bc900ca\grpc-auth-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-protobuf\1.56.1\d2d113ae665eb2d5d762f46ecab1403d58b5455\grpc-protobuf-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-protobuf-lite\1.56.1\3083fba50516ba9e96ff1707e14ce2a53fee4baf\grpc-protobuf-lite-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.auth\google-auth-library-credentials\1.19.0\403601f0f42fb7099236a76188cd69c03d4fba11\google-auth-library-credentials-1.19.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\javax.annotation\javax.annotation-api\1.3.2\934c04d3cfef185a8008e7bf34331b79730a9d43\javax.annotation-api-1.3.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.opencensus\opencensus-api\0.31.1\66a60c7201c2b8b20ce495f0295b32bb0ccbbc57\opencensus-api-0.31.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-context\1.56.1\3681b1caf41af1da0c4a3ffec47ab4a3d907c190\grpc-context-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api.grpc\proto-google-iam-v1\1.19.0\6550854f87febd902a5f1541086687212f3034b8\proto-google-iam-v1-1.19.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api.grpc\proto-google-common-protos\2.24.0\de4fb1eb296934a504e2ee2e4463b2ebbc2105c6\proto-google-common-protos-2.24.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.protobuf\protobuf-java\3.23.2\f658ef60596ce70251ff9bc118436d5dadc3bd2a\protobuf-java-3.23.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.threeten\threetenbp\1.6.8\4c65b7b43f3fe31350f74cb7d0b2461e111e8dd0\threetenbp-1.6.8.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api.grpc\proto-google-cloud-storage-v2\2.27.0-alpha\f781a31010b2fe5d826542b9df5963fb46eedd62\proto-google-cloud-storage-v2-2.27.0-alpha.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api.grpc\grpc-google-cloud-storage-v2\2.27.0-alpha\ea4b9de930aaf83060f43c47854753f448265bb1\grpc-google-cloud-storage-v2-2.27.0-alpha.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\com.google.api.grpc\gapic-google-cloud-storage-v2\2.27.0-alpha\4f3f76da0bc8327372db9c1c3c62eee0fb61a6c9\gapic-google-cloud-storage-v2-2.27.0-alpha.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-api\1.56.1\2d5926f424d2ee2f0dd1146d6ea047d143642427\grpc-api-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\io.grpc\grpc-stub\1.56.1\d016c4ad3c880fafe6e943ce07000a7f25748742\grpc-stub-1.56.1.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.checkerframework\checker-qual\3.33.0\de2b60b62da487644fc11f734e73c8b0b431238f\checker-qual-3.33.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.ow2.asm\asm\9.3\8e6300ef51c1d801a7ed62d07cd221aca3a90640\asm-9.3.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.opentest4j\opentest4j\1.2.0\28c11eb91f9b6d8e200631d46e20a7f407f2a046\opentest4j-1.2.0.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apiguardian\apiguardian-api\1.1.2\a231e0d844d2721b0fa1b238006d15c6ded6842a\apiguardian-api-1.1.2.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\ch.qos.logback\logback-core\1.4.11\2f9f280219a9922a74200eaf7138c4c17fb87c0f\logback-core-1.4.11.jar</AuxClasspathEntry>
+    <AuxClasspathEntry>C:\Users\lawre\.gradle\caches\modules-2\files-2.1\org.apache.logging.log4j\log4j-api\2.20.0\1fe6082e660daf07c689a89c94dc0f49c26b44bb\log4j-api-2.20.0.jar</AuxClasspathEntry>
+    <SrcDir>C:\Users\lawre\4156_project\src\test\resources</SrcDir>
+    <SrcDir>C:\Users\lawre\4156_project\src\test\java</SrcDir>
+    <Plugin id="com.h3xstream.findsecbugs" enabled="true"/>
+  </Project>
+  <Errors errors="0" missingClasses="4">
+    <MissingClass>apply</MissingClass>
+    <MissingClass>execute</MissingClass>
+    <MissingClass>get</MissingClass>
+    <MissingClass>makeConcatWithConstants</MissingClass>
+  </Errors>
+  <FindBugsSummary timestamp="Wed, 15 Nov 2023 17:27:07 -0500" total_classes="10" referenced_classes="106" total_bugs="0" total_size="1137" num_packages="6" java_version="17.0.9" vm_version="17.0.9+9" cpu_seconds="36.39" clock_seconds="6.93" peak_mbytes="368.01" alloc_mbytes="512.00" gc_seconds="0.03">
+    <FileStats path="com/project/ipms/IpmServiceTests.java" bugCount="0" size="7"/>
+    <FileStats path="com/project/ipms/controller/ExternalIntTest.java" bugCount="0" size="65"/>
+    <FileStats path="com/project/ipms/controller/FileControllerTest.java" bugCount="0" size="484"/>
+    <FileStats path="com/project/ipms/exception/ApiExceptionHandlerTest.java" bugCount="0" size="75"/>
+    <FileStats path="com/project/ipms/mongodb/ClientEntryTest.java" bugCount="0" size="26"/>
+    <FileStats path="com/project/ipms/mongodb/MongoDBServiceImplTest.java" bugCount="0" size="156"/>
+    <FileStats path="com/project/ipms/service/FileServiceImplTest.java" bugCount="0" size="80"/>
+    <FileStats path="com/project/ipms/service/ImageServiceImplTest.java" bugCount="0" size="87"/>
+    <FileStats path="com/project/ipms/service/ImageServiceIntTest.java" bugCount="0" size="71"/>
+    <FileStats path="com/project/ipms/util/ImageFileUtilTest.java" bugCount="0" size="86"/>
+    <PackageStats package="com.project.ipms" total_bugs="0" total_types="1" total_size="7">
+      <ClassStats class="com.project.ipms.IpmServiceTests" sourceFile="IpmServiceTests.java" interface="false" size="7" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.project.ipms.controller" total_bugs="0" total_types="2" total_size="549">
+      <ClassStats class="com.project.ipms.controller.ExternalIntTest" sourceFile="ExternalIntTest.java" interface="false" size="65" bugs="0"/>
+      <ClassStats class="com.project.ipms.controller.FileControllerTest" sourceFile="FileControllerTest.java" interface="false" size="484" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.project.ipms.exception" total_bugs="0" total_types="1" total_size="75">
+      <ClassStats class="com.project.ipms.exception.ApiExceptionHandlerTest" sourceFile="ApiExceptionHandlerTest.java" interface="false" size="75" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.project.ipms.mongodb" total_bugs="0" total_types="2" total_size="182">
+      <ClassStats class="com.project.ipms.mongodb.ClientEntryTest" sourceFile="ClientEntryTest.java" interface="false" size="26" bugs="0"/>
+      <ClassStats class="com.project.ipms.mongodb.MongoDBServiceImplTest" sourceFile="MongoDBServiceImplTest.java" interface="false" size="156" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.project.ipms.service" total_bugs="0" total_types="3" total_size="238">
+      <ClassStats class="com.project.ipms.service.FileServiceImplTest" sourceFile="FileServiceImplTest.java" interface="false" size="80" bugs="0"/>
+      <ClassStats class="com.project.ipms.service.ImageServiceImplTest" sourceFile="ImageServiceImplTest.java" interface="false" size="87" bugs="0"/>
+      <ClassStats class="com.project.ipms.service.ImageServiceIntTest" sourceFile="ImageServiceIntTest.java" interface="false" size="71" bugs="0"/>
+    </PackageStats>
+    <PackageStats package="com.project.ipms.util" total_bugs="0" total_types="1" total_size="86">
+      <ClassStats class="com.project.ipms.util.ImageFileUtilTest" sourceFile="ImageFileUtilTest.java" interface="false" size="86" bugs="0"/>
+    </PackageStats>
+    <FindBugsProfile>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassInfoAnalysisEngine" totalMilliseconds="1014" invocations="1003" avgMicrosecondsPerInvocation="1011" maxMicrosecondsPerInvocation="18190" standardDeviationMicrosecondsPerInvocation="2104"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.ClassDataAnalysisEngine" totalMilliseconds="612" invocations="1010" avgMicrosecondsPerInvocation="605" maxMicrosecondsPerInvocation="12165" standardDeviationMicrosecondsPerInvocation="783"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FieldItemSummary" totalMilliseconds="328" invocations="106" avgMicrosecondsPerInvocation="3099" maxMicrosecondsPerInvocation="53137" standardDeviationMicrosecondsPerInvocation="7671"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindNoSideEffectMethods" totalMilliseconds="256" invocations="106" avgMicrosecondsPerInvocation="2415" maxMicrosecondsPerInvocation="29363" standardDeviationMicrosecondsPerInvocation="4741"/>
+      <ClassProfile name="edu.umd.cs.findbugs.ba.npe.NullDerefAndRedundantComparisonFinder" totalMilliseconds="181" invocations="173" avgMicrosecondsPerInvocation="1046" maxMicrosecondsPerInvocation="16117" standardDeviationMicrosecondsPerInvocation="2412"/>
+      <ClassProfile name="edu.umd.cs.findbugs.OpcodeStack$JumpInfoFactory" totalMilliseconds="152" invocations="329" avgMicrosecondsPerInvocation="462" maxMicrosecondsPerInvocation="11936" standardDeviationMicrosecondsPerInvocation="1137"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.JavaClassAnalysisEngine" totalMilliseconds="131" invocations="212" avgMicrosecondsPerInvocation="620" maxMicrosecondsPerInvocation="25953" standardDeviationMicrosecondsPerInvocation="2255"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.IsNullValueDataflowFactory" totalMilliseconds="129" invocations="173" avgMicrosecondsPerInvocation="748" maxMicrosecondsPerInvocation="11973" standardDeviationMicrosecondsPerInvocation="1494"/>
+      <ClassProfile name="com.h3xstream.findsecbugs.taintanalysis.TaintDataflowEngine" totalMilliseconds="115" invocations="173" avgMicrosecondsPerInvocation="670" maxMicrosecondsPerInvocation="10555" standardDeviationMicrosecondsPerInvocation="1463"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.ValueNumberDataflowFactory" totalMilliseconds="110" invocations="200" avgMicrosecondsPerInvocation="553" maxMicrosecondsPerInvocation="12060" standardDeviationMicrosecondsPerInvocation="1238"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.UnconditionalValueDerefDataflowFactory" totalMilliseconds="107" invocations="173" avgMicrosecondsPerInvocation="618" maxMicrosecondsPerInvocation="20569" standardDeviationMicrosecondsPerInvocation="1741"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.TypeDataflowFactory" totalMilliseconds="106" invocations="177" avgMicrosecondsPerInvocation="602" maxMicrosecondsPerInvocation="8984" standardDeviationMicrosecondsPerInvocation="1156"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.NoteDirectlyRelevantTypeQualifiers" totalMilliseconds="101" invocations="106" avgMicrosecondsPerInvocation="959" maxMicrosecondsPerInvocation="15872" standardDeviationMicrosecondsPerInvocation="2246"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.CFGFactory" totalMilliseconds="95" invocations="173" avgMicrosecondsPerInvocation="554" maxMicrosecondsPerInvocation="7325" standardDeviationMicrosecondsPerInvocation="1047"/>
+      <ClassProfile name="edu.umd.cs.findbugs.util.TopologicalSort" totalMilliseconds="95" invocations="963" avgMicrosecondsPerInvocation="98" maxMicrosecondsPerInvocation="2306" standardDeviationMicrosecondsPerInvocation="238"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FunctionsThatMightBeMistakenForProcedures" totalMilliseconds="77" invocations="106" avgMicrosecondsPerInvocation="730" maxMicrosecondsPerInvocation="11280" standardDeviationMicrosecondsPerInvocation="1749"/>
+      <ClassProfile name="edu.umd.cs.findbugs.classfile.engine.bcel.MethodGenFactory" totalMilliseconds="74" invocations="173" avgMicrosecondsPerInvocation="430" maxMicrosecondsPerInvocation="43133" standardDeviationMicrosecondsPerInvocation="3275"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.BuildObligationPolicyDatabase" totalMilliseconds="54" invocations="106" avgMicrosecondsPerInvocation="514" maxMicrosecondsPerInvocation="7205" standardDeviationMicrosecondsPerInvocation="1059"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.EqualsOperandShouldHaveClassCompatibleWithThis" totalMilliseconds="53" invocations="106" avgMicrosecondsPerInvocation="504" maxMicrosecondsPerInvocation="26832" standardDeviationMicrosecondsPerInvocation="2657"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.OverridingEqualsNotSymmetrical" totalMilliseconds="51" invocations="106" avgMicrosecondsPerInvocation="484" maxMicrosecondsPerInvocation="20006" standardDeviationMicrosecondsPerInvocation="1966"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.FindOpenStream" totalMilliseconds="47" invocations="10" avgMicrosecondsPerInvocation="4767" maxMicrosecondsPerInvocation="37473" standardDeviationMicrosecondsPerInvocation="11199"/>
+      <ClassProfile name="edu.umd.cs.findbugs.detect.CalledMethods" totalMilliseconds="46" invocations="106" avgMicrosecondsPerInvocation="439" maxMicrosecondsPerInvocation="7060" standardDeviationMicrosecondsPerInvocation="1127"/>
+    </FindBugsProfile>
+  </FindBugsSummary>
+  <ClassFeatures></ClassFeatures>
+  <History></History>
+</BugCollection>

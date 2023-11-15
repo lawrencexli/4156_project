@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageFileUtil.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.util</a> &gt; <span class="el_source">ImageFileUtil.java</span></div><h1>ImageFileUtil.java</h1><pre class="source lang-java linenums">package com.project.ipms.util;
+
+import com.project.ipms.exception.BadRequestException;
+import com.project.ipms.exception.InvalidFileTypeException;
+
+import java.awt.Graphics;
+import java.awt.image.BufferedImage;
+
+public final class ImageFileUtil {
+
+    /**
+     * List of supported file extensions for the image service.
+     */
+<span class="fc" id="L14">    private static final String[] SUPPORTED_EXTENSIONS = {&quot;.jpeg&quot;, &quot;.jpg&quot;, &quot;.png&quot;};</span>
+
+    private ImageFileUtil() { }
+
+    /**
+     * Check if the original filename is valid and is a supported file.
+     * @param fileName the original filename as String
+     * @return the image file extension
+     */
+    public static String checkFileValid(final String fileName) {
+<span class="fc bfc" id="L24" title="All 4 branches covered.">        if (fileName == null || fileName.isBlank()) {</span>
+<span class="fc" id="L25">            throw new BadRequestException(&quot;Filename is empty or null&quot;);</span>
+        }
+
+<span class="fc bfc" id="L28" title="All 2 branches covered.">        if (!fileName.contains(&quot;.&quot;)) {</span>
+<span class="fc" id="L29">            throw new BadRequestException(&quot;Filename is missing file extension&quot;);</span>
+        }
+
+<span class="fc bfc" id="L32" title="All 2 branches covered.">        if (fileName.startsWith(&quot;.&quot;)) {</span>
+<span class="fc" id="L33">            throw new BadRequestException(&quot;Filename cannot start with a dot '.'&quot;);</span>
+        }
+
+<span class="fc bfc" id="L36" title="All 2 branches covered.">        for (String extension: SUPPORTED_EXTENSIONS) {</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            if (fileName.endsWith(extension)) {</span>
+<span class="fc" id="L38">                return extension;</span>
+            }
+        }
+
+<span class="fc" id="L42">        throw new InvalidFileTypeException(</span>
+                &quot;Not a supported file type. Currently, we support the following image file types: jpg, jpeg, png.&quot;
+        );
+    }
+
+    /**
+     * Compare 2 images and see if they are equal.
+     * @param img1 First image
+     * @param img2 Second image
+     * @return True if 2 images are identical, False otherwise
+     */
+    public static boolean compareImagesEqual(final BufferedImage img1, final BufferedImage img2) {
+<span class="fc" id="L54">        int w1 = img1.getWidth();</span>
+<span class="fc" id="L55">        int w2 = img2.getWidth();</span>
+<span class="fc" id="L56">        int h1 = img1.getHeight();</span>
+<span class="fc" id="L57">        int h2 = img2.getHeight();</span>
+<span class="pc bpc" id="L58" title="1 of 4 branches missed.">        if ((w1 != w2) || (h1 != h2)) {</span>
+<span class="fc" id="L59">            return false;</span>
+        } else {
+<span class="fc bfc" id="L61" title="All 2 branches covered.">            for (int j = 0; j &lt; h1; j++) {</span>
+<span class="fc bfc" id="L62" title="All 2 branches covered.">                for (int i = 0; i &lt; w1; i++) {</span>
+                    // Getting the RGB values of a pixel
+<span class="fc" id="L64">                    int pixel1 = img1.getRGB(i, j);</span>
+<span class="fc" id="L65">                    int pixel2 = img2.getRGB(i, j);</span>
+                    // compare RGB of each pixel
+<span class="pc bpc" id="L67" title="1 of 2 branches missed.">                    if (pixel1 != pixel2) {</span>
+<span class="nc" id="L68">                        return false;</span>
+                    }
+                }
+            }
+<span class="fc" id="L72">            return true;</span>
+        }
+    }
+
+    /**
+     * Convert the BufferedImage's color component to RGB for jpg/jpeg,
+     * otherwise keep RGBA for png.
+     * NOTE: This method will be tested from ImageServiceImplTest as part of
+     * ImageServiceImpl testing.
+     * @param format File extension for image file (.png, .jpeg, .jpg)
+     * @param transImg The BufferedImage object for conversion
+     * @return Converted BufferedImage object in RGB for jpg/jpeg, or RGBA for png
+     */
+    public static BufferedImage getBufferedImageResult(final String format,
+                                                       final BufferedImage transImg) {
+<span class="pc bpc" id="L87" title="1 of 4 branches missed.">        if (format.equals(&quot;.jpg&quot;) || format.equals(&quot;.jpeg&quot;)) {</span>
+<span class="fc" id="L88">            BufferedImage newImage = new BufferedImage(</span>
+<span class="fc" id="L89">                    transImg.getWidth(),</span>
+<span class="fc" id="L90">                    transImg.getHeight(),</span>
+                    BufferedImage.TYPE_INT_RGB);
+<span class="fc" id="L92">            Graphics g = newImage.createGraphics();</span>
+<span class="fc" id="L93">            g.drawImage(transImg, 0, 0, null);</span>
+<span class="fc" id="L94">            g.dispose();</span>
+<span class="fc" id="L95">            return newImage;</span>
+        } else {
+<span class="pc bpc" id="L97" title="1 of 2 branches missed.">            assert format.equals(&quot;.png&quot;) : &quot;File extension is not one of (.png, .jpeg, .jpg), got &quot; + format;</span>
+<span class="fc" id="L98">            return transImg;</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.controller</a> &gt; <span class="el_source">FileController.java</span></div><h1>FileController.java</h1><pre class="source lang-java linenums">/**
+ * Code for Spring Boot + Google Cloud Storage integration.
+ */
+
+package com.project.ipms.controller;
+
+import com.project.ipms.exception.BadRequestException;
+import com.project.ipms.mongodb.MongoDBService;
+import com.project.ipms.service.FileService;
+import com.project.ipms.service.ImageService;
+import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.net.URLConnection;
+
+@RestController
+@RequestMapping(&quot;/api&quot;)
+public class FileController {
+
+    /**
+     * A file service object for calling methods.
+     */
+    private final FileService fileService;
+
+    /**
+     * A MongoDB service object for calling methods.
+     */
+    private final MongoDBService mongoDBService;
+
+    /**
+     * An image processing service object for calling methods.
+     */
+    private final ImageService imageService;
+
+    /**
+     * Constructor for FileController.
+     * Autowire and link MongoDB repo.
+     * @param fileService A file service object for calling methods
+     * @param mongoDBService A MongoDB database service for calling methods
+     * @param imageService An image service for calling methods
+     */
+    @SuppressFBWarnings(&quot;EI_EXPOSE_REP2&quot;)
+    @Autowired
+    public FileController(final FileService fileService,
+                          final MongoDBService mongoDBService,
+<span class="fc" id="L65">                          final ImageService imageService) {</span>
+<span class="fc" id="L66">        this.fileService = fileService;</span>
+<span class="fc" id="L67">        this.mongoDBService = mongoDBService;</span>
+<span class="fc" id="L68">        this.imageService = imageService;</span>
+<span class="fc" id="L69">    }</span>
+
+    /**
+     * Upload a file.
+     * @param file Representation of a file received in a multipart request
+     * @param id Client id
+     * @return A success message
+     * @throws IOException For exceptions in reading and writing image bytes
+     */
+    @PostMapping(&quot;upload&quot;)
+    public ApiResponse uploadFile(@RequestParam final MultipartFile file,
+                                  @RequestPart final String id) throws IOException {
+<span class="pc bpc" id="L81" title="1 of 4 branches missed.">        if (file == null || file.isEmpty()) {</span>
+<span class="fc" id="L82">            throw new BadRequestException(&quot;File has no content or is null&quot;);</span>
+        }
+<span class="fc bfc" id="L84" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L85">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+        }
+<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (ImageIO.read(file.getInputStream()) == null) {</span>
+<span class="fc" id="L88">            String imageValidationErrorMsg = &quot;Image file validation failed: &quot;</span>
+                    + &quot;The file could be corrupted or is not an image file&quot;;
+<span class="fc" id="L90">            throw new BadRequestException(imageValidationErrorMsg);</span>
+        }
+<span class="fc" id="L92">        mongoDBService.uploadFile(id, file.getOriginalFilename());</span>
+<span class="fc" id="L93">        fileService.uploadFile(</span>
+<span class="fc" id="L94">                file.getOriginalFilename(),</span>
+<span class="fc" id="L95">                file.getContentType(),</span>
+<span class="fc" id="L96">                file.getBytes(),</span>
+                id
+        );
+<span class="fc" id="L99">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L100">        response.setResponseMessage(&quot;File uploaded successfully&quot;);</span>
+<span class="fc" id="L101">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L102">        return response;</span>
+    }
+
+    /**
+     * Download file from Google Cloud Storage.
+     * @param fileName Name of file
+     * @param id client ID
+     * @return Byte array file content
+     */
+    @GetMapping(&quot;download&quot;)
+    public ResponseEntity&lt;Resource&gt; downloadFile(@RequestPart final String fileName,
+                                                 @RequestPart final String id) {
+<span class="fc bfc" id="L114" title="All 4 branches covered.">        if (fileName == null || fileName.isBlank()) {</span>
+<span class="fc" id="L115">            throw new BadRequestException(&quot;Filename is empty or null&quot;);</span>
+        }
+<span class="fc bfc" id="L117" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L118">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+        }
+<span class="fc" id="L120">        mongoDBService.mongoDBFileCheck(id, fileName);</span>
+<span class="fc" id="L121">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + fileName);</span>
+<span class="fc" id="L122">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L123">        headers.add(HttpHeaders.CONTENT_DISPOSITION,</span>
+                &quot;attachment; filename=\&quot;&quot; + fileName + &quot;\&quot;&quot;);
+
+<span class="fc" id="L126">        return ResponseEntity.ok().</span>
+<span class="fc" id="L127">                contentType(MediaType.APPLICATION_OCTET_STREAM).</span>
+<span class="fc" id="L128">                headers(headers).body(resource);</span>
+    }
+
+    /**
+     * Generate a new client ID.
+     * @return json response containing generated client ID
+     */
+    @GetMapping(&quot;generate&quot;)
+    public ApiResponse generateClientID() {
+<span class="fc" id="L137">        String newClientID = mongoDBService.generateNewKey();</span>
+<span class="fc" id="L138">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L139">        response.setResponseMessage(newClientID);</span>
+<span class="fc" id="L140">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L141">        return response;</span>
+    }
+
+    /**
+     * Make image transparent.
+     * @param target Target filename in client's repository
+     * @param result Result filename after processing
+     * @param id Client ID credential
+     * @param alpha Alpha value for transparency
+     * @return json response for operation success
+     * @throws IOException For exceptions in reading and writing image bytes
+     */
+    @PutMapping(&quot;transparent&quot;)
+    public ApiResponse imageTransparent(@RequestPart final String target,
+                                        @RequestPart final String result,
+                                        @RequestPart final String id,
+                                        @RequestPart final float alpha) throws IOException {
+        // Check if all inputs are valid
+<span class="pc bpc" id="L159" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
+<span class="pc bpc" id="L160" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
+<span class="nc" id="L161">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+        }
+<span class="pc bpc" id="L163" title="2 of 4 branches missed.">        if (id == null || id.isBlank()) {</span>
+<span class="nc" id="L164">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+        }
+<span class="fc bfc" id="L166" title="All 4 branches covered.">        if (alpha &lt; 0 || alpha &gt; 1) {</span>
+<span class="fc" id="L167">            throw new BadRequestException(&quot;The alpha value should be in the range of 0 to 1&quot;);</span>
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+<span class="fc" id="L172">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L173">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L174">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L175" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L176">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+        }
+        // Retrieve and process image file from storage
+<span class="fc" id="L179">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L180">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L181">        BufferedImage resultImage = imageService.imageTransparency(</span>
+                targetImage,
+                alpha,
+                targetFileExtension
+        );
+        // Upload the result image
+<span class="fc" id="L187">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+    }
+
+    /**
+     * Crop the image.
+     * @param target     Target filename in client's repository
+     * @param result     Result filename after processing
+     * @param id         Client ID credential
+     * @param x          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param y          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param width      The width of the specified rectangular region
+     * @param height     The height of the specified rectangular region
+     * @return           Processed image in BufferedImage format
+     */
+    @PutMapping(&quot;crop&quot;)
+    public ApiResponse imageCrop(@RequestPart final String target,
+                                 @RequestPart final String result,
+                                 @RequestPart final String id,
+                                 @RequestPart final int x,
+                                 @RequestPart final int y,
+                                 @RequestPart final int width,
+                                 @RequestPart final int height) throws IOException {
+        // Check if all inputs are valid
+<span class="pc bpc" id="L212" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
+<span class="pc bpc" id="L213" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
+<span class="nc" id="L214">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+<span class="fc" id="L219">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L220">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L221">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L223">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+        }
+        // Retrieve and process image file from storage
+<span class="fc" id="L226">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L227">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+        // Check if the x, y, width, height are correct
+<span class="fc bfc" id="L229" title="All 4 branches covered.">        if (x &lt; 0 || x &gt; targetImage.getWidth()) {</span>
+<span class="fc" id="L230">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
+        }
+<span class="fc bfc" id="L232" title="All 4 branches covered.">        if (y &lt; 0 || y &gt; targetImage.getHeight()) {</span>
+<span class="fc" id="L233">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
+        }
+<span class="fc bfc" id="L235" title="All 4 branches covered.">        if (width &lt;= 0 || width &gt; targetImage.getWidth() - x) {</span>
+<span class="fc" id="L236">            throw new BadRequestException(&quot;The width value should be from 1 to (target image's width - x)&quot;);</span>
+        }
+<span class="fc bfc" id="L238" title="All 4 branches covered.">        if (height &lt;= 0 || height &gt; targetImage.getHeight() - y) {</span>
+<span class="fc" id="L239">            throw new BadRequestException(&quot;The height value should be from 1 to (target image's height - y)&quot;);</span>
+        }
+<span class="fc" id="L241">        BufferedImage resultImage = imageService.imageCropping(</span>
+                targetImage,
+                x, y, width, height,
+                targetFileExtension
+        );
+        // Upload the result image
+<span class="fc" id="L247">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+    }
+
+    /**
+    * Change image saturation.
+    * @param target Target filename in client's repository
+    * @param result Result filename after processing
+    * @param id Client ID credential
+    * @param saturationCoeff Alpha value for transparency
+    * @return json response for operation success
+    * @throws IOException For exceptions in reading and writing image bytes
+    */
+    @PutMapping(&quot;saturation&quot;)
+    public ApiResponse imageSaturate(@RequestPart final String target,
+                                     @RequestPart final String result,
+                                     @RequestPart final String id,
+                                     @RequestPart final float saturationCoeff) throws IOException {
+        // Check if all inputs are valid
+<span class="pc bpc" id="L265" title="3 of 6 branches missed.">        if (target == null || target.isBlank()</span>
+<span class="pc bpc" id="L266" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
+<span class="nc" id="L267">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+        }
+<span class="pc bpc" id="L269" title="2 of 4 branches missed.">        if (id == null || id.isBlank()) {</span>
+<span class="nc" id="L270">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+        }
+<span class="fc bfc" id="L272" title="All 4 branches covered.">        if (saturationCoeff &lt; 0 || saturationCoeff &gt; 255) {</span>
+<span class="fc" id="L273">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
+        }
+        // Check if the target file exists in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for target and result are consistent
+<span class="fc" id="L278">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L279">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L280">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L281" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L282">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+        }
+        // Retrieve and process image file from storage
+<span class="fc" id="L285">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L286">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L287">        BufferedImage resultImage = imageService.imageSaturation(</span>
+                targetImage,
+                saturationCoeff,
+                targetFileExtension
+        );
+        // Upload the result image
+<span class="fc" id="L293">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+    }
+
+    /**
+     * Wrapper function for uploading processed image file.
+     * NOTE: This wrapper method will be tested from other methods from this class
+     * like imageCrop() and imageTransparent() as part of the image feature controller test.
+     * @param result The name of the result image file
+     * @param id Client ID credential
+     * @param resultImage BufferedImage object of processed image
+     * @param resultFileExtension The file extension of processed image file
+     * @return ApiResponse object for client end
+     * @throws IOException For errors in reading/writing image bytes to file
+     */
+    private ApiResponse uploadResult(final String result,
+                                     final String id,
+                                     final BufferedImage resultImage,
+                                     final String resultFileExtension) throws IOException {
+<span class="fc" id="L311">        mongoDBService.uploadFile(id, result);</span>
+<span class="fc" id="L312">        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();</span>
+        // resultFileExtension looks like &quot;.jpg&quot;, &quot;.png&quot;. Therefore, need to remove the dot &quot;.&quot;
+<span class="fc" id="L314">        ImageIO.write(</span>
+                resultImage,
+<span class="fc" id="L316">                resultFileExtension.substring(1),</span>
+                byteImageOutput
+        );
+<span class="fc" id="L319">        fileService.uploadFile(</span>
+                result,
+<span class="fc" id="L321">                URLConnection.getFileNameMap().getContentTypeFor(result),</span>
+<span class="fc" id="L322">                byteImageOutput.toByteArray(),</span>
+                id
+        );
+<span class="fc" id="L325">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L326">        response.setResponseMessage(&quot;Operation success&quot;);</span>
+<span class="fc" id="L327">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L328">        return response;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
