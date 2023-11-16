@@ -45,9 +45,6 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Change wrapper permissions
-      run: chmod +x ./gradlew
-
     - name: Init gradle wrapper
       run: gradle wrapper
 
