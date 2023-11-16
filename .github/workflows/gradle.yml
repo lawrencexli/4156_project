@@ -5,7 +5,7 @@
 # This workflow will build a Java project with Gradle and cache/restore any dependencies to improve the workflow execution time
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-java-with-gradle
 
-name: Java Gradle Build CI
+name: Java Gradle CI
 
 on:
   push:
@@ -32,3 +32,31 @@ jobs:
       uses: gradle/gradle-build-action@bd5760595778326ba7f1441bcf7e88b49de61a25 # v2.6.0
       with:
         arguments: build
+
+
+  automated-api-tests:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: grant access
+      run: sudo chmod +x mvnw
+
+    - name: Start project
+      run: nohup ./mvnw spring-boot:run &
+
+    - uses: actions/checkout@v3
+    - name: Install Postman CLI
+      run: |
+        curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+    - name: Login to Postman CLI
+      run: postman login --with-api-key PMAK-65556f030d1867003f8d825c-2fc731afcaa512461c6eafaeb71303ae38
+    - name: Run API tests
+      run: |
+        postman collection run src/test/api_test/ipms-api-test.postman_collection.json -e src/test/api_test/ipms-api-test-environment.postman_environment.json
