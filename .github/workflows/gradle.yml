@@ -39,6 +39,6 @@ jobs:
       run: postman login --with-api-key PMAK-65556f030d1867003f8d825c-2fc731afcaa512461c6eafaeb71303ae38
     - name: Run API tests
       run: |
-        ./gradlew bootRun
+        ./gradlew bootRun &
         sleep 10
         postman collection run src/test/api_test/ipms-api-test.postman_collection.json -e src/test/api_test/ipms-api-test-environment.postman_environment.json
