@@ -45,11 +45,8 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: grant access
-      run: sudo chmod +x mvnw
-
-    - name: Start project
-      run: nohup ./mvnw spring-boot:run &
+    - name: Start the server
+      run: ./gradlew bootRun
 
     - uses: actions/checkout@v3
     - name: Install Postman CLI
