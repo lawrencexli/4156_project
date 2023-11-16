@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "c8eee885-6aa4-4bb5-9444-f69aff10cb76",
+		"_postman_id": "9afa43e6-aaaa-431e-963e-55615e59961b",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "30634037"
+		"_exporter_id": "22372916"
 	},
 	"item": [
 		{
@@ -2814,9 +2814,9 @@
 							"    pm.expect(jsonData).to.be.an('object').that.has.all.keys('responseMessage', 'statusCode');",
 							"});",
 							"",
-							"pm.test(\"responseMessage is 'The width value should be from 0 to (target image's width - x)'\", function () {",
+							"pm.test(\"responseMessage is 'The width value should be from 1 to (target image's width - x)'\", function () {",
 							"    var jsonData = pm.response.json();",
-							"    pm.expect(jsonData.responseMessage).to.equal(\"The width value should be from 0 to (target image's width - x)\");",
+							"    pm.expect(jsonData.responseMessage).to.equal(\"The width value should be from 1 to (target image's width - x)\");",
 							"});"
 						],
 						"type": "text/javascript"
@@ -2861,13 +2861,13 @@
 						},
 						{
 							"key": "width",
-							"value": "3000",
+							"value": "0",
 							"contentType": "application/json",
 							"type": "text"
 						},
 						{
 							"key": "height",
-							"value": "600",
+							"value": "0",
 							"contentType": "application/json",
 							"type": "text"
 						}
@@ -2900,7 +2900,7 @@
 							"});",
 							"",
 							"pm.test(\"Response has correct responseMessage\", function () {",
-							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The height value should be from 0 to (target image's height - y)\");",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"The height value should be from 1 to (target image's height - y)\");",
 							"});",
 							"",
 							"pm.test(\"Response has correct statusCode\", function () {",

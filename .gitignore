@@ -49,14 +49,14 @@ target/
 
 # Compiled Files
 bin/
-build/
 /bin1/
 java/build/**
 
+build/*
+!build/reports/
+
 # Gradle
 .gradle
-**/build/
-!src/**/build/
 
 # Ignore Gradle GUI config
 gradle-app.setting

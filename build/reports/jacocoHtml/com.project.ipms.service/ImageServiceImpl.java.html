@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.service</a> &gt; <span class="el_source">ImageServiceImpl.java</span></div><h1>ImageServiceImpl.java</h1><pre class="source lang-java linenums">package com.project.ipms.service;
+
+import com.project.ipms.util.ImageFileUtil;
+import org.springframework.stereotype.Service;
+
+import java.awt.AlphaComposite;
+import java.awt.Graphics2D;
+import java.awt.Transparency;
+import java.awt.image.BufferedImage;
+import java.awt.Color;
+
+@Service
+<span class="fc" id="L13">public class ImageServiceImpl implements ImageService {</span>
+    /**
+     * Make image transparent.
+     * @param inputImage Image input
+     * @param alpha      Alpha value for transparency
+     * @param format     Image file format
+     * @return Processed image in BufferedImage format
+     */
+    @Override
+    public BufferedImage imageTransparency(final BufferedImage inputImage,
+                                           final float alpha,
+                                           final String format) {
+<span class="fc" id="L25">        BufferedImage transImg = new BufferedImage(</span>
+<span class="fc" id="L26">                inputImage.getWidth(null),</span>
+<span class="fc" id="L27">                inputImage.getHeight(null),</span>
+                Transparency.TRANSLUCENT);
+<span class="fc" id="L29">        Graphics2D g2d = transImg.createGraphics();</span>
+<span class="fc" id="L30">        AlphaComposite alphaComposite = AlphaComposite.getInstance(AlphaComposite.SRC_OVER, alpha);</span>
+<span class="fc" id="L31">        g2d.setComposite(alphaComposite);</span>
+<span class="fc" id="L32">        g2d.drawImage(inputImage, 0, 0, null);</span>
+<span class="fc" id="L33">        g2d.dispose();</span>
+<span class="fc" id="L34">        return ImageFileUtil.getBufferedImageResult(format, transImg);</span>
+    }
+
+    /**
+     * Crop the image.
+     * @param inputImage Image input
+     * @param x          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param y          The X coordinate of the upper-left corner of the specified
+     *                   rectangular region
+     * @param width      The width of the specified rectangular region
+     * @param height     The height of the specified rectangular region
+     * @param format     Image file format
+     * @return Processed image in BufferedImage format
+     */
+    @Override
+    public BufferedImage imageCropping(final BufferedImage inputImage,
+                                       final int x,
+                                       final int y,
+                                       final int width,
+                                       final int height,
+                                       final String format) {
+<span class="fc" id="L56">        BufferedImage croppedImage = inputImage.getSubimage(x, y, width, height);</span>
+<span class="fc" id="L57">        return ImageFileUtil.getBufferedImageResult(format, croppedImage);</span>
+    }
+
+    /**
+    * Changes image's saturation.
+    * @param inputImage Image input
+    * @param saturationCoeff    Coefficient to multiply saturation by (0-255)
+    * @param format     Image file format
+    * @return Processed image in BufferedImage format
+    */
+    @Override
+    public BufferedImage imageSaturation(final BufferedImage inputImage,
+                                        final float saturationCoeff,
+                                        final String format) {
+<span class="fc bfc" id="L71" title="All 2 branches covered.">        for (int x = 0; x &lt; inputImage.getWidth(); x++) {</span>
+<span class="fc bfc" id="L72" title="All 2 branches covered.">            for (int y = 0; y &lt; inputImage.getHeight(); y++) {</span>
+                // Iterate through pixels
+<span class="fc" id="L74">                int pixel = inputImage.getRGB(x, y);</span>
+<span class="fc" id="L75">                int r = (pixel &gt;&gt; 16) &amp; 0xFF;</span>
+<span class="fc" id="L76">                int g = (pixel &gt;&gt; 8) &amp; 0xFF;</span>
+<span class="fc" id="L77">                int b = (pixel) &amp; 0xFF;</span>
+
+                // Convert to (hue, saturation, brightness)
+<span class="fc" id="L80">                float[] hsb = Color.RGBtoHSB(r, g, b, null);</span>
+
+                // Modify saturation and set pixel to new value
+<span class="fc" id="L83">                int newRGB = Color.HSBtoRGB(hsb[0], saturationCoeff * hsb[1], hsb[2]);</span>
+<span class="fc" id="L84">                inputImage.setRGB(x, y, newRGB);</span>
+            }
+        }
+<span class="fc" id="L87">        return ImageFileUtil.getBufferedImageResult(format, inputImage);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

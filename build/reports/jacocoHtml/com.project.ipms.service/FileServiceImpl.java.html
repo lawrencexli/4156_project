@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.service</a> &gt; <span class="el_source">FileServiceImpl.java</span></div><h1>FileServiceImpl.java</h1><pre class="source lang-java linenums">/**
+ * Code for Spring Boot + Google Cloud Storage integration.
+ */
+
+package com.project.ipms.service;
+
+import com.google.api.gax.paging.Page;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Storage;
+import com.project.ipms.exception.CriticalServerException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+
+
+@Service
+public class FileServiceImpl implements FileService {
+
+    /**
+     * Get the bucket name from application.properties.
+     */
+    @Value(&quot;${gcp.bucket.name}&quot;)
+    private String bucketName;
+
+    /**
+     * Storage object for calling methods.
+     */
+    private final Storage storage;
+
+    /**
+     * Constructor for FileService.
+     * @param storage Google cloud storage object
+     */
+    @Autowired
+    @SuppressFBWarnings(&quot;EI_EXPOSE_REP2&quot;)
+<span class="fc" id="L43">    public FileServiceImpl(final Storage storage) {</span>
+<span class="fc" id="L44">        this.storage = storage;</span>
+<span class="fc" id="L45">    }</span>
+
+    /**
+     * Download file from Google Cloud Storage.
+     * @param fileName Name of file
+     * @return Byte Array File
+     */
+    @Override
+    public ByteArrayResource downloadFile(final String fileName) {
+<span class="fc" id="L54">        Blob blob = storage.get(bucketName, fileName);</span>
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (blob == null) {</span>
+<span class="fc" id="L56">            throw new CriticalServerException(</span>
+                    &quot;CRITICAL ERROR: File does not exist on GCP Bucket but exists in MongoDB records&quot;
+            );
+        }
+<span class="fc" id="L60">        return new ByteArrayResource(blob.getContent());</span>
+    }
+
+    /**
+     * Upload file to Google Cloud Storage.
+     * @param fileName fileName
+     * @param fileContentType content type for file
+     * @param fileBytes the file content bytes
+     * @param repoName The client ID used to create folder name in GCP bucket
+     */
+    @Override
+    public void uploadFile(final String fileName,
+                           final String fileContentType,
+                           final byte[] fileBytes,
+                           final String repoName) {
+<span class="fc" id="L75">        BlobId blobId = BlobId.of(bucketName,</span>
+                repoName + &quot;/&quot; + fileName);
+<span class="fc" id="L77">        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).</span>
+<span class="fc" id="L78">                setContentType(fileContentType).build();</span>
+<span class="fc" id="L79">        storage.create(blobInfo, fileBytes);</span>
+<span class="fc" id="L80">    }</span>
+
+    /**
+     * Delete a file or a directory by its name.
+     * @param name Name of the file or directory
+     * @return True if the file or directory was deleted successfully,
+     * or False if the file or directory was not found.
+     */
+    @Override
+    public boolean deleteFile(final String name) {
+<span class="fc" id="L90">        Blob blob = storage.get(bucketName, name);</span>
+<span class="fc bfc" id="L91" title="All 2 branches covered.">        if (blob == null) {</span>
+<span class="fc" id="L92">            return false;</span>
+        }
+<span class="fc" id="L94">        return blob.delete();</span>
+    }
+
+    /**
+     * Return a list of files in a client's directory.
+     * @param id Client ID for the directory.
+     * @return A list of filenames.
+     */
+    @Override
+    public List&lt;String&gt; listOfFiles(final String id) {
+<span class="fc" id="L104">        List&lt;String&gt; list = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L105">        Page&lt;Blob&gt; blobs = storage.list(bucketName, Storage.BlobListOption.prefix(id + &quot;/&quot;),</span>
+<span class="fc" id="L106">                Storage.BlobListOption.currentDirectory());</span>
+<span class="fc bfc" id="L107" title="All 2 branches covered.">        for (Blob blob : blobs.iterateAll()) {</span>
+<span class="fc" id="L108">            list.add(blob.getName());</span>
+<span class="fc" id="L109">        }</span>
+<span class="fc" id="L110">        return list;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

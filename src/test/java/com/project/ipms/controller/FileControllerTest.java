@@ -5,6 +5,7 @@ import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
 import com.project.ipms.service.ImageService;
 import com.project.ipms.util.ImageFileUtil;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.Mockito.mock;
 
 @SpringBootTest
+@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE")
 class FileControllerTest {
 
     /**
@@ -228,6 +230,19 @@ class FileControllerTest {
     }
 
     @Test
+    void testUploadFile8() {
+        String fakeID = "ace-attorney-7";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.uploadFile(null, fakeID));
+
+        String expectedMessage = "File has no content or is null";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void testDownloadFile1() {
         String testImageFile = "maya-fey.jpg";
         String testID = "ace-attorney-6";
@@ -403,6 +418,72 @@ class FileControllerTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageTransparent4() {
+        String testID = "apollo-justice";
+        String testTarget = "target.png";
+        String testResult = "result.jpg";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent(testTarget, testResult, testID, 0.8F));
+
+        String expectedMessage = "Target file extension is different from result file extension";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageTransparent5() {
+        String testTarget = "target.png";
+        String testResult = "result.jpg";
+
+        String expectedMessage = "Client ID is missing or null";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent(testTarget, testResult, "", 0.8F));
+
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent(testTarget, testResult, null, 0.8F));
+
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageTransparent6() {
+        String testID = "apollo-justice";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent(null, "test.jpg", testID, 0.8F));
+
+        String expectedMessage = "Target filename or result filename is empty or null";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent(" ", "test.jpg", testID, 0.8F));
+
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
+
+        Exception exception3 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent("test.jpg", " ", testID, 0.8F));
+
+        String actualMessage3 = exception3.getMessage();
+        assertTrue(actualMessage3.contains(expectedMessage));
+
+        Exception exception4 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageTransparent("test.jpg", null, testID, 0.8F));
+
+        String actualMessage4 = exception4.getMessage();
+        assertTrue(actualMessage4.contains(expectedMessage));
     }
 
     @Test
@@ -674,6 +755,37 @@ class FileControllerTest {
     }
 
     @Test
+    void testImageCrop7() {
+        String testID = "clientID";
+        int x = 0;
+        int y = 0;
+        int width = 100;
+        int height = 100;
+
+        String expectedMessage = "Target filename or result filename is empty or null";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop("", "test.jpg", testID, x, y, width, height));
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop(null, "test.jpg", testID, x, y, width, height));
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
+
+        Exception exception3 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop("test.jpg", "", testID, x, y, width, height));
+        String actualMessage3 = exception3.getMessage();
+        assertTrue(actualMessage3.contains(expectedMessage));
+
+        Exception exception4 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageCrop("test.jpg", null, testID, x, y, width, height));
+        String actualMessage4 = exception4.getMessage();
+        assertTrue(actualMessage4.contains(expectedMessage));
+    }
+
+    @Test
     void testImageSaturation1() throws IOException {
         String testID = "apollo-justice";
         String testTarget = "target.png";
@@ -746,5 +858,54 @@ class FileControllerTest {
         String actualMessage = exception.getMessage();
 
         assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageSaturation4() {
+        String testID = "clientID";
+        float saturationCoeff = 1;
+
+        String expectedMessage = "Target filename or result filename is empty or null";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate("target.png", "   ", testID, saturationCoeff));
+
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate("target.png", null, testID, saturationCoeff));
+
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
+
+        Exception exception3 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate("   ", "result.png", testID, saturationCoeff));
+
+        String actualMessage3 = exception3.getMessage();
+        assertTrue(actualMessage3.contains(expectedMessage));
+
+        Exception exception4 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate(null, "result.png", testID, saturationCoeff));
+
+        String actualMessage4 = exception4.getMessage();
+        assertTrue(actualMessage4.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageSaturation5() {
+        float saturationCoeff = 1;
+
+        String expectedMessage = "Client ID is missing or null";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate("target.png", "result.png", "", saturationCoeff));
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageSaturate("target.png", "result.png", null, saturationCoeff));
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
     }
 }

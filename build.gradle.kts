@@ -1,7 +1,9 @@
 plugins {
 	java
+	jacoco
 	id("org.springframework.boot") version "3.1.4"
 	id("io.spring.dependency-management") version "1.1.3"
+	id("com.github.spotbugs") version "4.4.2"
 	id("checkstyle")
 }
 
@@ -28,6 +30,8 @@ dependencies {
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	spotbugs("com.github.spotbugs:spotbugs:4.4.2")
+	spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
 }
 
 checkstyle {
@@ -40,6 +44,24 @@ dependencyManagement {
 	imports {
 		mavenBom("com.google.cloud:spring-cloud-gcp-dependencies:${property("springCloudGcpVersion")}")
 		mavenBom("org.springframework.cloud:spring-cloud-dependencies:${property("springCloudVersion")}")
+	}
+}
+
+jacoco {
+	toolVersion = "0.8.9"
+	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+}
+
+tasks.test {
+	finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+	dependsOn(tasks.test) // tests are required to run before generating the report
+	reports {
+		xml.required = false
+		csv.required = false
+		html.outputLocation = layout.buildDirectory.dir("reports/jacocoHtml")
 	}
 }
 
