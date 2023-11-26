@@ -1,0 +1,22 @@
+.img_io {
+    width: 20%;
+    float: left;
+    height: 100px;
+}
+
+.img_view {
+    width: 30%;
+    float: left;
+    height: 100px;
+}
+
+.img_func {
+    width: 30%;
+    float: left;
+    height: 100px;
+}
+
+.img_func_box {
+    background-color: gainsboro;
+    padding: 25px;
+}

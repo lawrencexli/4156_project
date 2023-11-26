@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+
+    <title>Image Client</title>
+</head>
+
+<body>
+    <div class="img_io">
+        <div id="img_upload" class="img_func_box">
+            <form id="img_upload_form" name="img_upload_form">
+                <label for="img_input"></label>
+                <input type="file" name="img_input" id="img_input"><br><br>
+                <div id="uploaded_img"></div><br>
+                <input type="submit">
+            </form>
+        </div>
+        <br>
+        <div id="img_download" class="img_func_box">
+            <b>Select Image</b>
+            <select name="img_dropdown" id="img_dropdown">
+                <option value="0">--select--</option>
+            </select>
+        </div>
+        <b id="response_msg"></b>
+    </div>
+
+    <div class="img_view"></div>
+
+    <div class="img_func">
+        <div id="img_crop" class="img_func_box">
+            <b>Crop</b><br><br>
+            <form id="img_crop_form" name="img_crop_form">
+                <label for="img_x">X:</label>
+                <input type="text" size="5" id="img_x">
+                <label for="img_y">Y:</label>
+                <input type="text" size="5" id="img_y">
+                <input type="submit" value="Apply" form="img_crop_form">
+            </form>
+        </div>
+        <br>
+        <div id="img_tran" class="img_func_box">
+            <b>Transparency</b><br><br>
+            <form id="img_tran_form" name="img_tran_form">
+                <label for="alpha">alpha</label>
+                <input type="range" id="alpha" min="0" max="1" step="0.1" class="slider"
+                    oninput="this.nextElementSibling.value = this.value">
+                <output>0.5</output>
+                <input type="submit" value="Apply" form="img_tran_form">
+            </form>
+        </div>
+        <br>
+        <div id="img_satu" class="img_func_box">
+            <b>Saturation</b><br><br>
+            <form id="img_satu_form" name="img_satu_form">
+                <label for="sat_coeff">saturation coeff</label>
+                <input type="range" id="sat_coeff" min="0" max="255" class="slider"
+                    oninput="this.nextElementSibling.value = this.value">
+                <output>100</output>
+                <input type="submit" value="Apply" form="img_satu_form">
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>
