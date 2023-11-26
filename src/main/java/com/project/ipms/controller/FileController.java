@@ -17,13 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -75,6 +69,7 @@ public class FileController {
      * @return A success message
      * @throws IOException For exceptions in reading and writing image bytes
      */
+    @CrossOrigin
     @PostMapping("upload")
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
                                   @RequestPart final String id) throws IOException {
@@ -108,6 +103,7 @@ public class FileController {
      * @param id client ID
      * @return Byte array file content
      */
+    @CrossOrigin
     @GetMapping("download")
     public ResponseEntity<Resource> downloadFile(@RequestPart final String fileName,
                                                  @RequestPart final String id) {
@@ -132,6 +128,7 @@ public class FileController {
      * Generate a new client ID.
      * @return json response containing generated client ID
      */
+    @CrossOrigin
     @GetMapping("generate")
     public ApiResponse generateClientID() {
         String newClientID = mongoDBService.generateNewKey();
@@ -150,6 +147,7 @@ public class FileController {
      * @return json response for operation success
      * @throws IOException For exceptions in reading and writing image bytes
      */
+    @CrossOrigin
     @PutMapping("transparent")
     public ApiResponse imageTransparent(@RequestPart final String target,
                                         @RequestPart final String result,
@@ -200,6 +198,7 @@ public class FileController {
      * @param height     The height of the specified rectangular region
      * @return           Processed image in BufferedImage format
      */
+    @CrossOrigin
     @PutMapping("crop")
     public ApiResponse imageCrop(@RequestPart final String target,
                                  @RequestPart final String result,
@@ -256,6 +255,7 @@ public class FileController {
     * @return json response for operation success
     * @throws IOException For exceptions in reading and writing image bytes
     */
+    @CrossOrigin
     @PutMapping("saturation")
     public ApiResponse imageSaturate(@RequestPart final String target,
                                      @RequestPart final String result,
