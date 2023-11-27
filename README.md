@@ -221,7 +221,7 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 > | id     | required | string    | Your client ID credential                              |
 > | target | required | string    | Image filename targeted for processing                 |
 > | result | required | string    | Desired filename for the image result after processing |
-> | alpha  | required | float     | Desired alpha value for transparency                   |
+> | alpha  | required | string     | Desired alpha value for transparency                   |
 
 #### Responses
 
