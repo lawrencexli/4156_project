@@ -101,6 +101,7 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 #### **IMPORTANT:** 
 - **Use `multipart/form-data` for all body arguments.**
+- **For body arguments that require `int` or `float`, you can use `string` as long as they can be reasonably converted to required data type.**
 - **For all non-file arguments, use `application/json` as `Content-Type`.**
 
 ------------------------------------------------------------------------------------------
@@ -151,8 +152,13 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 > | name | type     | data type           | description                                        |
 > |------|----------|---------------------|----------------------------------------------------|
-> | id   | required | string              | Your client ID credential                          |
 > | file | required | multipart/form-data | Uploaded image file contents via multipart request |
+
+##### Header
+
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
 
 #### Responses
 
@@ -218,10 +224,15 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 > | name   | type     | data type | description                                            |
 > |--------|----------|-----------|--------------------------------------------------------|
-> | id     | required | string    | Your client ID credential                              |
 > | target | required | string    | Image filename targeted for processing                 |
 > | result | required | string    | Desired filename for the image result after processing |
 > | alpha  | required | float     | Desired alpha value for transparency                   |
+
+##### Header
+
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
 
 #### Responses
 
@@ -252,13 +263,18 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 > | name   | type     | data type | description                                            |
 > |--------|----------|-----------|--------------------------------------------------------|
-> | id     | required | string    | Your client ID credential                              |
 > | target | required | string    | Image filename targeted for processing                 |
 > | result | required | string    | Desired filename for the image result after processing |
 > | x      | required | int       | Upper left corner x value                              |
 > | y      | required | int       | Upper left corner y value                              |
 > | width  | required | int       | Width of the cropped region                            |
 > | height | required | int       | Height of the cropped region                           |
+
+##### Header
+
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
 
 #### Responses
 
@@ -292,10 +308,15 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
 
 > | name            | type     | data type | description                                            |
 > |-----------------|----------|-----------|--------------------------------------------------------|
-> | id              | required | string    | Your client ID credential                              |
 > | target          | required | string    | Image filename targeted for processing                 |
 > | result          | required | string    | Desired filename for the image result after processing |
 > | saturationCoeff | required | float     | Desired value to multiply saturation by (0-255)        |
+
+##### Header
+
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | id       | required | string    | Your client ID credential             |
 
 #### Responses
 
