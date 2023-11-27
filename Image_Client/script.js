@@ -1,6 +1,7 @@
 'use strict'
 let uploaded_img;
 let id = '';
+let selected_img;
 
 $(function () {
     $('#img_upload_btn').click(async function () {
@@ -16,33 +17,40 @@ $(function () {
 $(function () {
     $('#img_input').change(function () {
         let fileName = this.files[0].name;
-        // let fileSize = this.files[0].size;
         uploaded_img = this.files[0];
         $("#uploaded_img").empty();
         $("#uploaded_img").append(fileName + '<br>')
-        // alert('FileName : ' + fileName + '\nFileSize : ' + fileSize + ' bytes');
     });
 });
 
 $(function () {
-    $('#img_crop_form').submit(function () {
+    $('#img_crop_btn').click(function () {
+        if(!get_selected_img()){
+            return;
+        }
         let x = $("#img_x").val();
         let y = $("#img_y").val();
-    });
-});
-
-
-$(function () {
-    $('#img_tran_form').submit(function () {
-        let values = $(this).serialize();
-        alert(values);
+        console.log(x, y);
     });
 });
 
 $(function () {
-    $('#img_satu_form').submit(function () {
-        let values = $(this).serialize();
-        alert(values);
+    $('#img_tran_btn').click(function () {
+        if(!get_selected_img()){
+            return;
+        }
+        let values = $("#alpha").val();
+        console.log(values);
+    });
+});
+
+$(function () {
+    $('#img_satu_btn').click(function () {
+        if(!get_selected_img()){
+            return;
+        }
+        let values = $("#sat_coeff").val();
+        console.log(values);
     });
 });
 
@@ -64,4 +72,16 @@ async function upload_img() {
     })
         .then((response) => response.json())
         .then((json) => console.log(json));
+
+    let option = '<option>' + uploaded_img.name + '</option>';
+    $("#img_dropdown").append(option);
+}
+
+function get_selected_img(){
+    selected_img = $("#img_dropdown :selected").val();
+    if (selected_img == "--select--"){
+        return false;
+    }else{
+        return true;
+    }
 }
