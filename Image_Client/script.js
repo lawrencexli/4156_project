@@ -1,25 +1,25 @@
-"use strict";
+'use strict'
 let img_list = [];
 let id = '';
+let formData = new FormData();
 
 $(function () {
-    $('#img_upload_form').submit(function () {
-        if (id){
-            upload_img();
-        } else {
+    $('#img_upload_btn').click(function () {
+        if (id == '') {
             generate_id();
         }
+        upload_img();
     });
 });
 
 $(function () {
-    $('#img_input').change(function(){
+    $('#img_input').change(function () {
         let fileName = this.files[0].name;
         let fileSize = this.files[0].size;
-
+        formData.append("file", this.files[0], this.files[0].name);
         img_list.push(this.files[0]);
         $("#uploaded_img").append(fileName + '<br>')
-        alert('FileName : ' + fileName + '\nFileSize : ' + fileSize + ' bytes');
+        // alert('FileName : ' + fileName + '\nFileSize : ' + fileSize + ' bytes');
     });
 });
 
@@ -45,32 +45,28 @@ $(function () {
     });
 });
 
-function generate_id(){
-    alert("test0");
+function generate_id() {
     $.ajax({
         type: "GET",
-        url: "localhost:8080/api/generate",
+        url: "http://localhost:8080/api/generate",
         dataType: "json",
-        headers: {
-            'Cache-Control': 'max-age=1000'
-       },
         success: function (data, text) {
-            alert("test1");
-            // id = data['responseMessage'];
+            console.log(data);
+            id = data['responseMessage'];
             // alert(data);
         },
         error: function (error) {
-            alert("test2");
-            alert(error);
+            console.log(error);
         },
     });
 }
 
 function upload_img() {
-    let data = { "genre": genre }
+    console.log(formData.getAll("file"));
+    let data = {'id': id, 'img': img_list};
     $.ajax({
         type: "POST",
-        url: "/api/upload",
+        url: "http://localhost:8080/api/upload",
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify(data),
