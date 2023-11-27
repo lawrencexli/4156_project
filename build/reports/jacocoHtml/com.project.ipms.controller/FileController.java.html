@@ -19,11 +19,13 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -62,11 +64,11 @@ public class FileController {
     @Autowired
     public FileController(final FileService fileService,
                           final MongoDBService mongoDBService,
-<span class="fc" id="L65">                          final ImageService imageService) {</span>
-<span class="fc" id="L66">        this.fileService = fileService;</span>
-<span class="fc" id="L67">        this.mongoDBService = mongoDBService;</span>
-<span class="fc" id="L68">        this.imageService = imageService;</span>
-<span class="fc" id="L69">    }</span>
+<span class="fc" id="L67">                          final ImageService imageService) {</span>
+<span class="fc" id="L68">        this.fileService = fileService;</span>
+<span class="fc" id="L69">        this.mongoDBService = mongoDBService;</span>
+<span class="fc" id="L70">        this.imageService = imageService;</span>
+<span class="fc" id="L71">    }</span>
 
     /**
      * Upload a file.
@@ -75,31 +77,32 @@ public class FileController {
      * @return A success message
      * @throws IOException For exceptions in reading and writing image bytes
      */
+    @CrossOrigin
     @PostMapping(&quot;upload&quot;)
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
                                   @RequestPart final String id) throws IOException {
-<span class="fc bfc" id="L81" title="All 4 branches covered.">        if (file == null || file.isEmpty()) {</span>
-<span class="fc" id="L82">            throw new BadRequestException(&quot;File has no content or is null&quot;);</span>
+<span class="fc bfc" id="L84" title="All 4 branches covered.">        if (file == null || file.isEmpty()) {</span>
+<span class="fc" id="L85">            throw new BadRequestException(&quot;File has no content or is null&quot;);</span>
         }
-<span class="fc bfc" id="L84" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
-<span class="fc" id="L85">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L87" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L88">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
-<span class="fc bfc" id="L87" title="All 2 branches covered.">        if (ImageIO.read(file.getInputStream()) == null) {</span>
-<span class="fc" id="L88">            String imageValidationErrorMsg = &quot;Image file validation failed: &quot;</span>
+<span class="fc bfc" id="L90" title="All 2 branches covered.">        if (ImageIO.read(file.getInputStream()) == null) {</span>
+<span class="fc" id="L91">            String imageValidationErrorMsg = &quot;Image file validation failed: &quot;</span>
                     + &quot;The file could be corrupted or is not an image file&quot;;
-<span class="fc" id="L90">            throw new BadRequestException(imageValidationErrorMsg);</span>
+<span class="fc" id="L93">            throw new BadRequestException(imageValidationErrorMsg);</span>
         }
-<span class="fc" id="L92">        mongoDBService.uploadFile(id, file.getOriginalFilename());</span>
-<span class="fc" id="L93">        fileService.uploadFile(</span>
-<span class="fc" id="L94">                file.getOriginalFilename(),</span>
-<span class="fc" id="L95">                file.getContentType(),</span>
-<span class="fc" id="L96">                file.getBytes(),</span>
+<span class="fc" id="L95">        mongoDBService.uploadFile(id, file.getOriginalFilename());</span>
+<span class="fc" id="L96">        fileService.uploadFile(</span>
+<span class="fc" id="L97">                file.getOriginalFilename(),</span>
+<span class="fc" id="L98">                file.getContentType(),</span>
+<span class="fc" id="L99">                file.getBytes(),</span>
                 id
         );
-<span class="fc" id="L99">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L100">        response.setResponseMessage(&quot;File uploaded successfully&quot;);</span>
-<span class="fc" id="L101">        response.setStatusCode(HttpStatus.OK.value());</span>
-<span class="fc" id="L102">        return response;</span>
+<span class="fc" id="L102">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L103">        response.setResponseMessage(&quot;File uploaded successfully&quot;);</span>
+<span class="fc" id="L104">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L105">        return response;</span>
     }
 
     /**
@@ -108,37 +111,39 @@ public class FileController {
      * @param id client ID
      * @return Byte array file content
      */
+    @CrossOrigin
     @GetMapping(&quot;download&quot;)
-    public ResponseEntity&lt;Resource&gt; downloadFile(@RequestPart final String fileName,
-                                                 @RequestPart final String id) {
-<span class="fc bfc" id="L114" title="All 4 branches covered.">        if (fileName == null || fileName.isBlank()) {</span>
-<span class="fc" id="L115">            throw new BadRequestException(&quot;Filename is empty or null&quot;);</span>
+    public ResponseEntity&lt;Resource&gt; downloadFile(@RequestParam final String fileName,
+                                                 @RequestHeader final String id) {
+<span class="fc bfc" id="L118" title="All 4 branches covered.">        if (fileName == null || fileName.isBlank()) {</span>
+<span class="fc" id="L119">            throw new BadRequestException(&quot;Filename is empty or null&quot;);</span>
         }
-<span class="fc bfc" id="L117" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
-<span class="fc" id="L118">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L121" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L122">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
-<span class="fc" id="L120">        mongoDBService.mongoDBFileCheck(id, fileName);</span>
-<span class="fc" id="L121">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + fileName);</span>
-<span class="fc" id="L122">        HttpHeaders headers = new HttpHeaders();</span>
-<span class="fc" id="L123">        headers.add(HttpHeaders.CONTENT_DISPOSITION,</span>
+<span class="fc" id="L124">        mongoDBService.mongoDBFileCheck(id, fileName);</span>
+<span class="fc" id="L125">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + fileName);</span>
+<span class="fc" id="L126">        HttpHeaders headers = new HttpHeaders();</span>
+<span class="fc" id="L127">        headers.add(HttpHeaders.CONTENT_DISPOSITION,</span>
                 &quot;attachment; filename=\&quot;&quot; + fileName + &quot;\&quot;&quot;);
 
-<span class="fc" id="L126">        return ResponseEntity.ok().</span>
-<span class="fc" id="L127">                contentType(MediaType.APPLICATION_OCTET_STREAM).</span>
-<span class="fc" id="L128">                headers(headers).body(resource);</span>
+<span class="fc" id="L130">        return ResponseEntity.ok().</span>
+<span class="fc" id="L131">                contentType(MediaType.APPLICATION_OCTET_STREAM).</span>
+<span class="fc" id="L132">                headers(headers).body(resource);</span>
     }
 
     /**
      * Generate a new client ID.
      * @return json response containing generated client ID
      */
+    @CrossOrigin
     @GetMapping(&quot;generate&quot;)
     public ApiResponse generateClientID() {
-<span class="fc" id="L137">        String newClientID = mongoDBService.generateNewKey();</span>
-<span class="fc" id="L138">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L139">        response.setResponseMessage(newClientID);</span>
-<span class="fc" id="L140">        response.setStatusCode(HttpStatus.OK.value());</span>
-<span class="fc" id="L141">        return response;</span>
+<span class="fc" id="L142">        String newClientID = mongoDBService.generateNewKey();</span>
+<span class="fc" id="L143">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L144">        response.setResponseMessage(newClientID);</span>
+<span class="fc" id="L145">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L146">        return response;</span>
     }
 
     /**
@@ -150,41 +155,42 @@ public class FileController {
      * @return json response for operation success
      * @throws IOException For exceptions in reading and writing image bytes
      */
+    @CrossOrigin
     @PutMapping(&quot;transparent&quot;)
     public ApiResponse imageTransparent(@RequestPart final String target,
                                         @RequestPart final String result,
                                         @RequestPart final String id,
                                         @RequestPart final float alpha) throws IOException {
         // Check if all inputs are valid
-<span class="fc bfc" id="L159" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
-<span class="fc bfc" id="L160" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
-<span class="fc" id="L161">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L165" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L166" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L167">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
-<span class="fc bfc" id="L163" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
-<span class="fc" id="L164">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L169" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L170">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
-<span class="fc bfc" id="L166" title="All 4 branches covered.">        if (alpha &lt; 0 || alpha &gt; 1) {</span>
-<span class="fc" id="L167">            throw new BadRequestException(&quot;The alpha value should be in the range of 0 to 1&quot;);</span>
+<span class="fc bfc" id="L172" title="All 4 branches covered.">        if (alpha &lt; 0 || alpha &gt; 1) {</span>
+<span class="fc" id="L173">            throw new BadRequestException(&quot;The alpha value should be in the range of 0 to 1&quot;);</span>
         }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
         // and if the file extensions for target and result are consistent
-<span class="fc" id="L172">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
-<span class="fc" id="L173">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
-<span class="fc" id="L174">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
-<span class="fc bfc" id="L175" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
-<span class="fc" id="L176">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+<span class="fc" id="L178">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L179">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L180">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L181" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L182">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
         }
         // Retrieve and process image file from storage
-<span class="fc" id="L179">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
-<span class="fc" id="L180">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
-<span class="fc" id="L181">        BufferedImage resultImage = imageService.imageTransparency(</span>
+<span class="fc" id="L185">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L186">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L187">        BufferedImage resultImage = imageService.imageTransparency(</span>
                 targetImage,
                 alpha,
                 targetFileExtension
         );
         // Upload the result image
-<span class="fc" id="L187">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+<span class="fc" id="L193">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
     }
 
     /**
@@ -200,6 +206,7 @@ public class FileController {
      * @param height     The height of the specified rectangular region
      * @return           Processed image in BufferedImage format
      */
+    @CrossOrigin
     @PutMapping(&quot;crop&quot;)
     public ApiResponse imageCrop(@RequestPart final String target,
                                  @RequestPart final String result,
@@ -209,42 +216,42 @@ public class FileController {
                                  @RequestPart final int width,
                                  @RequestPart final int height) throws IOException {
         // Check if all inputs are valid
-<span class="fc bfc" id="L212" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
-<span class="fc bfc" id="L213" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
-<span class="fc" id="L214">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L219" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L220" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L221">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
         // and if the file extensions for target and result are consistent
-<span class="fc" id="L219">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
-<span class="fc" id="L220">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
-<span class="fc" id="L221">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
-<span class="fc bfc" id="L222" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
-<span class="fc" id="L223">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+<span class="fc" id="L226">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L227">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L228">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L229" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L230">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
         }
         // Retrieve and process image file from storage
-<span class="fc" id="L226">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
-<span class="fc" id="L227">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L233">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L234">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
         // Check if the x, y, width, height are correct
-<span class="fc bfc" id="L229" title="All 4 branches covered.">        if (x &lt; 0 || x &gt; targetImage.getWidth()) {</span>
-<span class="fc" id="L230">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
+<span class="fc bfc" id="L236" title="All 4 branches covered.">        if (x &lt; 0 || x &gt; targetImage.getWidth()) {</span>
+<span class="fc" id="L237">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
         }
-<span class="fc bfc" id="L232" title="All 4 branches covered.">        if (y &lt; 0 || y &gt; targetImage.getHeight()) {</span>
-<span class="fc" id="L233">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
+<span class="fc bfc" id="L239" title="All 4 branches covered.">        if (y &lt; 0 || y &gt; targetImage.getHeight()) {</span>
+<span class="fc" id="L240">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
         }
-<span class="fc bfc" id="L235" title="All 4 branches covered.">        if (width &lt;= 0 || width &gt; targetImage.getWidth() - x) {</span>
-<span class="fc" id="L236">            throw new BadRequestException(&quot;The width value should be from 1 to (target image's width - x)&quot;);</span>
+<span class="fc bfc" id="L242" title="All 4 branches covered.">        if (width &lt;= 0 || width &gt; targetImage.getWidth() - x) {</span>
+<span class="fc" id="L243">            throw new BadRequestException(&quot;The width value should be from 1 to (target image's width - x)&quot;);</span>
         }
-<span class="fc bfc" id="L238" title="All 4 branches covered.">        if (height &lt;= 0 || height &gt; targetImage.getHeight() - y) {</span>
-<span class="fc" id="L239">            throw new BadRequestException(&quot;The height value should be from 1 to (target image's height - y)&quot;);</span>
+<span class="fc bfc" id="L245" title="All 4 branches covered.">        if (height &lt;= 0 || height &gt; targetImage.getHeight() - y) {</span>
+<span class="fc" id="L246">            throw new BadRequestException(&quot;The height value should be from 1 to (target image's height - y)&quot;);</span>
         }
-<span class="fc" id="L241">        BufferedImage resultImage = imageService.imageCropping(</span>
+<span class="fc" id="L248">        BufferedImage resultImage = imageService.imageCropping(</span>
                 targetImage,
                 x, y, width, height,
                 targetFileExtension
         );
         // Upload the result image
-<span class="fc" id="L247">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+<span class="fc" id="L254">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
     }
 
     /**
@@ -256,41 +263,42 @@ public class FileController {
     * @return json response for operation success
     * @throws IOException For exceptions in reading and writing image bytes
     */
+    @CrossOrigin
     @PutMapping(&quot;saturation&quot;)
     public ApiResponse imageSaturate(@RequestPart final String target,
                                      @RequestPart final String result,
                                      @RequestPart final String id,
                                      @RequestPart final float saturationCoeff) throws IOException {
         // Check if all inputs are valid
-<span class="fc bfc" id="L265" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
-<span class="fc bfc" id="L266" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
-<span class="fc" id="L267">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L273" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L274" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L275">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
-<span class="fc bfc" id="L269" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
-<span class="fc" id="L270">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L277" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L278">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
-<span class="fc bfc" id="L272" title="All 4 branches covered.">        if (saturationCoeff &lt; 0 || saturationCoeff &gt; 255) {</span>
-<span class="fc" id="L273">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
+<span class="fc bfc" id="L280" title="All 4 branches covered.">        if (saturationCoeff &lt; 0 || saturationCoeff &gt; 255) {</span>
+<span class="fc" id="L281">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
         }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
         // and if the file extensions for target and result are consistent
-<span class="fc" id="L278">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
-<span class="fc" id="L279">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
-<span class="fc" id="L280">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
-<span class="fc bfc" id="L281" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
-<span class="fc" id="L282">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+<span class="fc" id="L286">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L287">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L288">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L289" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L290">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
         }
         // Retrieve and process image file from storage
-<span class="fc" id="L285">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
-<span class="fc" id="L286">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
-<span class="fc" id="L287">        BufferedImage resultImage = imageService.imageSaturation(</span>
+<span class="fc" id="L293">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L294">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L295">        BufferedImage resultImage = imageService.imageSaturation(</span>
                 targetImage,
                 saturationCoeff,
                 targetFileExtension
         );
         // Upload the result image
-<span class="fc" id="L293">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+<span class="fc" id="L301">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
     }
 
     /**
@@ -308,24 +316,24 @@ public class FileController {
                                      final String id,
                                      final BufferedImage resultImage,
                                      final String resultFileExtension) throws IOException {
-<span class="fc" id="L311">        mongoDBService.uploadFile(id, result);</span>
-<span class="fc" id="L312">        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();</span>
+<span class="fc" id="L319">        mongoDBService.uploadFile(id, result);</span>
+<span class="fc" id="L320">        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();</span>
         // resultFileExtension looks like &quot;.jpg&quot;, &quot;.png&quot;. Therefore, need to remove the dot &quot;.&quot;
-<span class="fc" id="L314">        ImageIO.write(</span>
+<span class="fc" id="L322">        ImageIO.write(</span>
                 resultImage,
-<span class="fc" id="L316">                resultFileExtension.substring(1),</span>
+<span class="fc" id="L324">                resultFileExtension.substring(1),</span>
                 byteImageOutput
         );
-<span class="fc" id="L319">        fileService.uploadFile(</span>
+<span class="fc" id="L327">        fileService.uploadFile(</span>
                 result,
-<span class="fc" id="L321">                URLConnection.getFileNameMap().getContentTypeFor(result),</span>
-<span class="fc" id="L322">                byteImageOutput.toByteArray(),</span>
+<span class="fc" id="L329">                URLConnection.getFileNameMap().getContentTypeFor(result),</span>
+<span class="fc" id="L330">                byteImageOutput.toByteArray(),</span>
                 id
         );
-<span class="fc" id="L325">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L326">        response.setResponseMessage(&quot;Operation success&quot;);</span>
-<span class="fc" id="L327">        response.setStatusCode(HttpStatus.OK.value());</span>
-<span class="fc" id="L328">        return response;</span>
+<span class="fc" id="L333">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L334">        response.setResponseMessage(&quot;Operation success&quot;);</span>
+<span class="fc" id="L335">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L336">        return response;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

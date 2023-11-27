@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "9afa43e6-aaaa-431e-963e-55615e59961b",
+		"_postman_id": "34ea4d02-f823-4b27-acfa-133dca2adfe5",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
@@ -105,7 +105,6 @@
 						{
 							"key": "id",
 							"value": "invalid-id",
-							"contentType": "",
 							"type": "text"
 						}
 					]
@@ -589,24 +588,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": " ",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "objection.png",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=objection.png",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -615,6 +609,66 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "download_no_id_header",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the correct responseMessage\", function () {",
+							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Required request header 'id' for method parameter type String is not present\");",
+							"});",
+							"",
+							"pm.test(\"Response has the correct statusCode\", function () {",
+							"    pm.expect(pm.response.json().statusCode).to.equal(400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/download?fileName=objection.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
 					]
 				}
 			},
@@ -648,24 +702,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "invalid-id",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "invalid-id",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "objection.png",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=objection.png",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -674,6 +723,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
 					]
 				}
 			},
@@ -707,24 +762,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "not-exist.jpg",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=not-exist.jpg",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -733,6 +783,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "not-exist.jpg"
+						}
 					]
 				}
 			},
@@ -758,24 +814,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token1}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "objection.png",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=objection.png",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -784,6 +835,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
 					]
 				}
 			},
@@ -1425,24 +1482,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": " ",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1451,6 +1503,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": ""
+						}
 					]
 				}
 			},
@@ -1482,24 +1540,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "objection.png",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=objection.png",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1508,6 +1561,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "objection.png"
+						}
 					]
 				}
 			},
@@ -1533,24 +1592,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "logo-transparent-0.7.jpg",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=logo-transparent-0.7.jpg",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1559,6 +1613,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "logo-transparent-0.7.jpg"
+						}
 					]
 				}
 			},
@@ -1584,24 +1644,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "logo-cropped.jpg",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=logo-cropped.jpg",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1610,6 +1665,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "logo-cropped.jpg"
+						}
 					]
 				}
 			},
@@ -1635,24 +1696,19 @@
 			},
 			"request": {
 				"method": "GET",
-				"header": [],
+				"header": [
+					{
+						"key": "id",
+						"value": "{{token2}}",
+						"type": "text"
+					}
+				],
 				"body": {
 					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
-						},
-						{
-							"key": "fileName",
-							"value": "logo-saturation-200.jpg",
-							"type": "text"
-						}
-					]
+					"formdata": []
 				},
 				"url": {
-					"raw": "http://localhost:8080/api/download",
+					"raw": "http://localhost:8080/api/download?fileName=logo-saturation-200.jpg",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1661,6 +1717,12 @@
 					"path": [
 						"api",
 						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "logo-saturation-200.jpg"
+						}
 					]
 				}
 			},

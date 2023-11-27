@@ -181,12 +181,17 @@ set up. Go to the index page in your browser and check if `Welcome to IPMS!` mes
  <summary><code>GET</code> <code><b>/api/download</b></code></summary>
 
 #### Parameters
-##### Body
+##### Query
+
+> | name     | type     | data type | description                           |
+> |----------|----------|-----------|---------------------------------------|
+> | fileName | required | string    | The specified image file for download |
+
+##### Header
 
 > | name     | type     | data type | description                           |
 > |----------|----------|-----------|---------------------------------------|
 > | id       | required | string    | Your client ID credential             |
-> | fileName | required | string    | The specified image file for download |
 
 #### Responses
 

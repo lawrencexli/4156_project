@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.imageio.ImageIO;
@@ -111,9 +112,9 @@ public class FileController {
      * @return Byte array file content
      */
     @CrossOrigin
-    @PostMapping("download")
-    public ResponseEntity<Resource> downloadFile(@RequestPart final String fileName,
-                                                 @RequestPart final String id) {
+    @GetMapping("download")
+    public ResponseEntity<Resource> downloadFile(@RequestParam final String fileName,
+                                                 @RequestHeader final String id) {
         if (fileName == null || fileName.isBlank()) {
             throw new BadRequestException("Filename is empty or null");
         }
