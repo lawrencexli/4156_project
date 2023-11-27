@@ -111,7 +111,7 @@ public class FileController {
      * @return Byte array file content
      */
     @CrossOrigin
-    @GetMapping("download")
+    @PostMapping("download")
     public ResponseEntity<Resource> downloadFile(@RequestPart final String fileName,
                                                  @RequestPart final String id) {
         if (fileName == null || fileName.isBlank()) {
