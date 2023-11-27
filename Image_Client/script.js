@@ -52,7 +52,8 @@ $(function () {
     $('#img_satu_btn').click(function () {
         if (get_selected_img()) {
 
-            let values = $("#sat_coeff").val();
+            let sat = $("#sat_coeff").val();
+            img_satu(sat);
             // console.log(values);
         }
     });
@@ -81,6 +82,9 @@ async function upload_img() {
     fetch("http://localhost:8080/api/upload", {
         method: "POST",
         body: formData,
+        headers: {
+            'id': id,
+        },
     })
         .then((response) => response.json())
         .then((json) => console.log(json));
@@ -103,7 +107,7 @@ async function img_download() {
             'id': id,
         },
     });
-    // console.log(typeof response);
+
     if (response.ok) {
         console.log("succeed");
 
@@ -126,7 +130,7 @@ async function img_trans(alpha) {
     let result_img = "trans" + op.toString() + "-" + selected_img;
     op++;
 
-    formData.append("id", id);
+    // formData.append("id", id);
     formData.append("target", selected_img);
     formData.append("result", result_img);
     formData.append("alpha", alpha);
@@ -134,6 +138,9 @@ async function img_trans(alpha) {
     const response = await fetch("http://localhost:8080/api/transparent", {
         method: "PUT",
         body: formData,
+        headers: {
+            'id': id,
+        },
     })
     const data = await response.json();
     console.log(data);
@@ -147,7 +154,7 @@ async function img_crop(x, y, width, height) {
     let result_img = "crop" + op.toString() + "-" + selected_img;
     op++;
 
-    formData.append("id", id);
+    // formData.append("id", id);
     formData.append("target", selected_img);
     formData.append("result", result_img);
     formData.append("x", x);
@@ -158,6 +165,9 @@ async function img_crop(x, y, width, height) {
     fetch("http://localhost:8080/api/crop", {
         method: "PUT",
         body: formData,
+        headers: {
+            'id': id,
+        },
     })
         .then((response) => response.json())
         .then((json) => console.log(json));
@@ -166,6 +176,30 @@ async function img_crop(x, y, width, height) {
     $("#img_dropdown").append(option);
 }
 
+async function img_satu(saturationCoeff) {
+    let formData = new FormData();
+
+    let result_img = "satu" + op.toString() + "-" + selected_img;
+    op++;
+
+    // formData.append("id", id);
+    formData.append("target", selected_img);
+    formData.append("result", result_img);
+    formData.append("saturationCoeff", saturationCoeff);
+
+    const response = await fetch("http://localhost:8080/api/saturation", {
+        method: "PUT",
+        body: formData,
+        headers: {
+            'id': id,
+        },
+    })
+    const data = await response.json();
+    console.log(data);
+
+    let option = '<option>' + result_img + '</option>';
+    $("#img_dropdown").append(option);
+}
 
 function get_selected_img() {
     selected_img = $("#img_dropdown :selected").val();

@@ -159,7 +159,7 @@ public class FileController {
     @PutMapping("transparent")
     public ApiResponse imageTransparent(@RequestPart final String target,
                                         @RequestPart final String result,
-                                        @RequestPart final String id,
+                                        @RequestHeader final String id,
                                         @RequestPart final String alpha) throws IOException {
         // Check if all inputs are valid
         if (target == null || target.isBlank()
