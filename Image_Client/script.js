@@ -94,14 +94,19 @@ async function img_download() {
     formData.append("id", id);
     formData.append("fileName", selected_img);
 
-    const response = await fetch("http://localhost:8080/api/download", {
-        method: "POST",
-        body: formData,
+    const response = await fetch("http://localhost:8080/api/download?" + new URLSearchParams({
+        "fileName": selected_img
+    }), {
+        method: "GET",
+        mode: "cors",
+        headers: {
+            'id': id,
+        },
     });
     // console.log(typeof response);
     if (response.ok) {
         console.log("succeed");
-        
+
         const myBlob = await response.blob();
         var a = document.createElement("a");
         const url = window.URL.createObjectURL(myBlob);
