@@ -3,6 +3,7 @@
 import com.project.ipms.controller.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.web.bind.MissingRequestHeaderException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -14,7 +15,7 @@ import org.springframework.web.multipart.support.MissingServletRequestPartExcept
 import java.io.IOException;
 
 @ControllerAdvice
-<span class="fc" id="L17">public final class ApiExceptionHandler {</span>
+<span class="fc" id="L18">public final class ApiExceptionHandler {</span>
 
     /**
      * Handle InvalidFileTypeException.
@@ -25,10 +26,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.UNSUPPORTED_MEDIA_TYPE)
     @ResponseBody
     public ApiResponse handleInvalidFileTypeException(final InvalidFileTypeException e) {
-<span class="fc" id="L28">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L29">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L30">        response.setStatusCode(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());</span>
-<span class="fc" id="L31">        return response;</span>
+<span class="fc" id="L29">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L30">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L31">        response.setStatusCode(HttpStatus.UNSUPPORTED_MEDIA_TYPE.value());</span>
+<span class="fc" id="L32">        return response;</span>
     }
 
     /**
@@ -40,10 +41,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleBadRequestException(final BadRequestException e) {
-<span class="fc" id="L43">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L44">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L45">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
-<span class="fc" id="L46">        return response;</span>
+<span class="fc" id="L44">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L45">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L46">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L47">        return response;</span>
     }
 
     /**
@@ -55,10 +56,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleMultipartException(final MultipartException e) {
-<span class="fc" id="L58">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L59">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L60">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
-<span class="fc" id="L61">        return response;</span>
+<span class="fc" id="L59">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L60">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L61">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L62">        return response;</span>
     }
 
     /**
@@ -70,10 +71,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ResponseBody
     public ApiResponse handleFileNotFoundException(final FileNotFoundException e) {
-<span class="fc" id="L73">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L74">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L75">        response.setStatusCode(HttpStatus.NOT_FOUND.value());</span>
-<span class="fc" id="L76">        return response;</span>
+<span class="fc" id="L74">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L75">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L76">        response.setStatusCode(HttpStatus.NOT_FOUND.value());</span>
+<span class="fc" id="L77">        return response;</span>
     }
 
     /**
@@ -85,10 +86,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ApiResponse handleIOException(final IOException e) {
-<span class="fc" id="L88">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L89">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L90">        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
-<span class="fc" id="L91">        return response;</span>
+<span class="fc" id="L89">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L90">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L91">        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
+<span class="fc" id="L92">        return response;</span>
     }
 
     /**
@@ -100,10 +101,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.FORBIDDEN)
     @ResponseBody
     public ApiResponse handleInvalidCredentialsException(final InvalidCredentialsException e) {
-<span class="fc" id="L103">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L104">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L105">        response.setStatusCode(HttpStatus.FORBIDDEN.value());</span>
-<span class="fc" id="L106">        return response;</span>
+<span class="fc" id="L104">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L105">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L106">        response.setStatusCode(HttpStatus.FORBIDDEN.value());</span>
+<span class="fc" id="L107">        return response;</span>
     }
 
     /**
@@ -115,10 +116,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public ApiResponse handleCriticalServerException(final CriticalServerException e) {
-<span class="fc" id="L118">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L119">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L120">        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
-<span class="fc" id="L121">        return response;</span>
+<span class="fc" id="L119">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L120">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L121">        response.setStatusCode(HttpStatus.INTERNAL_SERVER_ERROR.value());</span>
+<span class="fc" id="L122">        return response;</span>
     }
 
     /**
@@ -130,10 +131,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.CONFLICT)
     @ResponseBody
     public ApiResponse handleFileAlreadyExistsException(final FileAlreadyExistsException e) {
-<span class="fc" id="L133">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L134">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L135">        response.setStatusCode(HttpStatus.CONFLICT.value());</span>
-<span class="fc" id="L136">        return response;</span>
+<span class="fc" id="L134">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L135">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L136">        response.setStatusCode(HttpStatus.CONFLICT.value());</span>
+<span class="fc" id="L137">        return response;</span>
     }
 
     /**
@@ -145,10 +146,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleMissingServletRequestPartException(final MissingServletRequestPartException e) {
-<span class="fc" id="L148">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L149">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L150">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
-<span class="fc" id="L151">        return response;</span>
+<span class="fc" id="L149">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L150">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L151">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L152">        return response;</span>
     }
 
     /**
@@ -160,10 +161,10 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleMissingServletRequestParameterException(final MissingServletRequestParameterException e) {
-<span class="fc" id="L163">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L164">        response.setResponseMessage(e.getMessage());</span>
-<span class="fc" id="L165">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
-<span class="fc" id="L166">        return response;</span>
+<span class="fc" id="L164">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L165">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L166">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L167">        return response;</span>
     }
 
     /**
@@ -174,11 +175,26 @@ import java.io.IOException;
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public ApiResponse handleHttpMessageNotReadableException() {
-<span class="fc" id="L177">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L178">        response.setResponseMessage(&quot;Required request body is missing or incorrect. &quot;</span>
+<span class="fc" id="L178">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L179">        response.setResponseMessage(&quot;Required request body is missing or incorrect. &quot;</span>
                 + &quot;Please check the API documentation for correct body arguments.&quot;);
-<span class="fc" id="L180">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
-<span class="fc" id="L181">        return response;</span>
+<span class="fc" id="L181">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L182">        return response;</span>
+    }
+
+    /**
+     * Handle MissingRequestHeaderException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(MissingRequestHeaderException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleMissingRequestHeaderException(final MissingRequestHeaderException e) {
+<span class="nc" id="L194">        ApiResponse response = new ApiResponse();</span>
+<span class="nc" id="L195">        response.setResponseMessage(e.getMessage());</span>
+<span class="nc" id="L196">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="nc" id="L197">        return response;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
