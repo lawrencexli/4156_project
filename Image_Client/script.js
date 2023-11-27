@@ -41,9 +41,9 @@ $(function () {
     $('#img_tran_btn').click(function () {
         if (get_selected_img()) {
 
-            let alpha = parseFloat($("#alpha").val());
+            let alpha = $("#alpha").val();
             img_trans(alpha);
-            console.log(alpha);
+            // console.log(alpha);
         }
     });
 });
@@ -53,7 +53,7 @@ $(function () {
         if (get_selected_img()) {
 
             let values = $("#sat_coeff").val();
-            console.log(values);
+            // console.log(values);
         }
     });
 });
@@ -131,13 +131,12 @@ async function img_trans(alpha) {
     formData.append("result", result_img);
     formData.append("alpha", alpha);
 
-
-    fetch("http://localhost:8080/api/transparent", {
+    const response = await fetch("http://localhost:8080/api/transparent", {
         method: "PUT",
         body: formData,
     })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+    const data = await response.json();
+    console.log(data);
 
     let option = '<option>' + result_img + '</option>';
     $("#img_dropdown").append(option);

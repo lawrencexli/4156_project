@@ -376,7 +376,7 @@ class FileControllerTest {
             mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
                     thenReturn(".png");
 
-            ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, alpha);
+            ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, Float.toString(alpha));
             assertEquals(response.getResponseMessage(), "Operation success");
             assertEquals(response.getStatusCode(), HttpStatus.OK.value());
         }
@@ -389,7 +389,7 @@ class FileControllerTest {
         String testResult = "result.png";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, -0.34F));
+                testFileController.imageTransparent(testTarget, testResult, testID, "-0.34F"));
 
         String expectedMessage = "The alpha value should be in the range of 0 to 1";
         String actualMessage = exception.getMessage();
@@ -397,7 +397,7 @@ class FileControllerTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, 100F));
+                testFileController.imageTransparent(testTarget, testResult, testID, "100F"));
 
         String expectedMessage2 = "The alpha value should be in the range of 0 to 1";
         String actualMessage2 = exception2.getMessage();
@@ -412,7 +412,7 @@ class FileControllerTest {
         String testResult = "result.jpg";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, 0.8F));
+                testFileController.imageTransparent(testTarget, testResult, testID, "0.8F"));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
@@ -427,7 +427,7 @@ class FileControllerTest {
         String testResult = "result.jpg";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, 0.8F));
+                testFileController.imageTransparent(testTarget, testResult, testID, "0.8F"));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
@@ -443,13 +443,13 @@ class FileControllerTest {
         String expectedMessage = "Client ID is missing or null";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, "", 0.8F));
+                testFileController.imageTransparent(testTarget, testResult, "", "0.8F"));
 
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, null, 0.8F));
+                testFileController.imageTransparent(testTarget, testResult, null, "0.8F"));
 
         String actualMessage2 = exception2.getMessage();
         assertTrue(actualMessage2.contains(expectedMessage));
@@ -460,7 +460,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(null, "test.jpg", testID, 0.8F));
+                testFileController.imageTransparent(null, "test.jpg", testID, "0.8F"));
 
         String expectedMessage = "Target filename or result filename is empty or null";
         String actualMessage = exception.getMessage();
@@ -468,19 +468,19 @@ class FileControllerTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(" ", "test.jpg", testID, 0.8F));
+                testFileController.imageTransparent(" ", "test.jpg", testID, "0.8F"));
 
         String actualMessage2 = exception2.getMessage();
         assertTrue(actualMessage2.contains(expectedMessage));
 
         Exception exception3 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent("test.jpg", " ", testID, 0.8F));
+                testFileController.imageTransparent("test.jpg", " ", testID, "0.8F"));
 
         String actualMessage3 = exception3.getMessage();
         assertTrue(actualMessage3.contains(expectedMessage));
 
         Exception exception4 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent("test.jpg", null, testID, 0.8F));
+                testFileController.imageTransparent("test.jpg", null, testID, "0.8F"));
 
         String actualMessage4 = exception4.getMessage();
         assertTrue(actualMessage4.contains(expectedMessage));
@@ -799,7 +799,7 @@ class FileControllerTest {
         Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).
                 thenReturn(mockResource);
 
-        Mockito.when(fakeImageFileService.imageTransparency(mockTarget, saturationCoeff, ".png")).
+        Mockito.when(fakeImageFileService.imageSaturation(mockTarget, saturationCoeff, ".png")).
                 thenReturn(mockResult);
 
         try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
@@ -813,7 +813,7 @@ class FileControllerTest {
             mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
                     thenReturn(".png");
 
-            ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, saturationCoeff);
+            ApiResponse response = testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff);
             assertEquals(response.getResponseMessage(), "Operation success");
             assertEquals(response.getStatusCode(), 200);
         }

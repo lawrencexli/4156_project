@@ -160,7 +160,7 @@ public class FileController {
     public ApiResponse imageTransparent(@RequestPart final String target,
                                         @RequestPart final String result,
                                         @RequestPart final String id,
-                                        @RequestPart final float alpha) throws IOException {
+                                        @RequestPart final String alpha) throws IOException {
         // Check if all inputs are valid
         if (target == null || target.isBlank()
                 || result == null || result.isBlank()) {
@@ -169,7 +169,7 @@ public class FileController {
         if (id == null || id.isBlank()) {
             throw new BadRequestException("Client ID is missing or null");
         }
-        if (alpha < 0 || alpha > 1) {
+        if (Float.parseFloat(alpha) < 0 || Float.parseFloat(alpha) > 1) {
             throw new BadRequestException("The alpha value should be in the range of 0 to 1");
         }
         // Check if the target file exists in client's repository,
@@ -186,7 +186,7 @@ public class FileController {
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
         BufferedImage resultImage = imageService.imageTransparency(
                 targetImage,
-                alpha,
+                Float.parseFloat(alpha),
                 targetFileExtension
         );
         // Upload the result image
