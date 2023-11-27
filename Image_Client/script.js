@@ -1,23 +1,24 @@
 'use strict'
-let img_list = [];
+let uploaded_img;
 let id = '';
-let formData = new FormData();
 
 $(function () {
-    $('#img_upload_btn').click(function () {
+    $('#img_upload_btn').click(async function () {
         if (id == '') {
-            generate_id();
+            await generate_id();
+            upload_img();
+        } else {
+            upload_img();
         }
-        upload_img();
     });
 });
 
 $(function () {
     $('#img_input').change(function () {
         let fileName = this.files[0].name;
-        let fileSize = this.files[0].size;
-        formData.append("file", this.files[0], this.files[0].name);
-        img_list.push(this.files[0]);
+        // let fileSize = this.files[0].size;
+        uploaded_img = this.files[0];
+        $("#uploaded_img").empty();
         $("#uploaded_img").append(fileName + '<br>')
         // alert('FileName : ' + fileName + '\nFileSize : ' + fileSize + ' bytes');
     });
@@ -45,36 +46,22 @@ $(function () {
     });
 });
 
-function generate_id() {
-    $.ajax({
-        type: "GET",
-        url: "http://localhost:8080/api/generate",
-        dataType: "json",
-        success: function (data, text) {
-            console.log(data);
-            id = data['responseMessage'];
-            // alert(data);
-        },
-        error: function (error) {
-            console.log(error);
-        },
-    });
+async function generate_id() {
+    const response = await fetch("http://localhost:8080/api/generate");
+    const data = await response.json();
+    console.log(data);
+    id = data.responseMessage;
 }
 
-function upload_img() {
-    console.log(formData.getAll("file"));
-    let data = {'id': id, 'img': img_list};
-    $.ajax({
-        type: "POST",
-        url: "http://localhost:8080/api/upload",
-        dataType: "json",
-        contentType: "application/json; charset=utf-8",
-        data: JSON.stringify(data),
-        success: function (response) {
-            console.log(response);
-        },
-        error: function (response) {
-            console.log(response);
-        },
-    });
+async function upload_img() {
+    let formData = new FormData();
+    formData.append("id", id);
+    formData.append("file", uploaded_img);
+
+    fetch("http://localhost:8080/api/upload", {
+        method: "POST",
+        body: formData,
+    })
+        .then((response) => response.json())
+        .then((json) => console.log(json));
 }
