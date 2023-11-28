@@ -54,7 +54,7 @@ dependencyManagement {
 
 tasks.withType<Checkstyle>().configureEach {
 	reports {
-		xml.required = false
+		xml.required = true
 		html.required = true
 	}
 }
@@ -62,7 +62,7 @@ tasks.withType<Checkstyle>().configureEach {
 tasks.spotbugsMain {
 	reports.create("html") {
 		required.set(true)
-		outputLocation.set(file("$buildDir/reports/spotbugs/spotbugsMain.html"))
+		outputLocation.set(file("$buildDir/reports/spotbugsHtml/spotbugsMain.html"))
 		setStylesheet("fancy-hist.xsl")
 	}
 }
@@ -70,19 +70,22 @@ tasks.spotbugsMain {
 tasks.spotbugsTest {
 	reports.create("html") {
 		required.set(true)
-		outputLocation.set(file("$buildDir/reports/spotbugs/spotbugsTest.html"))
+		outputLocation.set(file("$buildDir/reports/spotbugsHtml/spotbugsTest.html"))
 		setStylesheet("fancy-hist.xsl")
 	}
 }
 
 tasks.test {
 	finalizedBy(tasks.jacocoTestReport) // report is always generated after tests run
+	reports {
+		junitXml.outputLocation = layout.buildDirectory.dir("reports/junit5")
+	}
 }
 
 tasks.jacocoTestReport {
 	dependsOn(tasks.test) // tests are required to run before generating the report
 	reports {
-		xml.required = false
+		xml.required = true
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir("reports/jacocoHtml")
 	}
