@@ -353,7 +353,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float alpha = 0.7F;
+        String alpha = "0.7";
 
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
         BufferedImage mockTarget = mock(BufferedImage.class);
@@ -362,7 +362,7 @@ class FileControllerTest {
         Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).
                 thenReturn(mockResource);
 
-        Mockito.when(fakeImageFileService.imageTransparency(mockTarget, alpha, ".png")).
+        Mockito.when(fakeImageFileService.imageTransparency(mockTarget, Float.parseFloat(alpha), ".png")).
                 thenReturn(mockResult);
 
         try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
@@ -389,7 +389,7 @@ class FileControllerTest {
         String testResult = "result.png";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, "-0.34F"));
+                testFileController.imageTransparent(testTarget, testResult, testID, "-0.34"));
 
         String expectedMessage = "The alpha value should be in the range of 0 to 1";
         String actualMessage = exception.getMessage();
@@ -397,7 +397,7 @@ class FileControllerTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, "100F"));
+                testFileController.imageTransparent(testTarget, testResult, testID, "100"));
 
         String expectedMessage2 = "The alpha value should be in the range of 0 to 1";
         String actualMessage2 = exception2.getMessage();
@@ -412,7 +412,7 @@ class FileControllerTest {
         String testResult = "result.jpg";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, "0.8F"));
+                testFileController.imageTransparent(testTarget, testResult, testID, "0.8"));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
@@ -427,7 +427,7 @@ class FileControllerTest {
         String testResult = "result.jpg";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, testID, "0.8F"));
+                testFileController.imageTransparent(testTarget, testResult, testID, "0.8"));
 
         String expectedMessage = "Target file extension is different from result file extension";
         String actualMessage = exception.getMessage();
@@ -443,13 +443,13 @@ class FileControllerTest {
         String expectedMessage = "Client ID is missing or null";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, "", "0.8F"));
+                testFileController.imageTransparent(testTarget, testResult, "", "0.8"));
 
         String actualMessage = exception.getMessage();
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(testTarget, testResult, null, "0.8F"));
+                testFileController.imageTransparent(testTarget, testResult, null, "0.8"));
 
         String actualMessage2 = exception2.getMessage();
         assertTrue(actualMessage2.contains(expectedMessage));
@@ -460,7 +460,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(null, "test.jpg", testID, "0.8F"));
+                testFileController.imageTransparent(null, "test.jpg", testID, "0.8"));
 
         String expectedMessage = "Target filename or result filename is empty or null";
         String actualMessage = exception.getMessage();
@@ -468,19 +468,19 @@ class FileControllerTest {
         assertTrue(actualMessage.contains(expectedMessage));
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent(" ", "test.jpg", testID, "0.8F"));
+                testFileController.imageTransparent(" ", "test.jpg", testID, "0.8"));
 
         String actualMessage2 = exception2.getMessage();
         assertTrue(actualMessage2.contains(expectedMessage));
 
         Exception exception3 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent("test.jpg", " ", testID, "0.8F"));
+                testFileController.imageTransparent("test.jpg", " ", testID, "0.8"));
 
         String actualMessage3 = exception3.getMessage();
         assertTrue(actualMessage3.contains(expectedMessage));
 
         Exception exception4 = assertThrows(BadRequestException.class, () ->
-                testFileController.imageTransparent("test.jpg", null, testID, "0.8F"));
+                testFileController.imageTransparent("test.jpg", null, testID, "0.8"));
 
         String actualMessage4 = exception4.getMessage();
         assertTrue(actualMessage4.contains(expectedMessage));
@@ -492,10 +492,10 @@ class FileControllerTest {
         String target = "target.png";
         String result = "result.png";
         String id = "clientID";
-        int x = 0;
-        int y = 0;
-        int width = 100;
-        int height = 100;
+        String x = "0";
+        String y = "0";
+        String width = "100";
+        String height = "100";
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -504,10 +504,10 @@ class FileControllerTest {
 
         Mockito.when(fakeFileService.downloadFile(id + "/" + target)).thenReturn(mockResource);
         Mockito.when(fakeImageFileService.imageCropping(mockTargetImage,
-                x,
-                y,
-                width,
-                height,
+                Integer.parseInt(x),
+                Integer.parseInt(y),
+                Integer.parseInt(width),
+                Integer.parseInt(height),
                 "png"
         )).thenReturn(mockResultImage);
 
@@ -541,10 +541,10 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.png";
         String testID = "clientID";
-        int x = -1;
-        int y = 0;
-        int width = 100;
-        int height = 100;
+        String x = "-1";
+        String y = "0";
+        String width = "100";
+        String height = "100";
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -574,7 +574,7 @@ class FileControllerTest {
 
             assertTrue(actualMessage.contains(expectedMessage));
 
-            int x2 = 700;
+            String x2 = "700";
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x2, y, width, height));
 
@@ -591,10 +591,10 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.png";
         String testID = "clientID";
-        int x = 0;
-        int y = -1;
-        int width = 100;
-        int height = 100;
+        String x = "0";
+        String y = "-1";
+        String width = "100";
+        String height = "100";
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -624,7 +624,7 @@ class FileControllerTest {
 
             assertTrue(actualMessage.contains(expectedMessage));
 
-            int y2 = 601;
+            String y2 = "601";
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y2, width, height));
 
@@ -641,10 +641,10 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.png";
         String testID = "clientID";
-        int x = 0;
-        int y = 0;
-        int width = -1;
-        int height = 100;
+        String x = "0";
+        String y = "0";
+        String width = "-1";
+        String height = "100";
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -674,7 +674,7 @@ class FileControllerTest {
 
             assertTrue(actualMessage.contains(expectedMessage));
 
-            int width2 = 601;
+            String width2 = "601";
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width2, height));
 
@@ -691,10 +691,10 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.png";
         String testID = "clientID";
-        int x = 0;
-        int y = 0;
-        int width = 100;
-        int height = 0;
+        String x = "0";
+        String y = "0";
+        String  width = "100";
+        String  height = "0";
 
         // Mock behavior for dependencies
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
@@ -724,7 +724,7 @@ class FileControllerTest {
 
             assertTrue(actualMessage.contains(expectedMessage));
 
-            int height2 = 601;
+            String height2 = "601";
             Exception exception2 = assertThrows(BadRequestException.class, () ->
                     testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height2));
 
@@ -740,10 +740,10 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.jpg";
         String testID = "clientID";
-        int x = 0;
-        int y = 0;
-        int width = 100;
-        int height = 100;
+        String x = "0";
+        String y = "0";
+        String width = "100";
+        String height = "100";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
@@ -757,10 +757,10 @@ class FileControllerTest {
     @Test
     void testImageCrop7() {
         String testID = "clientID";
-        int x = 0;
-        int y = 0;
-        int width = 100;
-        int height = 100;
+        String x = "0";
+        String y = "0";
+        String width = "100";
+        String height = "100";
 
         String expectedMessage = "Target filename or result filename is empty or null";
 
@@ -786,11 +786,30 @@ class FileControllerTest {
     }
 
     @Test
+    void testImageCrop8() {
+        String testTarget = "target.png";
+        String testResult = "result.png";
+        String testID = "clientID";
+        String x = "0";
+        String y = "0";
+        String width = "100.50";
+        String height = "100";
+
+        Exception exception = assertThrows(NumberFormatException.class, () ->
+                testFileController.imageCrop(testTarget, testResult, testID, x, y, width, height));
+
+        String expectedMessage = "For input string: \"100.50\"";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
     void testImageSaturation1() throws IOException {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float saturationCoeff = 0;
+        String saturationCoeff = "0";
 
         ByteArrayResource mockResource = mock(ByteArrayResource.class);
         BufferedImage mockTarget = mock(BufferedImage.class);
@@ -799,7 +818,7 @@ class FileControllerTest {
         Mockito.when(fakeFileService.downloadFile(testID + "/" + testTarget)).
                 thenReturn(mockResource);
 
-        Mockito.when(fakeImageFileService.imageSaturation(mockTarget, saturationCoeff, ".png")).
+        Mockito.when(fakeImageFileService.imageTransparency(mockTarget, Float.parseFloat(saturationCoeff), ".png")).
                 thenReturn(mockResult);
 
         try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
@@ -824,7 +843,7 @@ class FileControllerTest {
         String testID = "apollo-justice";
         String testTarget = "target.png";
         String testResult = "result.png";
-        float saturationCoeff = 256;
+        String saturationCoeff = "256";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff));
@@ -834,7 +853,7 @@ class FileControllerTest {
 
         assertTrue(actualMessage.contains(expectedMessage));
 
-        float saturationCoeff2 = -0.034F;
+        String saturationCoeff2 = "-0.034";
 
         Exception exception2 = assertThrows(BadRequestException.class, () ->
                 testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff2));
@@ -849,7 +868,7 @@ class FileControllerTest {
         String testTarget = "target.png";
         String testResult = "result.jpg";
         String testID = "clientID";
-        float saturationCoeff = 1;
+        String saturationCoeff = "1";
 
         Exception exception = assertThrows(BadRequestException.class, () ->
                 testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff));
@@ -863,7 +882,7 @@ class FileControllerTest {
     @Test
     void testImageSaturation4() {
         String testID = "clientID";
-        float saturationCoeff = 1;
+        String saturationCoeff = "1";
 
         String expectedMessage = "Target filename or result filename is empty or null";
 
@@ -894,7 +913,7 @@ class FileControllerTest {
 
     @Test
     void testImageSaturation5() {
-        float saturationCoeff = 1;
+        String saturationCoeff = "1";
 
         String expectedMessage = "Client ID is missing or null";
 

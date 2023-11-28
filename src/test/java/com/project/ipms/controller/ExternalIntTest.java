@@ -129,9 +129,9 @@ public class ExternalIntTest {
             );
 
             fileController.uploadFile(testMultipartFile, clientID);
-            fileController.imageTransparent("objection.png", "objection2.png", clientID, "0.5F");
-            fileController.imageCrop("objection2.png", "objection3.png", clientID, 300, 300, 600, 600);
-            fileController.imageSaturate("objection3.png", "objection4.png", clientID, 0.5F);
+            fileController.imageTransparent("objection.png", "objection2.png", clientID, "0.5");
+            fileController.imageCrop("objection2.png", "objection3.png", clientID, "300", "300", "600", "600");
+            fileController.imageSaturate("objection3.png", "objection4.png", clientID, "0.5");
             ResponseEntity<Resource> result =  fileController.downloadFile("objection4.png", clientID);
 
             InputStream resource = Objects.requireNonNull(result.getBody()).getInputStream();

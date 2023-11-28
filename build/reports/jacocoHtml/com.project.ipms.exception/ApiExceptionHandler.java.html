@@ -196,5 +196,20 @@ import java.io.IOException;
 <span class="nc" id="L196">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
 <span class="nc" id="L197">        return response;</span>
     }
+
+    /**
+     * Handle NumberFormatException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleNumberFormatException(final NumberFormatException e) {
+<span class="fc" id="L209">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L210">        response.setResponseMessage(e.getMessage());</span>
+<span class="fc" id="L211">        response.setStatusCode(HttpStatus.BAD_REQUEST.value());</span>
+<span class="fc" id="L212">        return response;</span>
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

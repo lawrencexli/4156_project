@@ -91,6 +91,26 @@
 				"disabledSystemHeaders": {}
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "invalid-id",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -101,11 +121,6 @@
 							"contentType": "",
 							"type": "file",
 							"src": "src/test/resources/objection.png"
-						},
-						{
-							"key": "id",
-							"value": "invalid-id",
-							"type": "text"
 						}
 					]
 				},
@@ -151,6 +166,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "   ",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -160,11 +195,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/objection.png"
-						},
-						{
-							"key": "id",
-							"value": "   ",
-							"type": "text"
 						}
 					]
 				},
@@ -249,6 +279,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -258,11 +308,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/nope.pdf"
-						},
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
 						}
 					]
 				},
@@ -303,6 +348,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -312,11 +377,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/objection.png"
-						},
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
 						}
 					]
 				},
@@ -359,6 +419,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -368,11 +448,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/objection.png"
-						},
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
 						}
 					]
 				},
@@ -415,6 +490,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -424,11 +519,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/ace-attorney-cover-art.jpg"
-						},
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
 						}
 					]
 				},
@@ -459,7 +549,7 @@
 							"});",
 							"",
 							"pm.test(\"Response has correct error message\", function () {",
-							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"File has no content or is null\", \"Required part 'file' is not present.\"]);",
+							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"File has no content or is null\", \"Current request is not a multipart request\"]);",
 							"});",
 							"",
 							"pm.test(\"Response has correct status code\", function () {",
@@ -471,6 +561,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -480,11 +590,6 @@
 							"key": "file",
 							"type": "file",
 							"src": []
-						},
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"type": "text"
 						}
 					]
 				},
@@ -515,7 +620,7 @@
 							"});",
 							"",
 							"pm.test(\"Response has the correct responseMessage\", function () {",
-							"    pm.expect(pm.response.json().responseMessage).to.equal(\"Required part 'file' is not present.\");",
+							"    pm.expect(pm.response.json().responseMessage).to.be.oneOf([\"Required part 'file' is not present.\", \"Current request is not a multipart request\"]);",
 							"});",
 							"",
 							"pm.test(\"Response has the correct statusCode\", function () {",
@@ -527,21 +632,35 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
 						{
-							"key": "file",
+							"key": "files",
 							"type": "file",
-							"src": [],
-							"disabled": true
-						},
-						{
-							"key": "id",
-							"value": "",
-							"type": "text"
+							"src": []
 						}
 					]
 				},
@@ -587,14 +706,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -701,14 +834,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "invalid-id",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "invalid-id",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -761,14 +908,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token1}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -813,14 +974,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token1}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -870,17 +1045,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "not-exist.jpg",
@@ -936,17 +1125,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "not_found.jpg",
@@ -1022,17 +1225,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token1}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token1}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "not_found.jpg",
@@ -1132,6 +1349,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -1141,11 +1378,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/ace-attorney-trilogy-logo.jpg"
-						},
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
 						}
 					]
 				},
@@ -1159,13 +1391,6 @@
 					"path": [
 						"api",
 						"upload"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "",
-							"disabled": true
-						}
 					]
 				}
 			},
@@ -1193,6 +1418,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -1202,11 +1447,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/ace-attorney-trilogy-logo.png"
-						},
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"type": "text"
 						}
 					]
 				},
@@ -1256,17 +1496,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "ace-attorney-trilogy-logo.jpg",
@@ -1282,6 +1536,97 @@
 						{
 							"key": "alpha",
 							"value": "0.7",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/transparent",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"transparent"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transparent2_wrong_val",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"For input string: \\\"0.7e\\\"\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "logo-transparent-wrong.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "alpha",
+							"value": "0.7e",
 							"contentType": "application/json",
 							"type": "text"
 						}
@@ -1324,17 +1669,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "ace-attorney-trilogy-logo.jpg",
@@ -1389,6 +1748,106 @@
 			"response": []
 		},
 		{
+			"name": "crop_image2_wrong_val",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"For input string: \\\"600.50\\\"\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "logo-cropped-wrong.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "0",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "0",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "width",
+							"value": "600.50",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "height",
+							"value": "559",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/crop",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"crop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "saturation2_OK",
 			"event": [
 				{
@@ -1410,17 +1869,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token2}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "ace-attorney-trilogy-logo.jpg",
@@ -1436,6 +1909,88 @@
 						{
 							"key": "saturationCoeff",
 							"value": "200",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/saturation",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"saturation"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saturation2_wrong_val",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"For input string: \\\"abc\\\"\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target",
+							"value": "ace-attorney-trilogy-logo.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "logo-saturation-wrong.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "saturationCoeff",
+							"value": "abc",
 							"contentType": "application/json",
 							"type": "text"
 						}
@@ -1481,14 +2036,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token2}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -1539,14 +2108,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token2}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -1591,14 +2174,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token2}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -1643,14 +2240,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token2}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -1695,14 +2306,28 @@
 				"disableBodyPruning": true
 			},
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "GET",
-				"header": [
-					{
-						"key": "id",
-						"value": "{{token2}}",
-						"type": "text"
-					}
-				],
+				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": []
@@ -1752,17 +2377,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "invalid-client-id",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "invalid-client-id",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "test.png",
@@ -1822,17 +2461,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "invalid-client-id",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "invalid_client_id",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "ace-attorney-trilogy-logo.jpg",
@@ -1910,17 +2563,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "invalid-client-id",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "invalid-id",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "ace-attorney-trilogy-logo.jpg",
@@ -2018,6 +2685,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -2027,11 +2714,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/courtroom-entrance.png"
-						},
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"type": "text"
 						}
 					]
 				},
@@ -2070,6 +2752,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -2079,11 +2781,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/test1.jpg"
-						},
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"type": "text"
 						}
 					]
 				},
@@ -2122,6 +2819,26 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -2131,11 +2848,6 @@
 							"key": "file",
 							"type": "file",
 							"src": "src/test/resources/miles-edgeworth.png"
-						},
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"type": "text"
 						}
 					]
 				},
@@ -2178,17 +2890,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": " ",
@@ -2248,17 +2974,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": " ",
@@ -2336,17 +3076,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": " ",
@@ -2408,17 +3162,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2478,17 +3246,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2566,17 +3348,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2636,17 +3432,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2706,17 +3516,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2796,17 +3620,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2886,17 +3724,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -2974,17 +3826,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -3062,17 +3928,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -3132,17 +4012,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -3200,17 +4094,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -3270,17 +4178,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",
@@ -3358,17 +4280,31 @@
 				}
 			],
 			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
 				"method": "PUT",
 				"header": [],
 				"body": {
 					"mode": "formdata",
 					"formdata": [
-						{
-							"key": "id",
-							"value": "{{token3}}",
-							"contentType": "application/json",
-							"type": "text"
-						},
 						{
 							"key": "target",
 							"value": "courtroom-entrance.png",

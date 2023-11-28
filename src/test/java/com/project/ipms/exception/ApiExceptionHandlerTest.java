@@ -123,4 +123,12 @@ class ApiExceptionHandlerTest {
         assertTrue(apiResponse.getResponseMessage().contains("Required request body is missing or incorrect"));
         assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
     }
+
+    @Test
+    void handleNumberFormatException() {
+        NumberFormatException e = new NumberFormatException("error");
+        ApiResponse apiResponse = testHandler.handleNumberFormatException(e);
+        assertEquals(apiResponse.getResponseMessage(), "error");
+        assertEquals(apiResponse.getStatusCode(), HttpStatus.BAD_REQUEST.value());
+    }
 }

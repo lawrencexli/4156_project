@@ -196,4 +196,19 @@ public final class ApiExceptionHandler {
         response.setStatusCode(HttpStatus.BAD_REQUEST.value());
         return response;
     }
+
+    /**
+     * Handle NumberFormatException.
+     * @param e error message
+     * @return exception json output
+     */
+    @ExceptionHandler(NumberFormatException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ApiResponse handleNumberFormatException(final NumberFormatException e) {
+        ApiResponse response = new ApiResponse();
+        response.setResponseMessage(e.getMessage());
+        response.setStatusCode(HttpStatus.BAD_REQUEST.value());
+        return response;
+    }
 }

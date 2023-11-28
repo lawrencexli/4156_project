@@ -80,7 +80,7 @@ public class FileController {
     @CrossOrigin
     @PostMapping("upload")
     public ApiResponse uploadFile(@RequestParam final MultipartFile file,
-                                  @RequestPart final String id) throws IOException {
+                                  @RequestHeader final String id) throws IOException {
         if (file == null || file.isEmpty()) {
             throw new BadRequestException("File has no content or is null");
         }
@@ -169,7 +169,8 @@ public class FileController {
         if (id == null || id.isBlank()) {
             throw new BadRequestException("Client ID is missing or null");
         }
-        if (Float.parseFloat(alpha) < 0 || Float.parseFloat(alpha) > 1) {
+        float alphaVal = Float.parseFloat(alpha);
+        if (alphaVal < 0 || alphaVal > 1) {
             throw new BadRequestException("The alpha value should be in the range of 0 to 1");
         }
         // Check if the target file exists in client's repository,
@@ -186,7 +187,7 @@ public class FileController {
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
         BufferedImage resultImage = imageService.imageTransparency(
                 targetImage,
-                Float.parseFloat(alpha),
+                alphaVal,
                 targetFileExtension
         );
         // Upload the result image
@@ -210,11 +211,11 @@ public class FileController {
     @PutMapping("crop")
     public ApiResponse imageCrop(@RequestPart final String target,
                                  @RequestPart final String result,
-                                 @RequestPart final String id,
-                                 @RequestPart final int x,
-                                 @RequestPart final int y,
-                                 @RequestPart final int width,
-                                 @RequestPart final int height) throws IOException {
+                                 @RequestHeader final String id,
+                                 @RequestPart final String x,
+                                 @RequestPart final String y,
+                                 @RequestPart final String width,
+                                 @RequestPart final String height) throws IOException {
         // Check if all inputs are valid
         if (target == null || target.isBlank()
                 || result == null || result.isBlank()) {
@@ -229,25 +230,30 @@ public class FileController {
         if (!targetFileExtension.equals(resultFileExtension)) {
             throw new BadRequestException("Target file extension is different from result file extension");
         }
+        // Convert String to int
+        int xVal = Integer.parseInt(x);
+        int yVal = Integer.parseInt(y);
+        int widthVal = Integer.parseInt(width);
+        int heightVal = Integer.parseInt(height);
         // Retrieve and process image file from storage
         ByteArrayResource resource = fileService.downloadFile(id + "/" + target);
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
         // Check if the x, y, width, height are correct
-        if (x < 0 || x > targetImage.getWidth()) {
+        if (xVal < 0 || xVal > targetImage.getWidth()) {
             throw new BadRequestException("The x value should be in the range of 0 to the width of the target image");
         }
-        if (y < 0 || y > targetImage.getHeight()) {
+        if (yVal < 0 || yVal > targetImage.getHeight()) {
             throw new BadRequestException("The y value should be in the range of 0 to the height of the target image");
         }
-        if (width <= 0 || width > targetImage.getWidth() - x) {
+        if (widthVal <= 0 || widthVal > targetImage.getWidth() - xVal) {
             throw new BadRequestException("The width value should be from 1 to (target image's width - x)");
         }
-        if (height <= 0 || height > targetImage.getHeight() - y) {
+        if (heightVal <= 0 || heightVal > targetImage.getHeight() - yVal) {
             throw new BadRequestException("The height value should be from 1 to (target image's height - y)");
         }
         BufferedImage resultImage = imageService.imageCropping(
                 targetImage,
-                x, y, width, height,
+                xVal, yVal, widthVal, heightVal,
                 targetFileExtension
         );
         // Upload the result image
@@ -267,8 +273,8 @@ public class FileController {
     @PutMapping("saturation")
     public ApiResponse imageSaturate(@RequestPart final String target,
                                      @RequestPart final String result,
-                                     @RequestPart final String id,
-                                     @RequestPart final float saturationCoeff) throws IOException {
+                                     @RequestHeader final String id,
+                                     @RequestPart final String saturationCoeff) throws IOException {
         // Check if all inputs are valid
         if (target == null || target.isBlank()
                 || result == null || result.isBlank()) {
@@ -277,7 +283,8 @@ public class FileController {
         if (id == null || id.isBlank()) {
             throw new BadRequestException("Client ID is missing or null");
         }
-        if (saturationCoeff < 0 || saturationCoeff > 255) {
+        float saturationVal = Float.parseFloat(saturationCoeff);
+        if (saturationVal < 0 || saturationVal > 255) {
             throw new BadRequestException("The saturation coefficient should be in the range of 0 to 255");
         }
         // Check if the target file exists in client's repository,
@@ -294,7 +301,7 @@ public class FileController {
         BufferedImage targetImage = ImageIO.read(resource.getInputStream());
         BufferedImage resultImage = imageService.imageSaturation(
                 targetImage,
-                saturationCoeff,
+                saturationVal,
                 targetFileExtension
         );
         // Upload the result image
