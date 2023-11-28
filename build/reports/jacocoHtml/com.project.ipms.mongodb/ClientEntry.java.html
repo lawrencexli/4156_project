@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ClientEntry.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.mongodb</a> &gt; <span class="el_source">ClientEntry.java</span></div><h1>ClientEntry.java</h1><pre class="source lang-java linenums">package com.project.ipms.mongodb;
+
+import lombok.Getter;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import java.util.HashSet;
+
+@Getter
+@Document(&quot;client-entry&quot;)
+public class ClientEntry {
+    /**
+     * Client ID.
+     */
+    @Id
+<span class="fc" id="L16">    private String id;</span>
+
+    /**
+     * List of image files associated with the client.
+     */
+    private final HashSet&lt;String&gt; imageFileList;
+
+    /**
+     * Constructor.
+     * @param id client id
+     * @param imageFileList image file list
+     */
+    public ClientEntry(final String id,
+<span class="fc" id="L29">                       final HashSet&lt;String&gt; imageFileList) {</span>
+<span class="fc" id="L30">        this.id = id;</span>
+<span class="fc" id="L31">        this.imageFileList = new HashSet&lt;&gt;(imageFileList);</span>
+<span class="fc" id="L32">    }</span>
+
+    /**
+     * Add a new filename entry to hashset.
+     * @param fileName the filename
+     */
+    public void addToImageFileList(final String fileName) {
+<span class="fc" id="L39">        imageFileList.add(fileName);</span>
+<span class="fc" id="L40">    }</span>
+
+    /**
+     * Check if a filename entry is in the hashset records.
+     * @param fileName the filename
+     * @return True if filename is in the list, False if otherwise
+     */
+    public boolean fileNameInImageFileList(final String fileName) {
+<span class="fc" id="L48">        return imageFileList.contains(fileName);</span>
+    }
+
+    /**
+     * Get a list of file.
+     * @return An imageFileList hashset
+     */
+    public HashSet&lt;String&gt; getImageFileList() {
+<span class="fc" id="L56">        return new HashSet&lt;&gt;(imageFileList);</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

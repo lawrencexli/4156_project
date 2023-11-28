@@ -49,4 +49,4 @@ jobs:
       with:
         name: Unit & Integration Test Reporter
         path: build/reports/junit5/*.xml
-        reporter: jest-junit
+        reporter: java-junit
