@@ -832,7 +832,7 @@ class FileControllerTest {
             mockUtil.when(() -> ImageFileUtil.checkFileValid(testResult)).
                     thenReturn(".png");
 
-            ApiResponse response = testFileController.imageTransparent(testTarget, testResult, testID, saturationCoeff);
+            ApiResponse response = testFileController.imageSaturate(testTarget, testResult, testID, saturationCoeff);
             assertEquals(response.getResponseMessage(), "Operation success");
             assertEquals(response.getStatusCode(), 200);
         }
