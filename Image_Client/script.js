@@ -77,18 +77,20 @@ async function upload_img() {
     // formData.append("id", id);
     formData.append("file", uploaded_img);
 
-    fetch("http://localhost:8080/api/upload", {
+    const response = await fetch("http://localhost:8080/api/upload", {
         method: "POST",
         body: formData,
         headers: {
             'id': id,
         },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+    });
+    const data = await response.json();
+    console.log(data);
 
-    let option = '<option>' + uploaded_img.name + '</option>';
-    $("#img_dropdown").append(option);
+    if (response.ok) {
+        let option = '<option>' + uploaded_img.name + '</option>';
+        $("#img_dropdown").append(option);
+    }
 }
 
 async function img_download() {
@@ -137,12 +139,14 @@ async function img_trans(alpha) {
         headers: {
             'id': id,
         },
-    })
+    });
     const data = await response.json();
     console.log(data);
 
-    let option = '<option>' + result_img + '</option>';
-    $("#img_dropdown").append(option);
+    if (response.ok) {
+        let option = '<option>' + result_img + '</option>';
+        $("#img_dropdown").append(option);
+    }
 }
 
 async function img_crop(x, y, width, height) {
@@ -158,18 +162,22 @@ async function img_crop(x, y, width, height) {
     formData.append("width", width);
     formData.append("height", height);
 
-    fetch("http://localhost:8080/api/crop", {
+    const response = await fetch("http://localhost:8080/api/crop", {
         method: "PUT",
         body: formData,
         headers: {
             'id': id,
         },
-    })
-        .then((response) => response.json())
-        .then((json) => console.log(json));
+    });
+    const data = await response.json();
+    console.log(data);
 
-    let option = '<option>' + result_img + '</option>';
-    $("#img_dropdown").append(option);
+    if (response.ok) {
+        let option = '<option>' + result_img + '</option>';
+        $("#img_dropdown").append(option);
+    } else {
+        alert(data.responseMessage);
+    }
 }
 
 async function img_satu(saturationCoeff) {
@@ -189,12 +197,14 @@ async function img_satu(saturationCoeff) {
         headers: {
             'id': id,
         },
-    })
+    });
     const data = await response.json();
     console.log(data);
 
-    let option = '<option>' + result_img + '</option>';
-    $("#img_dropdown").append(option);
+    if (response.ok) {
+        let option = '<option>' + result_img + '</option>';
+        $("#img_dropdown").append(option);
+    }
 }
 
 function get_selected_img() {
