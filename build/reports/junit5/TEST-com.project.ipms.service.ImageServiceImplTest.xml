@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.service.ImageServiceImplTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-28T02:29:20" hostname="MSI" time="1.501">
-  <properties/>
-  <testcase name="testImageSaturation()" classname="com.project.ipms.service.ImageServiceImplTest" time="0.463"/>
-  <testcase name="testImageTransparency1()" classname="com.project.ipms.service.ImageServiceImplTest" time="0.825"/>
-  <testcase name="testImageCropping()" classname="com.project.ipms.service.ImageServiceImplTest" time="0.213"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

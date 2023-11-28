@@ -26,7 +26,7 @@ checkstyle {
 
 jacoco {
 	toolVersion = "0.8.9"
-	reportsDirectory = layout.buildDirectory.dir("reports")
+	reportsDirectory = layout.buildDirectory.dir("reports/jacocoXml")
 }
 
 extra["springCloudGcpVersion"] = "4.8.0"
@@ -85,7 +85,7 @@ tasks.test {
 tasks.jacocoTestReport {
 	dependsOn(tasks.test) // tests are required to run before generating the report
 	reports {
-		xml.required = true
+		xml.required = false
 		csv.required = false
 		html.outputLocation = layout.buildDirectory.dir("reports/jacocoHtml")
 	}

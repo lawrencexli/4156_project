@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.service.ImageServiceIntTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-11-28T02:29:21" hostname="MSI" time="0.194">
-  <properties/>
-  <testcase name="integrationTest1()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.155"/>
-  <testcase name="integrationTest2()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.024"/>
-  <testcase name="integrationTest3()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.014"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>
