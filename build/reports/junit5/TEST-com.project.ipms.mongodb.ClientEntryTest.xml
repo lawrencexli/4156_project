@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.project.ipms.mongodb.ClientEntryTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-11-28T02:29:19" hostname="MSI" time="0.007">
+  <properties/>
+  <testcase name="clientEntryTest1()" classname="com.project.ipms.mongodb.ClientEntryTest" time="0.004"/>
+  <testcase name="clientEntryTest2()" classname="com.project.ipms.mongodb.ClientEntryTest" time="0.002"/>
+  <system-out><![CDATA[2023-11-27T21:29:19.829-05:00  INFO 46288 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.mongodb.ClientEntryTest]: ClientEntryTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-27T21:29:19.841-05:00  INFO 46288 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.mongodb.ClientEntryTest
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

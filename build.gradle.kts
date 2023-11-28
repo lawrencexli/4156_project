@@ -26,7 +26,7 @@ checkstyle {
 
 jacoco {
 	toolVersion = "0.8.9"
-	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+	reportsDirectory = layout.buildDirectory.dir("reports")
 }
 
 extra["springCloudGcpVersion"] = "4.8.0"
