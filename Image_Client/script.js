@@ -76,7 +76,7 @@ async function generate_id() {
 
 async function upload_img() {
     let formData = new FormData();
-    formData.append("id", id);
+    // formData.append("id", id);
     formData.append("file", uploaded_img);
 
     fetch("http://localhost:8080/api/upload", {
