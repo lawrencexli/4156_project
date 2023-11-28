@@ -42,3 +42,5 @@ jobs:
         ./gradlew bootRun &
         sleep 10
         postman collection run src/test/api_test/ipms-api-test.postman_collection.json -e src/test/api_test/ipms-api-test-environment.postman_environment.json
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.7.0
