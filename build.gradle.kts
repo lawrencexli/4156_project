@@ -18,6 +18,17 @@ repositories {
 	mavenCentral()
 }
 
+checkstyle {
+	toolVersion = "8.45.1"
+	configFile = file("config/checkstyle/sun_checks.xml")
+	isIgnoreFailures = false
+}
+
+jacoco {
+	toolVersion = "0.8.9"
+	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+}
+
 extra["springCloudGcpVersion"] = "4.8.0"
 extra["springCloudVersion"] = "2022.0.4"
 
@@ -34,12 +45,6 @@ dependencies {
 	spotbugsPlugins("com.h3xstream.findsecbugs:findsecbugs-plugin:1.11.0")
 }
 
-checkstyle {
-	toolVersion = "8.45.1"
-	configFile = file("config/checkstyle/sun_checks.xml")
-	isIgnoreFailures = false
-}
-
 dependencyManagement {
 	imports {
 		mavenBom("com.google.cloud:spring-cloud-gcp-dependencies:${property("springCloudGcpVersion")}")
@@ -47,9 +52,27 @@ dependencyManagement {
 	}
 }
 
-jacoco {
-	toolVersion = "0.8.9"
-	reportsDirectory = layout.buildDirectory.dir("reports/jacoco")
+tasks.withType<Checkstyle>().configureEach {
+	reports {
+		xml.required = false
+		html.required = true
+	}
+}
+
+tasks.spotbugsMain {
+	reports.create("html") {
+		required.set(true)
+		outputLocation.set(file("$buildDir/reports/spotbugs/spotbugsMain.html"))
+		setStylesheet("fancy-hist.xsl")
+	}
+}
+
+tasks.spotbugsTest {
+	reports.create("html") {
+		required.set(true)
+		outputLocation.set(file("$buildDir/reports/spotbugs/spotbugsTest.html"))
+		setStylesheet("fancy-hist.xsl")
+	}
 }
 
 tasks.test {
