@@ -31,7 +31,7 @@ $(function () {
             let y = $("#img_y").val();
             let width = $("#img_w").val();
             let height = $("#img_h").val();
-            console.log(x, y, width, height);
+            // console.log(x, y, width, height);
             img_crop(x, y, width, height);
         }
     });
@@ -40,7 +40,6 @@ $(function () {
 $(function () {
     $('#img_tran_btn').click(function () {
         if (get_selected_img()) {
-
             let alpha = $("#alpha").val();
             img_trans(alpha);
             // console.log(alpha);
@@ -51,7 +50,6 @@ $(function () {
 $(function () {
     $('#img_satu_btn').click(function () {
         if (get_selected_img()) {
-
             let sat = $("#sat_coeff").val();
             img_satu(sat);
             // console.log(values);
@@ -109,8 +107,6 @@ async function img_download() {
     });
 
     if (response.ok) {
-        console.log("succeed");
-
         const myBlob = await response.blob();
         var a = document.createElement("a");
         const url = window.URL.createObjectURL(myBlob);
@@ -127,7 +123,7 @@ async function img_download() {
 async function img_trans(alpha) {
     let formData = new FormData();
 
-    let result_img = "trans" + op.toString() + "-" + selected_img;
+    let result_img = "alpha" + alpha + "_" + op.toString() + "_" + selected_img;
     op++;
 
     // formData.append("id", id);
@@ -151,7 +147,7 @@ async function img_trans(alpha) {
 
 async function img_crop(x, y, width, height) {
     let formData = new FormData();
-    let result_img = "crop" + op.toString() + "-" + selected_img;
+    let result_img = "crop" + op.toString() + "_" + selected_img;
     op++;
 
     // formData.append("id", id);
@@ -179,7 +175,7 @@ async function img_crop(x, y, width, height) {
 async function img_satu(saturationCoeff) {
     let formData = new FormData();
 
-    let result_img = "satu" + op.toString() + "-" + selected_img;
+    let result_img = "sat_" + saturationCoeff + "_" + op.toString() + "_" + selected_img;
     op++;
 
     // formData.append("id", id);
