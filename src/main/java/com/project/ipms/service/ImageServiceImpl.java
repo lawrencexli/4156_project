@@ -59,15 +59,15 @@ public class ImageServiceImpl implements ImageService {
 
     /**
     * Changes image's saturation.
-    * @param inputImage Image input
-    * @param saturationCoeff    Coefficient to multiply saturation by (0-255)
-    * @param format     Image file format
+    * @param inputImage      Image input
+    * @param saturationCoeff Coefficient to multiply saturation by (0-255)
+    * @param format          Image file format
     * @return Processed image in BufferedImage format
     */
     @Override
     public BufferedImage imageSaturation(final BufferedImage inputImage,
-                                        final float saturationCoeff,
-                                        final String format) {
+                                         final float saturationCoeff,
+                                         final String format) {
         for (int x = 0; x < inputImage.getWidth(); x++) {
             for (int y = 0; y < inputImage.getHeight(); y++) {
                 // Iterate through pixels
@@ -85,5 +85,27 @@ public class ImageServiceImpl implements ImageService {
             }
         }
         return ImageFileUtil.getBufferedImageResult(format, inputImage);
+    }
+
+    /**
+     * Overlay InputImage1 over InputImage2.
+     * @param inputImage1 Image input 1
+     * @param inputImage2 Image input 2
+     * @param x           The X coordinate of the upper-left corner for the overlay
+     * @param y           The Y coordinate of the upper-left corner for the overlay
+     * @param format      Image file format
+     * @return Processed image in BufferedImage format
+     */
+    public BufferedImage imageOverlay(final BufferedImage inputImage1,
+                                      final BufferedImage inputImage2,
+                                      final int x,
+                                      final int y,
+                                      final String format) {
+        Graphics2D g2d = inputImage1.createGraphics();
+
+        g2d.drawImage(inputImage2, x, y, null);
+        g2d.dispose();
+
+        return ImageFileUtil.getBufferedImageResult(format, inputImage1);
     }
 }
