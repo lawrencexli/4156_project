@@ -261,6 +261,65 @@ public class FileController {
     }
 
     /**
+     * Overlay InputImage1 over InputImage2.
+     * @param target1 Base image filename in client's repository
+     * @param target2 Image to be overlayed filename in client's repository
+     * @param result  Result filename after processing
+     * @param id      Client ID credential
+     * @param x       The X coordinate of the upper-left corner for the overlay
+     * @param y       The Y coordinate of the upper-left corner for the overlay
+     * @return Processed image in BufferedImage format
+     */
+    @CrossOrigin
+    @PutMapping("overlay")
+    public ApiResponse imageOverlay(@RequestPart final String target1,
+                                    @RequestPart final String target2,
+                                    @RequestPart final String result,
+                                    @RequestHeader final String id,
+                                    @RequestPart final String x,
+                                    @RequestPart final String y) throws IOException {
+        // Check if all inputs are valid
+        if (target1 == null || target1.isBlank() || target2 == null || target2.isBlank()
+                || result == null || result.isBlank()) {
+            throw new BadRequestException("Target filenames or result filename is empty or null");
+        }
+        // Check if the target files exist in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for targets and result are consistent
+        mongoDBService.mongoDBOperationCheck(id, target1, result);
+        mongoDBService.mongoDBOperationCheck(id, target2, result);
+        String target1FileExtension = ImageFileUtil.checkFileValid(target1);
+        String target2FileExtension = ImageFileUtil.checkFileValid(target2);
+        String resultFileExtension = ImageFileUtil.checkFileValid(result);
+        if (!target1FileExtension.equals(resultFileExtension) || !target2FileExtension.equals(resultFileExtension)) {
+            throw new BadRequestException("Target file extension is different from result file extension");
+        }
+        // Convert Strings
+        int xVal = Integer.parseInt(x);
+        int yVal = Integer.parseInt(y);
+        // Retrieve and process image file from storage
+        ByteArrayResource resource1 = fileService.downloadFile(id + "/" + target1);
+        ByteArrayResource resource2 = fileService.downloadFile(id + "/" + target2);
+        BufferedImage targetImage1 = ImageIO.read(resource1.getInputStream());
+        BufferedImage targetImage2 = ImageIO.read(resource2.getInputStream());
+        // Check if the x, y, alpha are correct
+        if (xVal < 0 || xVal > targetImage1.getWidth()) {
+            throw new BadRequestException("The x value should be in the range of 0 to the width of the target image");
+        }
+        if (yVal < 0 || yVal > targetImage1.getHeight()) {
+            throw new BadRequestException("The y value should be in the range of 0 to the height of the target image");
+        }
+        BufferedImage resultImage = imageService.imageOverlay(
+                targetImage1,
+                targetImage2,
+                xVal, yVal,
+                target1FileExtension
+        );
+        // Upload the result image
+        return uploadResult(result, id, resultImage, resultFileExtension);
+    }
+
+    /**
     * Change image saturation.
     * @param target Target filename in client's repository
     * @param result Result filename after processing
