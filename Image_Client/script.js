@@ -58,6 +58,17 @@ $(function () {
 });
 
 $(function () {
+    $("#img_overlay_btn").click(function () {
+        let x = $('#x_start').val();
+        let y = $('#y_start').val();
+        let img1 = $('#back_dropdown :selected').val();
+        let img2 = $('#fore_dropdown :selected').val();
+        console.log(img1);
+        img_overlay(img1, img2, x, y);
+    });
+});
+
+$(function () {
     $("#img_download_btn").click(function () {
         if (get_selected_img()) {
             img_download();
@@ -90,6 +101,8 @@ async function upload_img() {
     if (response.ok) {
         let option = '<option>' + uploaded_img.name + '</option>';
         $("#img_dropdown").append(option);
+        $("#back_dropdown").append(option);
+        $("#fore_dropdown").append(option);
     }
 }
 
@@ -146,6 +159,8 @@ async function img_trans(alpha) {
     if (response.ok) {
         let option = '<option>' + result_img + '</option>';
         $("#img_dropdown").append(option);
+        $("#back_dropdown").append(option);
+        $("#fore_dropdown").append(option);
     }
 }
 
@@ -175,6 +190,8 @@ async function img_crop(x, y, width, height) {
     if (response.ok) {
         let option = '<option>' + result_img + '</option>';
         $("#img_dropdown").append(option);
+        $("#back_dropdown").append(option);
+        $("#fore_dropdown").append(option);
     } else {
         alert(data.responseMessage);
     }
@@ -204,6 +221,41 @@ async function img_satu(saturationCoeff) {
     if (response.ok) {
         let option = '<option>' + result_img + '</option>';
         $("#img_dropdown").append(option);
+        $("#back_dropdown").append(option);
+        $("#fore_dropdown").append(option);
+    }
+}
+
+async function img_overlay(image1, image2, x, y) {
+    let formData = new FormData();
+
+    let result_img = "overlay_" + op.toString() + "_" + image1;
+    op++;
+
+    // formData.append("id", id);
+    formData.append("target1", image1);
+    formData.append("target2", image2);
+    formData.append("result", result_img);
+    formData.append("x", x);
+    formData.append("y", y);
+    
+    console.log("Images:", image1, image2);
+
+    const response = await fetch("http://localhost:8080/api/overlay", {
+        method: "PUT",
+        body: formData,
+        headers: {
+            'id': id,
+        },
+    });
+    const data = await response.json();
+    console.log(data);
+
+    if (response.ok) {
+        let option = '<option>' + result_img + '</option>';
+        $("#img_dropdown").append(option);
+        $("#back_dropdown").append(option);
+        $("#fore_dropdown").append(option);
     }
 }
 
