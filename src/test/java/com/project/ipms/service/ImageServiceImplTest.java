@@ -172,4 +172,28 @@ public class ImageServiceImplTest {
             throw new RuntimeException("Image saturation test failed" + e.getMessage());
         }
     }
+
+    /**
+     * Test image overlay.
+     */
+    @Test
+    public void testImageOverlay() {
+        BufferedImage test1;
+        BufferedImage test2;
+        BufferedImage check1;
+        try {
+            File test1File = new File("src/test/resources/ace-attorney-trilogy-logo.png");
+            File test2File = new File("src/test/resources/apple_logo.png");
+            File check1File = new File("src/test/resources/apple-overlayed.png");
+
+            test1 = ImageIO.read(test1File);
+            test2 = ImageIO.read(test2File);
+            check1 = ImageIO.read(check1File);
+
+            BufferedImage output1 = imageService.imageOverlay(test1, test2, 0, 0, ".png");
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(check1, output1));
+        } catch (Exception e) {
+            throw new RuntimeException("Image overlay test failed" + e.getMessage());
+        }
+    }
 }

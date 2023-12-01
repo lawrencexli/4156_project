@@ -221,6 +221,9 @@ public class FileController {
                 || result == null || result.isBlank()) {
             throw new BadRequestException("Target filename or result filename is empty or null");
         }
+        if (id == null || id.isBlank()) {
+            throw new BadRequestException("Client ID is missing or null");
+        }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
         // and if the file extensions for target and result are consistent
@@ -282,6 +285,9 @@ public class FileController {
         if (target1 == null || target1.isBlank() || target2 == null || target2.isBlank()
                 || result == null || result.isBlank()) {
             throw new BadRequestException("Target filenames or result filename is empty or null");
+        }
+        if (id == null || id.isBlank()) {
+            throw new BadRequestException("Client ID is missing or null");
         }
         // Check if the target files exist in client's repository,
         // and if the result filename is available (avoid overwriting)
