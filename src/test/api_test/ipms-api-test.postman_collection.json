@@ -1,10 +1,11 @@
 {
 	"info": {
-		"_postman_id": "34ea4d02-f823-4b27-acfa-133dca2adfe5",
+		"_postman_id": "0e47b653-3824-4fec-ae31-409b34ffee67",
 		"name": "ipms-api-test",
 		"description": "For COMS 4156 - Advanced Software Engineering Project\n\nSystem level tests for IPMS API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "22372916"
+		"_exporter_id": "30634037",
+		"_collection_link": "https://ipmsteam.postman.co/workspace/My-Workspace~00eff2b0-0315-4acd-8e43-be92af6842b8/collection/30467905-0e47b653-3824-4fec-ae31-409b34ffee67?action=share&source=collection_link&creator=30634037"
 	},
 	"item": [
 		{
@@ -1397,6 +1398,144 @@
 			"response": []
 		},
 		{
+			"name": "upload apple",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File uploaded successfully\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/resources/apple.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "upload apple-logo",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"File uploaded successfully\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "src/test/resources/apple_logo.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/upload",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "upload2_ace-attorney-trilogy-logo.png",
 			"event": [
 				{
@@ -1742,6 +1881,192 @@
 					"path": [
 						"api",
 						"crop"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overlay2_OK",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Operation success\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target1",
+							"value": "ace-attorney-trilogy-logo.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "target2",
+							"value": "apple_logo.png",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "apple-overlayed.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "0",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "0",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/overlay",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"overlay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overlay2_wrong_val",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"The x value should be in the range of 0 to the width of the target image\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target1",
+							"value": "apple.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "target2",
+							"value": "apple_logo.png",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "apple-overlayed2.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "-1",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "-1",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/overlay",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"overlay"
 					]
 				}
 			},
@@ -2354,6 +2679,72 @@
 			"response": []
 		},
 		{
+			"name": "download2_OK4",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Response status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token2}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": []
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/download?fileName=apple-overlayed.png",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"download"
+					],
+					"query": [
+						{
+							"key": "fileName",
+							"value": "apple-overlayed.png"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "transparent_invalid_client_id",
 			"event": [
 				{
@@ -2861,6 +3252,192 @@
 					"path": [
 						"api",
 						"upload"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overlay3_inconsistent",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Target file extension is different from result file extension\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target1",
+							"value": "miles-edgeworth.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "target2",
+							"value": "test1.jpg",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "bad-result.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "10",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "10",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/overlay",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"overlay"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "overlay3_inconsistent2",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {",
+							"    pm.response.to.have.status(400);",
+							"});",
+							"",
+							"pm.test(\"Response has the expected properties\", function () {",
+							"    var jsonData = pm.response.json();",
+							"    pm.expect(jsonData).to.have.property(\"responseMessage\", \"Target file extension is different from result file extension\");",
+							"    pm.expect(jsonData).to.have.property(\"statusCode\", 400);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "apikey",
+					"apikey": [
+						{
+							"key": "value",
+							"value": "{{token3}}",
+							"type": "string"
+						},
+						{
+							"key": "in",
+							"value": "header",
+							"type": "string"
+						},
+						{
+							"key": "key",
+							"value": "id",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "target1",
+							"value": "miles-edgeworth.png",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "target2",
+							"value": "courtroom-entrance.png",
+							"type": "text"
+						},
+						{
+							"key": "result",
+							"value": "bad-result.jpg",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "x",
+							"value": "10",
+							"contentType": "application/json",
+							"type": "text"
+						},
+						{
+							"key": "y",
+							"value": "10",
+							"contentType": "application/json",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/overlay",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"overlay"
 					]
 				}
 			},
