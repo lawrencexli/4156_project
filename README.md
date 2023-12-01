@@ -38,7 +38,7 @@ ability to adjust the intensity of colors in an image by specifying a desired va
 Developers might use this feature to provide custom filters or effects that users can 
 apply to images within an app or online service.
 
-- **Image overlay (Not implemented yet)**: Our clients can use this feature of our 
+- **Image overlay**: Our clients can use this feature of our 
 service to overlay one image on top of another image from our image database, which 
 can be particularly beneficial for watermarking, branding, or any other use cases 
 where overlaying images are necessary.
