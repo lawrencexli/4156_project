@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.exception.ApiExceptionHandlerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-11-28T02:36:56" hostname="MSI" time="0.049">
+<testsuite name="com.project.ipms.exception.ApiExceptionHandlerTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-12-01T00:05:06" hostname="macbook" time="0.039">
   <properties/>
-  <testcase name="handleMissingServletRequestPartException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.006"/>
-  <testcase name="handleMultipartException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.004"/>
-  <testcase name="handleInvalidCredentialsException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
+  <testcase name="handleMissingServletRequestPartException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
+  <testcase name="handleMultipartException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.001"/>
+  <testcase name="handleInvalidCredentialsException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
   <testcase name="testHandleInvalidFileTypeException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
-  <testcase name="handleMissingServletRequestParameterException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.004"/>
-  <testcase name="handleFileAlreadyExistsException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
-  <testcase name="handleBadRequestException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
+  <testcase name="handleMissingServletRequestParameterException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
+  <testcase name="handleFileAlreadyExistsException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.001"/>
+  <testcase name="handleBadRequestException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
   <testcase name="handleHttpMessageNotReadableException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
-  <testcase name="handleNumberFormatException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
+  <testcase name="handleNumberFormatException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
   <testcase name="handleFileNotFoundException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
-  <testcase name="handleIOException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
-  <testcase name="handleCriticalServerException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
-  <system-out><![CDATA[2023-11-27T21:36:56.032-05:00  INFO 37796 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.exception.ApiExceptionHandlerTest]: ApiExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-11-27T21:36:56.056-05:00  INFO 37796 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.exception.ApiExceptionHandlerTest
+  <testcase name="handleIOException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.003"/>
+  <testcase name="handleCriticalServerException()" classname="com.project.ipms.exception.ApiExceptionHandlerTest" time="0.002"/>
+  <system-out><![CDATA[2023-11-30T19:05:06.379-05:00  INFO 7509 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.exception.ApiExceptionHandlerTest]: ApiExceptionHandlerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-30T19:05:06.389-05:00  INFO 7509 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.exception.ApiExceptionHandlerTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

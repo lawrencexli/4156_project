@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.service</a> &gt; <span class="el_source">ImageServiceImpl.java</span></div><h1>ImageServiceImpl.java</h1><pre class="source lang-java linenums">package com.project.ipms.service;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ImageServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.service</a> &gt; <span class="el_source">ImageServiceImpl.java</span></div><h1>ImageServiceImpl.java</h1><pre class="source lang-java linenums">package com.project.ipms.service;
 
 import com.project.ipms.util.ImageFileUtil;
 import org.springframework.stereotype.Service;
@@ -59,15 +59,15 @@ import java.awt.Color;
 
     /**
     * Changes image's saturation.
-    * @param inputImage Image input
-    * @param saturationCoeff    Coefficient to multiply saturation by (0-255)
-    * @param format     Image file format
+    * @param inputImage      Image input
+    * @param saturationCoeff Coefficient to multiply saturation by (0-255)
+    * @param format          Image file format
     * @return Processed image in BufferedImage format
     */
     @Override
     public BufferedImage imageSaturation(final BufferedImage inputImage,
-                                        final float saturationCoeff,
-                                        final String format) {
+                                         final float saturationCoeff,
+                                         final String format) {
 <span class="fc bfc" id="L71" title="All 2 branches covered.">        for (int x = 0; x &lt; inputImage.getWidth(); x++) {</span>
 <span class="fc bfc" id="L72" title="All 2 branches covered.">            for (int y = 0; y &lt; inputImage.getHeight(); y++) {</span>
                 // Iterate through pixels
@@ -85,6 +85,28 @@ import java.awt.Color;
             }
         }
 <span class="fc" id="L87">        return ImageFileUtil.getBufferedImageResult(format, inputImage);</span>
+    }
+
+    /**
+     * Overlay InputImage1 over InputImage2.
+     * @param inputImage1 Image input 1
+     * @param inputImage2 Image input 2
+     * @param x           The X coordinate of the upper-left corner for the overlay
+     * @param y           The Y coordinate of the upper-left corner for the overlay
+     * @param format      Image file format
+     * @return Processed image in BufferedImage format
+     */
+    public BufferedImage imageOverlay(final BufferedImage inputImage1,
+                                      final BufferedImage inputImage2,
+                                      final int x,
+                                      final int y,
+                                      final String format) {
+<span class="fc" id="L104">        Graphics2D g2d = inputImage1.createGraphics();</span>
+
+<span class="fc" id="L106">        g2d.drawImage(inputImage2, x, y, null);</span>
+<span class="fc" id="L107">        g2d.dispose();</span>
+
+<span class="fc" id="L109">        return ImageFileUtil.getBufferedImageResult(format, inputImage1);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

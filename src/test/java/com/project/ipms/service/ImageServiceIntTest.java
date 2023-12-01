@@ -89,7 +89,7 @@ public class ImageServiceIntTest {
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, test1));
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultJpg, test2));
         } catch (Exception e) {
-            throw new RuntimeException("Image transparency test failed: " + e.getMessage());
+            throw new RuntimeException("Image integration test failed: " + e.getMessage());
         }
     }
 
@@ -109,7 +109,7 @@ public class ImageServiceIntTest {
             imageService.imageSaturation(croppedImg1, 0.5F, format);
         } catch (Exception e) {
             if (!e.getMessage().contains("(x + width) is outside raster")) {
-                throw new RuntimeException("Image transparency test failed: " + e.getMessage());
+                throw new RuntimeException("Image integration test failed: " + e.getMessage());
             }
         }
     }
@@ -130,8 +130,53 @@ public class ImageServiceIntTest {
             imageService.imageSaturation(croppedImg1, 0.5F, format);
         } catch (Exception e) {
             if (!e.getMessage().contains("alpha value out of range")) {
-                throw new RuntimeException("Image transparency test failed: " + e.getMessage());
+                throw new RuntimeException("Image integration test failed: " + e.getMessage());
             }
+        }
+    }
+
+    /**
+     * Internal integration test for all functionalities.
+     */
+    @Test
+    public void integrationTest4() {
+        BufferedImage img1;
+        BufferedImage img2;
+        BufferedImage img4;
+        BufferedImage trueResult;
+        try {
+            File f1 = ResourceUtils.getFile("src/test/resources/ace-attorney-trilogy-logo.png");
+            File f2 = ResourceUtils.getFile("src/test/resources/objection.png");
+            File f3 = ResourceUtils.getFile("src/test/resources/overlay-true-result.png");
+
+            img1 = ImageIO.read(f1);
+            img2 = ImageIO.read(f2);
+            trueResult = ImageIO.read(f3);
+
+            String format = ".png";
+            BufferedImage transImg1 = imageService.imageTransparency(img1, 0.7F, format);
+            BufferedImage croppedImg1 = imageService.imageCropping(transImg1, 0, 0, 300, 300, format);
+            BufferedImage output1 = imageService.imageSaturation(croppedImg1, 0.3F, format);
+
+            BufferedImage transImg2 = imageService.imageTransparency(img2, 0.7F, format);
+            BufferedImage croppedImg2 = imageService.imageCropping(transImg2, 500, 500, 400, 300, format);
+            BufferedImage output2 = imageService.imageSaturation(croppedImg2, 0.3F, format);
+
+            BufferedImage result = imageService.imageOverlay(output2, output1, 0, 0, format);
+
+            String pngTestResult = "src/test/resources/overlay-result.png";
+
+            // Write the result to file
+            File outputFile = new File(pngTestResult);
+            ImageIO.write(result, "png", outputFile);
+
+            // Read back the result and compare with the true images
+            File f4 = ResourceUtils.getFile(pngTestResult);
+            img4 = ImageIO.read(f4);
+
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(img4, trueResult));
+        } catch (Exception e) {
+            throw new RuntimeException("Image integration test failed: " + e.getMessage());
         }
     }
 }

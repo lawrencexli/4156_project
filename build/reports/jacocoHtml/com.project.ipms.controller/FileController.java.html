@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="zh"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.controller</a> &gt; <span class="el_source">FileController.java</span></div><h1>FileController.java</h1><pre class="source lang-java linenums">/**
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">ipms</a> &gt; <a href="index.source.html" class="el_package">com.project.ipms.controller</a> &gt; <span class="el_source">FileController.java</span></div><h1>FileController.java</h1><pre class="source lang-java linenums">/**
  * Code for Spring Boot + Google Cloud Storage integration.
  */
 
@@ -261,6 +261,65 @@ public class FileController {
     }
 
     /**
+     * Overlay InputImage1 over InputImage2.
+     * @param target1 Base image filename in client's repository
+     * @param target2 Image to be overlayed filename in client's repository
+     * @param result  Result filename after processing
+     * @param id      Client ID credential
+     * @param x       The X coordinate of the upper-left corner for the overlay
+     * @param y       The Y coordinate of the upper-left corner for the overlay
+     * @return Processed image in BufferedImage format
+     */
+    @CrossOrigin
+    @PutMapping(&quot;overlay&quot;)
+    public ApiResponse imageOverlay(@RequestPart final String target1,
+                                    @RequestPart final String target2,
+                                    @RequestPart final String result,
+                                    @RequestHeader final String id,
+                                    @RequestPart final String x,
+                                    @RequestPart final String y) throws IOException {
+        // Check if all inputs are valid
+<span class="pc bpc" id="L282" title="5 of 10 branches missed.">        if (target1 == null || target1.isBlank() || target2 == null || target2.isBlank()</span>
+<span class="pc bpc" id="L283" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
+<span class="nc" id="L284">            throw new BadRequestException(&quot;Target filenames or result filename is empty or null&quot;);</span>
+        }
+        // Check if the target files exist in client's repository,
+        // and if the result filename is available (avoid overwriting)
+        // and if the file extensions for targets and result are consistent
+<span class="fc" id="L289">        mongoDBService.mongoDBOperationCheck(id, target1, result);</span>
+<span class="fc" id="L290">        mongoDBService.mongoDBOperationCheck(id, target2, result);</span>
+<span class="fc" id="L291">        String target1FileExtension = ImageFileUtil.checkFileValid(target1);</span>
+<span class="fc" id="L292">        String target2FileExtension = ImageFileUtil.checkFileValid(target2);</span>
+<span class="fc" id="L293">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="pc bpc" id="L294" title="2 of 4 branches missed.">        if (!target1FileExtension.equals(resultFileExtension) || !target2FileExtension.equals(resultFileExtension)) {</span>
+<span class="nc" id="L295">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+        }
+        // Convert Strings
+<span class="fc" id="L298">        int xVal = Integer.parseInt(x);</span>
+<span class="fc" id="L299">        int yVal = Integer.parseInt(y);</span>
+        // Retrieve and process image file from storage
+<span class="fc" id="L301">        ByteArrayResource resource1 = fileService.downloadFile(id + &quot;/&quot; + target1);</span>
+<span class="fc" id="L302">        ByteArrayResource resource2 = fileService.downloadFile(id + &quot;/&quot; + target2);</span>
+<span class="fc" id="L303">        BufferedImage targetImage1 = ImageIO.read(resource1.getInputStream());</span>
+<span class="fc" id="L304">        BufferedImage targetImage2 = ImageIO.read(resource2.getInputStream());</span>
+        // Check if the x, y, alpha are correct
+<span class="pc bpc" id="L306" title="2 of 4 branches missed.">        if (xVal &lt; 0 || xVal &gt; targetImage1.getWidth()) {</span>
+<span class="nc" id="L307">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
+        }
+<span class="pc bpc" id="L309" title="2 of 4 branches missed.">        if (yVal &lt; 0 || yVal &gt; targetImage1.getHeight()) {</span>
+<span class="nc" id="L310">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
+        }
+<span class="fc" id="L312">        BufferedImage resultImage = imageService.imageOverlay(</span>
+                targetImage1,
+                targetImage2,
+                xVal, yVal,
+                target1FileExtension
+        );
+        // Upload the result image
+<span class="fc" id="L319">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+    }
+
+    /**
     * Change image saturation.
     * @param target Target filename in client's repository
     * @param result Result filename after processing
@@ -276,36 +335,36 @@ public class FileController {
                                      @RequestHeader final String id,
                                      @RequestPart final String saturationCoeff) throws IOException {
         // Check if all inputs are valid
-<span class="fc bfc" id="L279" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
-<span class="fc bfc" id="L280" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
-<span class="fc" id="L281">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L338" title="All 6 branches covered.">        if (target == null || target.isBlank()</span>
+<span class="fc bfc" id="L339" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L340">            throw new BadRequestException(&quot;Target filename or result filename is empty or null&quot;);</span>
         }
-<span class="fc bfc" id="L283" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
-<span class="fc" id="L284">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
+<span class="fc bfc" id="L342" title="All 4 branches covered.">        if (id == null || id.isBlank()) {</span>
+<span class="fc" id="L343">            throw new BadRequestException(&quot;Client ID is missing or null&quot;);</span>
         }
-<span class="fc" id="L286">        float saturationVal = Float.parseFloat(saturationCoeff);</span>
-<span class="fc bfc" id="L287" title="All 4 branches covered.">        if (saturationVal &lt; 0 || saturationVal &gt; 255) {</span>
-<span class="fc" id="L288">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
+<span class="fc" id="L345">        float saturationVal = Float.parseFloat(saturationCoeff);</span>
+<span class="fc bfc" id="L346" title="All 4 branches covered.">        if (saturationVal &lt; 0 || saturationVal &gt; 255) {</span>
+<span class="fc" id="L347">            throw new BadRequestException(&quot;The saturation coefficient should be in the range of 0 to 255&quot;);</span>
         }
         // Check if the target file exists in client's repository,
         // and if the result filename is available (avoid overwriting)
         // and if the file extensions for target and result are consistent
-<span class="fc" id="L293">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
-<span class="fc" id="L294">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
-<span class="fc" id="L295">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
-<span class="fc bfc" id="L296" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
-<span class="fc" id="L297">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+<span class="fc" id="L352">        mongoDBService.mongoDBOperationCheck(id, target, result);</span>
+<span class="fc" id="L353">        String targetFileExtension = ImageFileUtil.checkFileValid(target);</span>
+<span class="fc" id="L354">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
+<span class="fc bfc" id="L355" title="All 2 branches covered.">        if (!targetFileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L356">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
         }
         // Retrieve and process image file from storage
-<span class="fc" id="L300">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
-<span class="fc" id="L301">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
-<span class="fc" id="L302">        BufferedImage resultImage = imageService.imageSaturation(</span>
+<span class="fc" id="L359">        ByteArrayResource resource = fileService.downloadFile(id + &quot;/&quot; + target);</span>
+<span class="fc" id="L360">        BufferedImage targetImage = ImageIO.read(resource.getInputStream());</span>
+<span class="fc" id="L361">        BufferedImage resultImage = imageService.imageSaturation(</span>
                 targetImage,
                 saturationVal,
                 targetFileExtension
         );
         // Upload the result image
-<span class="fc" id="L308">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
+<span class="fc" id="L367">        return uploadResult(result, id, resultImage, resultFileExtension);</span>
     }
 
     /**
@@ -323,24 +382,24 @@ public class FileController {
                                      final String id,
                                      final BufferedImage resultImage,
                                      final String resultFileExtension) throws IOException {
-<span class="fc" id="L326">        mongoDBService.uploadFile(id, result);</span>
-<span class="fc" id="L327">        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();</span>
+<span class="fc" id="L385">        mongoDBService.uploadFile(id, result);</span>
+<span class="fc" id="L386">        ByteArrayOutputStream byteImageOutput = new ByteArrayOutputStream();</span>
         // resultFileExtension looks like &quot;.jpg&quot;, &quot;.png&quot;. Therefore, need to remove the dot &quot;.&quot;
-<span class="fc" id="L329">        ImageIO.write(</span>
+<span class="fc" id="L388">        ImageIO.write(</span>
                 resultImage,
-<span class="fc" id="L331">                resultFileExtension.substring(1),</span>
+<span class="fc" id="L390">                resultFileExtension.substring(1),</span>
                 byteImageOutput
         );
-<span class="fc" id="L334">        fileService.uploadFile(</span>
+<span class="fc" id="L393">        fileService.uploadFile(</span>
                 result,
-<span class="fc" id="L336">                URLConnection.getFileNameMap().getContentTypeFor(result),</span>
-<span class="fc" id="L337">                byteImageOutput.toByteArray(),</span>
+<span class="fc" id="L395">                URLConnection.getFileNameMap().getContentTypeFor(result),</span>
+<span class="fc" id="L396">                byteImageOutput.toByteArray(),</span>
                 id
         );
-<span class="fc" id="L340">        ApiResponse response = new ApiResponse();</span>
-<span class="fc" id="L341">        response.setResponseMessage(&quot;Operation success&quot;);</span>
-<span class="fc" id="L342">        response.setStatusCode(HttpStatus.OK.value());</span>
-<span class="fc" id="L343">        return response;</span>
+<span class="fc" id="L399">        ApiResponse response = new ApiResponse();</span>
+<span class="fc" id="L400">        response.setResponseMessage(&quot;Operation success&quot;);</span>
+<span class="fc" id="L401">        response.setStatusCode(HttpStatus.OK.value());</span>
+<span class="fc" id="L402">        return response;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

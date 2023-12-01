@@ -11,17 +11,17 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.core.io.Resource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mock.web.MockMultipartFile;
-import org.springframework.core.io.Resource;
 import org.springframework.util.ResourceUtils;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.InputStream;
-import java.io.FileInputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
@@ -148,7 +148,68 @@ public class ExternalIntTest {
 
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, testTrueResultPng));
         } catch (IOException e) {
-            throw new RuntimeException("File controller integration test 1 failed: " + e.getMessage());
+            throw new RuntimeException("File controller integration test 2 failed: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void fileControllerIntTest3() {
+        String originalPath1 = "src/test/resources/ace-attorney-cover-art.jpg";
+        String originalPath2 = "src/test/resources/test1.jpg";
+        String resultPath = "src/test/resources/integration_test_result.png";
+        String trueResultPath = "src/test/resources/integration_true_result.png";
+
+        try (InputStream testInputStream1 = new FileInputStream(originalPath1);
+             InputStream testInputStream2 = new FileInputStream(originalPath2)) {
+            MockMultipartFile testMultipartFile1 = new MockMultipartFile(
+                    "ace-attorney-cover-art",
+                    "ace-attorney-cover-art.jpg",
+                    "image/jpg",
+                    testInputStream1
+            );
+
+            MockMultipartFile testMultipartFile2 = new MockMultipartFile(
+                    "test1",
+                    "test1.jpg",
+                    "image/jpg",
+                    testInputStream2
+            );
+
+            fileController.uploadFile(testMultipartFile1, clientID);
+            fileController.imageTransparent("ace-attorney-cover-art.jpg",
+                    "ace-attorney-cover-art2.jpg", clientID, "0.7");
+            fileController.imageCrop("ace-attorney-cover-art2.jpg",
+                    "ace-attorney-cover-art3.jpg", clientID, "150", "50", "400", "150");
+            fileController.imageSaturate("ace-attorney-cover-art3.jpg",
+                    "ace-attorney-cover-art4.jpg", clientID, "0.4");
+
+            fileController.uploadFile(testMultipartFile2, clientID);
+            fileController.imageSaturate("test1.jpg",
+                    "test2.jpg", clientID, "0.35");
+            fileController.imageCrop("test2.jpg",
+                    "test3.jpg", clientID, "20", "20", "100", "100");
+            fileController.imageTransparent("test3.jpg", "test4.jpg", clientID, "0.7");
+
+            fileController.imageOverlay("ace-attorney-cover-art4.jpg",
+                    "test4.jpg", "result.jpg", clientID, "0", "0");
+
+            ResponseEntity<Resource> result = fileController.downloadFile("result.jpg", clientID);
+
+            InputStream resource = Objects.requireNonNull(result.getBody()).getInputStream();
+            BufferedImage imgResult = ImageIO.read(resource);
+
+            File out = new File(resultPath);
+            ImageIO.write(imgResult, "jpg", out);
+
+            File resultFile = ResourceUtils.getFile(resultPath);
+            File trueResultFile = ResourceUtils.getFile(trueResultPath);
+
+            BufferedImage testResultPng = ImageIO.read(resultFile);
+            BufferedImage testTrueResultPng = ImageIO.read(trueResultFile);
+
+            Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, testTrueResultPng));
+        } catch (IOException e) {
+            throw new RuntimeException("File controller integration test 3 failed: " + e.getMessage());
         }
     }
 }
