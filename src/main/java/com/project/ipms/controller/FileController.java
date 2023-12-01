@@ -266,7 +266,7 @@ public class FileController {
     /**
      * Overlay InputImage1 over InputImage2.
      * @param target1 Base image filename in client's repository
-     * @param target2 Image to be overlayed filename in client's repository
+     * @param target2 Image to be overlayed over the base image filename in client's repository
      * @param result  Result filename after processing
      * @param id      Client ID credential
      * @param x       The X coordinate of the upper-left corner for the overlay
