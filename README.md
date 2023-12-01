@@ -63,6 +63,97 @@ For macOS/Linux:
 Windows:
 `.\gradlew.bat bootRun`
 
+# Client App Documentation
+
+## Client Build Instructions
+
+To create a local browser client for the service, begin by downloading [Node.js](https://nodejs.org/en).
+Then, navigate to the client directory [Image_Client](./Image_Client)
+
+From here, download the necessary packages with:
+`npm install -g http-server`
+
+Then, run the server with:
+`http-server`
+
+## Using the Client App
+
+This web application is tailored to meet the image editing needs of elderly individuals and first responders, particularly police officers. It provides a straightforward interface to perform various image adjustments like saturation and transparency modification, cropping, and overlaying images.
+
+
+## Functionalities
+
+
+### Saturation Adjustment
+Easily modify the intensity and vividness of colors within images. Adjust the saturation level to enhance or tone down colors for clearer visual representation.
+
+
+### Image Cropping
+Effortlessly crop images to focus on specific details, eliminating unnecessary portions to achieve better clarity and emphasis.
+
+
+### Image Overlay with Transparency
+Combine images by overlaying one atop another, allowing for creative presentations or comparisons while maintaining image clarity.
+
+
+### Image Transparency
+Make images transparent, altering their opacity to achieve various visual effects. This feature enhances the visibility of overlapping elements or allows for artistic visual compositions.
+
+
+<details><summary>Use Instructions</summary>
+
+> | API function | How to Demo in the Client App           |
+> |-----------|----------------------------------|
+> | Upload      |In the top-leftmost box, click `browse` to select a file from your local machine and then `Submit` to upload|
+> |Crop         |First, select an uploaded image with the `Select Image` dropdown bar to crop. Then, in the `Crop` card, enter the desired X and Y coordinates of the the top-left corner of your new image and the desired and width in their respective fields. Then, select `Apply` to crop the selected image.|
+> |Transparency         |First, select an uploaded image with the `Select Image` dropdown bar to make transparent. Then, in the `Transparency` card, enter the desired alpha value (0 - 1, where 0 is entirely transparent and 1 is unchanged). Then, select `Apply` to make the selected image transparent.|
+> |Saturation         |First, select an uploaded image with the `Select Image` dropdown bar to saturate. Then, in the `Saturation` card, enter the desired saturation value (0 - 255, where 0 will convert to grayscale and 255 is the maximum pixel saturation). Then, select `Apply`.|
+> |Overlay            |In the `Overlay` card, select the X and Y coordinates for the top left of the foreground image. Then, select both a background image and a foreground image from their respective dropdown bars. For an image to appear in the dropdown bar, it must first be uploaded. Then, select `Apply`.|
+> |Download     |First, choose the image you would like to download in the `Select Image` dropdown bar. Then, in the `Download` card, select the filename of the image (these will be generated as images are uploaded/manipulated)| 
+
+</details>
+
+
+## How it Works
+
+
+The web app connects seamlessly to the IPMS, offering an array of image editing functions. Users simply upload their images and select the desired modifications. The Image Service processes the edits and allows users to download the modified images to be displayed on the user's interface. The user can also store the images on our servers.
+
+
+## Benefits for Elderly and First Responders
+
+
+- **Simplicity and Accessibility**: The app provides a user-friendly experience, simplifying complex image editing tasks for elderly individuals who might not be familiar with advanced software.
+- **Efficiency in Visual Enhancements**: First responders, especially police officers, can swiftly adjust image attributes to improve clarity and visibility in photographs, aiding in investigative work and report generation.
+
+
+- **Quick Image Manipulation**: The app streamlines the editing process, enabling rapid modifications without the need for specialized skills or software.
+
+
+## Target Audience
+
+
+This application is designed with a focus on the needs of elderly individuals seeking easy-to-use image editing tools and first responders, particularly police officers, who require quick and effective image enhancements for investigative purposes.
+
+
+## What's New?
+
+
+The web app offers a user-friendly and efficient solution for image editing tasks specifically tailored for the elderly and first responders. It empowers users to swiftly adjust image attributes, enabling better visual representation and aiding in their respective duties and tasks.
+
+
+## Testing the Client App
+
+The client app is currently tested manually according to these tests:
+
+- Do not attempt to upload an image, then call each image manipulation function. Nothing should occur.
+- Upload a single image. Do not select it. Call each image manipulation function. Nothing should occur.
+- Upload a single image from the test [resources](src\test\resources). Select it. Call the Crop, Transparency, and Saturate functions with their respective parameters. Download each output. Compare each one with the manually calculated output. All should be identical with their respective output.
+- Upload two images. Select one for the foreground and leave the background slot empty in the Overlay function. Nothing should occur. Repeat with different combinations of images and empty slots.
+- Upload two images from the  test [resources](src\test\resources). Select the corresponding background and foreground images as labeled, and set the parameters according to API test suite. Download the output. Compare to the manually calculated output in the same directory. The output and the test result should be identical. 
+
+</details>
+
 ## Run instructions
 
 1. Go to [IpmService.java](src/main/java/com/project/ipms/IpmService.java)
