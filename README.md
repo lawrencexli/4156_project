@@ -102,14 +102,14 @@ Make images transparent, altering their opacity to achieve various visual effect
 
 <details><summary>Use Instructions</summary>
 
-> | API function | How to Demo in the Client App           |
-> |-----------|----------------------------------|
-> | Upload      |In the top-leftmost box, click `browse` to select a file from your local machine and then `Submit` to upload|
-> |Crop         |First, select an uploaded image with the `Select Image` dropdown bar to crop. Then, in the `Crop` card, enter the desired X and Y coordinates of the the top-left corner of your new image and the desired and width in their respective fields. Then, select `Apply` to crop the selected image.|
-> |Transparency         |First, select an uploaded image with the `Select Image` dropdown bar to make transparent. Then, in the `Transparency` card, enter the desired alpha value (0 - 1, where 0 is entirely transparent and 1 is unchanged). Then, select `Apply` to make the selected image transparent.|
-> |Saturation         |First, select an uploaded image with the `Select Image` dropdown bar to saturate. Then, in the `Saturation` card, enter the desired saturation value (0 - 255, where 0 will convert to grayscale and 255 is the maximum pixel saturation). Then, select `Apply`.|
-> |Overlay            |In the `Overlay` card, select the X and Y coordinates for the top left of the foreground image. Then, select both a background image and a foreground image from their respective dropdown bars. For an image to appear in the dropdown bar, it must first be uploaded. Then, select `Apply`.|
-> |Download     |First, choose the image you would like to download in the `Select Image` dropdown bar. Then, in the `Download` card, select the filename of the image (these will be generated as images are uploaded/manipulated)| 
+> | API function | How to Demo in the Client App                                                                                                                                                                                                                                                                     |
+> |--------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+> | Upload       | In the top-leftmost box, click `browse` to select a file from your local machine and then `Submit` to upload                                                                                                                                                                                      |
+> | Crop         | First, select an uploaded image with the `Select Image` dropdown bar to crop. Then, in the `Crop` card, enter the desired X and Y coordinates of the the top-left corner of your new image and the desired and width in their respective fields. Then, select `Apply` to crop the selected image. |
+> | Transparency | First, select an uploaded image with the `Select Image` dropdown bar to make transparent. Then, in the `Transparency` card, enter the desired alpha value (0 - 1, where 0 is entirely transparent and 1 is unchanged). Then, select `Apply` to make the selected image transparent.               |
+> | Saturation   | First, select an uploaded image with the `Select Image` dropdown bar to saturate. Then, in the `Saturation` card, enter the desired saturation value (0 - 255, where 0 will convert to grayscale and 255 is the maximum pixel saturation). Then, select `Apply`.                                  |
+> | Overlay      | In the `Overlay` card, select the X and Y coordinates for the top left of the foreground image. Then, select both a background image and a foreground image from their respective dropdown bars. For an image to appear in the dropdown bar, it must first be uploaded. Then, select `Apply`.     |
+> | Download     | First, choose the image you would like to download in the `Select Image` dropdown bar. Then, in the `Download` card, select the filename of the image (these will be generated as images are uploaded/manipulated)                                                                                | 
 
 </details>
 
@@ -148,11 +148,10 @@ The client app is currently tested manually according to these tests:
 
 - Do not attempt to upload an image, then call each image manipulation function. Nothing should occur.
 - Upload a single image. Do not select it. Call each image manipulation function. Nothing should occur.
-- Upload a single image from the test [resources](src\test\resources). Select it. Call the Crop, Transparency, and Saturate functions with their respective parameters. Download each output. Compare each one with the manually calculated output. All should be identical with their respective output.
+- Upload a single image from the test [resources](src/test/resources). Select it. Call the Crop, Transparency, and Saturate functions with their respective parameters. Download each output. Compare each one with the manually calculated output. All should be identical with their respective output.
 - Upload two images. Select one for the foreground and leave the background slot empty in the Overlay function. Nothing should occur. Repeat with different combinations of images and empty slots.
-- Upload two images from the  test [resources](src\test\resources). Select the corresponding background and foreground images as labeled, and set the parameters according to API test suite. Download the output. Compare to the manually calculated output in the same directory. The output and the test result should be identical. 
+- Upload two images from the  test [resources](src/test/resources). Select the corresponding background and foreground images as labeled, and set the parameters according to API test suite. Download the output. Compare to the manually calculated output in the same directory. The output and the test result should be identical. 
 
-</details>
 
 ## Run instructions
 
