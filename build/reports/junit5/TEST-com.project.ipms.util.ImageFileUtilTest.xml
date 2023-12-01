@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.util.ImageFileUtilTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:00:58" hostname="macbook" time="0.146">
+<testsuite name="com.project.ipms.util.ImageFileUtilTest" tests="12" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:30:59" hostname="macbook" time="0.164">
   <properties/>
-  <testcase name="testImageCompare1()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.131"/>
-  <testcase name="testImageCompare2()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.008"/>
-  <testcase name="checkFileValidTest10()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
-  <testcase name="checkFileValidTest1()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
+  <testcase name="testImageCompare1()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.138"/>
+  <testcase name="testImageCompare2()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.01"/>
+  <testcase name="checkFileValidTest10()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.002"/>
+  <testcase name="checkFileValidTest1()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.002"/>
   <testcase name="checkFileValidTest2()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
-  <testcase name="checkFileValidTest3()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.0"/>
+  <testcase name="checkFileValidTest3()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
   <testcase name="checkFileValidTest4()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
-  <testcase name="checkFileValidTest5()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
-  <testcase name="checkFileValidTest6()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.0"/>
+  <testcase name="checkFileValidTest5()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.003"/>
+  <testcase name="checkFileValidTest6()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
   <testcase name="checkFileValidTest7()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
   <testcase name="checkFileValidTest8()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.001"/>
   <testcase name="checkFileValidTest9()" classname="com.project.ipms.util.ImageFileUtilTest" time="0.0"/>
-  <system-out><![CDATA[2023-11-30T20:00:58.226-05:00  INFO 9013 --- [Pool-1-worker-1] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.util.ImageFileUtilTest]: ImageFileUtilTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-11-30T20:00:58.229-05:00  INFO 9013 --- [Pool-1-worker-1] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.util.ImageFileUtilTest
+  <system-out><![CDATA[2023-11-30T20:30:59.715-05:00  INFO 9793 --- [Pool-1-worker-1] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.util.ImageFileUtilTest]: ImageFileUtilTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-30T20:30:59.720-05:00  INFO 9793 --- [Pool-1-worker-1] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.util.ImageFileUtilTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

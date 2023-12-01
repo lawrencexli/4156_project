@@ -1106,6 +1106,24 @@ class FileControllerTest {
 
     @Test
     void testImageOverlay5() {
+        String target1 = "target1.png";
+        String target2 = "target2.jpg";
+        String result = "result.png";
+        String id = "clientID";
+        String x = "0";
+        String y = "0";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay(target1, target2, result, id, x, y));
+
+        String expectedMessage = "Target file extension is different from result file extension";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageOverlay6() {
         // Arrange
         String id = "clientID";
         String x = "0";

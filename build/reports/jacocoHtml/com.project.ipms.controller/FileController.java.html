@@ -279,9 +279,9 @@ public class FileController {
                                     @RequestPart final String x,
                                     @RequestPart final String y) throws IOException {
         // Check if all inputs are valid
-<span class="pc bpc" id="L282" title="5 of 10 branches missed.">        if (target1 == null || target1.isBlank() || target2 == null || target2.isBlank()</span>
-<span class="pc bpc" id="L283" title="1 of 2 branches missed.">                || result == null || result.isBlank()) {</span>
-<span class="nc" id="L284">            throw new BadRequestException(&quot;Target filenames or result filename is empty or null&quot;);</span>
+<span class="fc bfc" id="L282" title="All 10 branches covered.">        if (target1 == null || target1.isBlank() || target2 == null || target2.isBlank()</span>
+<span class="fc bfc" id="L283" title="All 2 branches covered.">                || result == null || result.isBlank()) {</span>
+<span class="fc" id="L284">            throw new BadRequestException(&quot;Target filenames or result filename is empty or null&quot;);</span>
         }
         // Check if the target files exist in client's repository,
         // and if the result filename is available (avoid overwriting)
@@ -291,8 +291,8 @@ public class FileController {
 <span class="fc" id="L291">        String target1FileExtension = ImageFileUtil.checkFileValid(target1);</span>
 <span class="fc" id="L292">        String target2FileExtension = ImageFileUtil.checkFileValid(target2);</span>
 <span class="fc" id="L293">        String resultFileExtension = ImageFileUtil.checkFileValid(result);</span>
-<span class="pc bpc" id="L294" title="2 of 4 branches missed.">        if (!target1FileExtension.equals(resultFileExtension) || !target2FileExtension.equals(resultFileExtension)) {</span>
-<span class="nc" id="L295">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
+<span class="fc bfc" id="L294" title="All 4 branches covered.">        if (!target1FileExtension.equals(resultFileExtension) || !target2FileExtension.equals(resultFileExtension)) {</span>
+<span class="fc" id="L295">            throw new BadRequestException(&quot;Target file extension is different from result file extension&quot;);</span>
         }
         // Convert Strings
 <span class="fc" id="L298">        int xVal = Integer.parseInt(x);</span>
@@ -303,11 +303,11 @@ public class FileController {
 <span class="fc" id="L303">        BufferedImage targetImage1 = ImageIO.read(resource1.getInputStream());</span>
 <span class="fc" id="L304">        BufferedImage targetImage2 = ImageIO.read(resource2.getInputStream());</span>
         // Check if the x, y, alpha are correct
-<span class="pc bpc" id="L306" title="2 of 4 branches missed.">        if (xVal &lt; 0 || xVal &gt; targetImage1.getWidth()) {</span>
-<span class="nc" id="L307">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
+<span class="fc bfc" id="L306" title="All 4 branches covered.">        if (xVal &lt; 0 || xVal &gt; targetImage1.getWidth()) {</span>
+<span class="fc" id="L307">            throw new BadRequestException(&quot;The x value should be in the range of 0 to the width of the target image&quot;);</span>
         }
-<span class="pc bpc" id="L309" title="2 of 4 branches missed.">        if (yVal &lt; 0 || yVal &gt; targetImage1.getHeight()) {</span>
-<span class="nc" id="L310">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
+<span class="fc bfc" id="L309" title="All 4 branches covered.">        if (yVal &lt; 0 || yVal &gt; targetImage1.getHeight()) {</span>
+<span class="fc" id="L310">            throw new BadRequestException(&quot;The y value should be in the range of 0 to the height of the target image&quot;);</span>
         }
 <span class="fc" id="L312">        BufferedImage resultImage = imageService.imageOverlay(</span>
                 targetImage1,
