@@ -927,4 +927,220 @@ class FileControllerTest {
         String actualMessage2 = exception2.getMessage();
         assertTrue(actualMessage2.contains(expectedMessage));
     }
+
+    @Test
+    void testImageOverlay1() throws IOException {
+        // Arrange
+        String target1 = "target1.png";
+        String target2 = "target2.png";
+        String result = "result.png";
+        String id = "clientID";
+        String x = "0";
+        String y = "0";
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+        BufferedImage mockResultImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target1)).thenReturn(mockResource);
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target2)).thenReturn(mockResource);
+        Mockito.when(fakeImageFileService.imageOverlay(
+                mockTargetImage,
+                mockTargetImage,
+                Integer.parseInt(x),
+                Integer.parseInt(y),
+                "png"
+        )).thenReturn(mockResultImage);
+
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+            imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                    thenReturn(mockTargetImage);
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target1)).
+                    thenReturn(".png");
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target2)).
+                    thenReturn(".png");
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(result)).
+                    thenReturn(".png");
+
+            // Set the width and height of mockTargetImage
+            Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+            Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+            // Act
+            ApiResponse response = testFileController.imageOverlay(target1, target2, result, id, x, y);
+
+            //Assert
+            assertEquals(response.getResponseMessage(), "Operation success");
+            assertEquals(response.getStatusCode(), 200);
+        }
+    }
+
+    @Test
+    void testImageOverlay2() {
+        // Arrange
+        String target1 = "target1.png";
+        String target2 = "target2.png";
+        String result = "result.png";
+        String id = "clientID";
+        String x = "-1";
+        String y = "0";
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target1)).thenReturn(mockResource);
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target2)).thenReturn(mockResource);
+
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+            imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                    thenReturn(mockTargetImage);
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target1)).
+                    thenReturn(".png");
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target2)).
+                    thenReturn(".png");
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(result)).
+                    thenReturn(".png");
+
+            // Set the width and height of mockTargetImage
+            Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+            Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+            Exception exception = assertThrows(BadRequestException.class, () ->
+                    testFileController.imageOverlay(target1, target2, result, id, x, y));
+
+            String expectedMessage = "The x value should be in the range of 0 to the width of the target image";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+
+            String x2 = "700";
+            Exception exception2 = assertThrows(BadRequestException.class, () ->
+                    testFileController.imageOverlay(target1, target2, result, id, x2, y));
+
+            String expectedMessage2 = "The x value should be in the range of 0 to the width of the target image";
+            String actualMessage2 = exception2.getMessage();
+
+            assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageOverlay3() {
+        // Arrange
+        String target1 = "target1.png";
+        String target2 = "target2.png";
+        String result = "result.png";
+        String id = "clientID";
+        String x = "0";
+        String y = "-1";
+
+        // Mock behavior for dependencies
+        ByteArrayResource mockResource = mock(ByteArrayResource.class);
+        BufferedImage mockTargetImage = mock(BufferedImage.class);
+
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target1)).thenReturn(mockResource);
+        Mockito.when(fakeFileService.downloadFile(id + "/" + target2)).thenReturn(mockResource);
+
+        try (MockedStatic<ImageIO> imageIO = Mockito.mockStatic(ImageIO.class);
+             MockedStatic<ImageFileUtil> mockUtil = Mockito.mockStatic(ImageFileUtil.class)) {
+            imageIO.when(() -> ImageIO.read(mockResource.getInputStream())).
+                    thenReturn(mockTargetImage);
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target1)).
+                    thenReturn(".png");
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(target2)).
+                    thenReturn(".png");
+
+            mockUtil.when(() -> ImageFileUtil.checkFileValid(result)).
+                    thenReturn(".png");
+
+            // Set the width and height of mockTargetImage
+            Mockito.when(mockTargetImage.getWidth()).thenReturn(600);
+            Mockito.when(mockTargetImage.getHeight()).thenReturn(600);
+
+            Exception exception = assertThrows(BadRequestException.class, () ->
+                    testFileController.imageOverlay(target1, target2, result, id, x, y));
+
+            String expectedMessage = "The y value should be in the range of 0 to the height of the target image";
+            String actualMessage = exception.getMessage();
+
+            assertTrue(actualMessage.contains(expectedMessage));
+
+            String y2 = "700";
+            Exception exception2 = assertThrows(BadRequestException.class, () ->
+                    testFileController.imageOverlay(target1, target2, result, id, x, y2));
+
+            String expectedMessage2 = "The y value should be in the range of 0 to the height of the target image";
+            String actualMessage2 = exception2.getMessage();
+
+            assertTrue(actualMessage2.contains(expectedMessage2));
+        }
+    }
+
+    @Test
+    void testImageOverlay4() {
+        // Arrange
+        String target1 = "target1.png";
+        String target2 = "target2.png";
+        String result = "result.jpg";
+        String id = "clientID";
+        String x = "0";
+        String y = "0";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay(target1, target2, result, id, x, y));
+
+        String expectedMessage = "Target file extension is different from result file extension";
+        String actualMessage = exception.getMessage();
+
+        assertTrue(actualMessage.contains(expectedMessage));
+    }
+
+    @Test
+    void testImageOverlay5() {
+        // Arrange
+        String id = "clientID";
+        String x = "0";
+        String y = "0";
+
+        String expectedMessage = "Target filenames or result filename is empty or null";
+
+        Exception exception = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay("", "test.jpg", "result.jpg", id, x, y));
+        String actualMessage = exception.getMessage();
+        assertTrue(actualMessage.contains(expectedMessage));
+
+        Exception exception2 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay(null, "test.jpg", "result.jpg", id, x, y));
+        String actualMessage2 = exception2.getMessage();
+        assertTrue(actualMessage2.contains(expectedMessage));
+
+        Exception exception3 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay("test.jpg", "", "result.jpg", id, x, y));
+        String actualMessage3 = exception3.getMessage();
+        assertTrue(actualMessage3.contains(expectedMessage));
+
+        Exception exception4 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay("test.jpg", null, "result.jpg", id, x, y));
+        String actualMessage4 = exception4.getMessage();
+        assertTrue(actualMessage4.contains(expectedMessage));
+
+        Exception exception5 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay("test.jpg", "test.jpg", "", id, x, y));
+        String actualMessage5 = exception5.getMessage();
+        assertTrue(actualMessage5.contains(expectedMessage));
+
+        Exception exception6 = assertThrows(BadRequestException.class, () ->
+                testFileController.imageOverlay("test.jpg", "test.jpg", null, id, x, y));
+        String actualMessage6 = exception6.getMessage();
+        assertTrue(actualMessage6.contains(expectedMessage));
+    }
 }
