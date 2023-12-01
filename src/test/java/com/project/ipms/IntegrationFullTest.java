@@ -1,5 +1,9 @@
-package com.project.ipms.controller;
+package com.project.ipms;
 
+import com.project.ipms.controller.FileController;
+import com.project.ipms.exception.BadRequestException;
+import com.project.ipms.exception.FileNotFoundException;
+import com.project.ipms.exception.InvalidCredentialsException;
 import com.project.ipms.mongodb.MongoDBService;
 import com.project.ipms.service.FileService;
 import com.project.ipms.service.ImageService;
@@ -9,6 +13,8 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.parallel.Execution;
+import org.junit.jupiter.api.parallel.ExecutionMode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.Resource;
@@ -25,9 +31,18 @@ import java.io.InputStream;
 import java.util.List;
 import java.util.Objects;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+/**
+ * External and internal integration test for testing MongoDB, Google Cloud Bucket,
+ * And all service API endpoints and components.
+ * Also test for concurrent client instances (Each test simulates an individual client instance).
+ */
 @SpringBootTest
+@Execution(ExecutionMode.CONCURRENT)
 @SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
-public class ExternalIntTest {
+public class IntegrationFullTest {
 
     /**
      * Real file service.
@@ -210,6 +225,95 @@ public class ExternalIntTest {
             Assertions.assertTrue(ImageFileUtil.compareImagesEqual(testResultPng, testTrueResultPng));
         } catch (IOException e) {
             throw new RuntimeException("File controller integration test 3 failed: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void fileControllerIntTest4() {
+        String originalPath = "src/test/resources/apple.png";
+
+        try (InputStream testInputStream = new FileInputStream(originalPath)) {
+            MockMultipartFile testMultipartFile = new MockMultipartFile(
+                    "apple",
+                    "apple.png",
+                    "image/png",
+                    testInputStream
+            );
+
+            Exception exception1 = assertThrows(InvalidCredentialsException.class,
+                    () -> fileController.uploadFile(testMultipartFile, "invalid-id"));
+
+            String expectedMessage1 = "Invalid Client ID";
+            String actualMessage1 = exception1.getMessage();
+            assertTrue(actualMessage1.contains(expectedMessage1));
+
+            Exception exception2 = assertThrows(FileNotFoundException.class,
+                    () ->  fileController.downloadFile("not-exist.png", clientID));
+
+            String expectedMessage2 = "File does not exist";
+            String actualMessage2 = exception2.getMessage();
+            assertTrue(actualMessage2.contains(expectedMessage2));
+
+        } catch (IOException e) {
+            throw new RuntimeException("File controller integration test 4 failed: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void fileControllerIntTest5() {
+        String originalPath = "src/test/resources/nope.pdf";
+
+        try (InputStream testInputStream = new FileInputStream(originalPath)) {
+            MockMultipartFile testMultipartFile = new MockMultipartFile(
+                    "nope",
+                    "nope.pdf",
+                    "image/jpg",
+                    testInputStream
+            );
+
+            Exception exception1 = assertThrows(BadRequestException.class,
+                    () -> fileController.uploadFile(testMultipartFile, clientID));
+
+            String expectedMessage = "Image file validation failed: "
+                    + "The file could be corrupted or is not an image file";
+            String actualMessage = exception1.getMessage();
+            assertTrue(actualMessage.contains(expectedMessage));
+        } catch (IOException e) {
+            throw new RuntimeException("File controller integration test 5 failed: " + e.getMessage());
+        }
+    }
+
+    @Test
+    void fileControllerIntTest6() {
+        String originalPath = "src/test/resources/objection.png";
+
+        try (InputStream testInputStream = new FileInputStream(originalPath)) {
+            MockMultipartFile testMultipartFile = new MockMultipartFile(
+                    "objection",
+                    "objection.png",
+                    "image/png",
+                    testInputStream
+            );
+
+            fileController.uploadFile(testMultipartFile, clientID);
+
+            Exception exception1 = assertThrows(NumberFormatException.class,
+                    () -> fileController.imageTransparent("objection.png",
+                            "objection2.png", clientID, "abc"));
+
+            String expectedMessage1 = "For input string: \"abc\"";
+            String actualMessage1 = exception1.getMessage();
+            assertTrue(actualMessage1.contains(expectedMessage1));
+
+            Exception exception2 = assertThrows(FileNotFoundException.class,
+                    () -> fileController.imageCrop("objection2.png",
+                            "objection3.png", clientID, "300", "300", "600", "600"));
+
+            String expectedMessage2 = "Target file does not exist";
+            String actualMessage2 = exception2.getMessage();
+            assertTrue(actualMessage2.contains(expectedMessage2));
+        } catch (IOException e) {
+            throw new RuntimeException("File controller integration test 6 failed: " + e.getMessage());
         }
     }
 }

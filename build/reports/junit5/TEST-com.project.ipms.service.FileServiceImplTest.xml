@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.service.FileServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-12-01T00:05:06" hostname="macbook" time="0.122">
+<testsuite name="com.project.ipms.service.FileServiceImplTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:00:52" hostname="macbook" time="0.142">
   <properties/>
-  <testcase name="testListOfFiles()" classname="com.project.ipms.service.FileServiceImplTest" time="0.026"/>
-  <testcase name="testDeleteFile1()" classname="com.project.ipms.service.FileServiceImplTest" time="0.072"/>
+  <testcase name="testListOfFiles()" classname="com.project.ipms.service.FileServiceImplTest" time="0.033"/>
+  <testcase name="testDeleteFile1()" classname="com.project.ipms.service.FileServiceImplTest" time="0.085"/>
   <testcase name="testDeleteFile2()" classname="com.project.ipms.service.FileServiceImplTest" time="0.005"/>
   <testcase name="testUploadFile()" classname="com.project.ipms.service.FileServiceImplTest" time="0.004"/>
-  <testcase name="testDownloadFile1()" classname="com.project.ipms.service.FileServiceImplTest" time="0.004"/>
-  <testcase name="testDownloadFile2()" classname="com.project.ipms.service.FileServiceImplTest" time="0.007"/>
-  <system-out><![CDATA[2023-11-30T19:05:06.549-05:00  INFO 7509 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.service.FileServiceImplTest]: FileServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
-2023-11-30T19:05:06.554-05:00  INFO 7509 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.service.FileServiceImplTest
+  <testcase name="testDownloadFile1()" classname="com.project.ipms.service.FileServiceImplTest" time="0.005"/>
+  <testcase name="testDownloadFile2()" classname="com.project.ipms.service.FileServiceImplTest" time="0.005"/>
+  <system-out><![CDATA[2023-11-30T20:00:52.507-05:00  INFO 9013 --- [Pool-1-worker-1] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.project.ipms.service.FileServiceImplTest]: FileServiceImplTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-11-30T20:00:52.514-05:00  INFO 9013 --- [Pool-1-worker-1] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.project.ipms.IpmService for test class com.project.ipms.service.FileServiceImplTest
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

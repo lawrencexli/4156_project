@@ -11,6 +11,9 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.File;
 
+/**
+ * Internal integration tests for image service components.
+ */
 public class ImageServiceIntTest {
 
     /**

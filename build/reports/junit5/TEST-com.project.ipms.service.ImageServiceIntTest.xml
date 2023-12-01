@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.service.ImageServiceIntTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-12-01T00:05:08" hostname="macbook" time="0.222">
+<testsuite name="com.project.ipms.service.ImageServiceIntTest" tests="4" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:00:57" hostname="macbook" time="0.325">
   <properties/>
-  <testcase name="integrationTest1()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.126"/>
-  <testcase name="integrationTest2()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.022"/>
+  <testcase name="integrationTest1()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.218"/>
+  <testcase name="integrationTest2()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.02"/>
   <testcase name="integrationTest3()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.013"/>
-  <testcase name="integrationTest4()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.059"/>
+  <testcase name="integrationTest4()" classname="com.project.ipms.service.ImageServiceIntTest" time="0.072"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

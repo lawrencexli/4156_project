@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.project.ipms.IntegrationFullTest" tests="6" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:00:50" hostname="macbook" time="6.847">
+  <properties/>
+  <testcase name="fileControllerIntTest6()" classname="com.project.ipms.IntegrationFullTest" time="2.697"/>
+  <testcase name="fileControllerIntTest5()" classname="com.project.ipms.IntegrationFullTest" time="0.149"/>
+  <testcase name="fileControllerIntTest4()" classname="com.project.ipms.IntegrationFullTest" time="0.2"/>
+  <testcase name="fileControllerIntTest2()" classname="com.project.ipms.IntegrationFullTest" time="5.534"/>
+  <testcase name="fileControllerIntTest1()" classname="com.project.ipms.IntegrationFullTest" time="6.83"/>
+  <testcase name="fileControllerIntTest3()" classname="com.project.ipms.IntegrationFullTest" time="3.799"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

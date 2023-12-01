@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="com.project.ipms.controller.ApiResponseTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-12-01T00:04:57" hostname="macbook" time="0.006">
+<testsuite name="com.project.ipms.controller.ApiResponseTest" tests="5" skipped="0" failures="0" errors="0" timestamp="2023-12-01T01:00:51" hostname="macbook" time="0.002">
   <properties/>
-  <testcase name="testToString()" classname="com.project.ipms.controller.ApiResponseTest" time="0.001"/>
+  <testcase name="testToString()" classname="com.project.ipms.controller.ApiResponseTest" time="0.0"/>
   <testcase name="getStatusCode()" classname="com.project.ipms.controller.ApiResponseTest" time="0.0"/>
   <testcase name="testHashCode()" classname="com.project.ipms.controller.ApiResponseTest" time="0.0"/>
-  <testcase name="getResponseMessage()" classname="com.project.ipms.controller.ApiResponseTest" time="0.0"/>
-  <testcase name="testEquals()" classname="com.project.ipms.controller.ApiResponseTest" time="0.002"/>
+  <testcase name="getResponseMessage()" classname="com.project.ipms.controller.ApiResponseTest" time="0.001"/>
+  <testcase name="testEquals()" classname="com.project.ipms.controller.ApiResponseTest" time="0.0"/>
   <system-out><![CDATA[]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>
