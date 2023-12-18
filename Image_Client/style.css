@@ -18,22 +18,16 @@ body {
     width: 45%;
 }
 
-.img_io {
-    width: 30%;
-    float: center;
-    height: 100px;
+img {
+    border: 2px solid #555;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
 }
 
-.img_view {
-    width: 20%;
-    float: left;
-    height: 100px;
-}
-
-.img_func {
-    width: 30%;
-    float: center;
-    height: 100px;
+img[src=""] {
+    display: none;
 }
 
 .img_func_box {
@@ -44,6 +38,7 @@ body {
     justify-content: center;
     text-align: center;
     box-shadow: 10px 10px;
+    object-fit: contain;
 }
 
 button {

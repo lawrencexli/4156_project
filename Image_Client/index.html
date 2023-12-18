@@ -14,7 +14,6 @@
 
 <body>
     <div class="row">
-        <!-- <div class="img_io"> -->
         <div class="column">
             <div id="img_upload" class="img_func_box">
                 <form id="img_upload_form" name="img_upload_form">
@@ -22,7 +21,10 @@
                         <b class="func_title">Upload Image</b>
                         <br><br>
                     </label>
-                    <input type="file" name="img_input" id="img_input"><br><br>
+                    <input type="file" name="img_input" id="img_input" onchange="previewImage(event)"><br><br>
+                    <div class="preview">
+                        <img id="preview-selected-image" src=""/>
+                    </div>
                     <div id="uploaded_img"></div><br>
                     <button type="button" id="img_upload_btn">Submit</button>
                 </form>
